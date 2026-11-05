@@ -1,0 +1,246 @@
+@import "tailwindcss";
+
+/* ──────────────────────────────────────────────────────────────
+   DESIGN TOKENS — single source of truth (values from Figma file qe18zPq9hjVjvuBulQA51k)
+   primitives (--base-*) → semantic (--canvas, --fg …) → Tailwind utilities.
+   Theme (dark | light) and BG style (1 | 2 | 3) switch via data-theme / data-bg on <html>.
+   ────────────────────────────────────────────────────────────── */
+
+@theme inline {
+  --font-display: var(--font-unbounded), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-note: var(--font-happy-monkey), ui-rounded, "Comic Sans MS", cursive;
+  --hand-adjust: 1.3; /* Caveat reads smaller than Figma Hand; set to 1 once the real font is installed */
+  --font-hand: "Figma Hand", var(--font-hand-fallback), "Segoe Print", cursive;
+
+  --color-canvas: var(--canvas);
+  --color-raised: var(--canvas-raised);
+  --color-surface: var(--surface);
+  --color-inset: var(--inset);
+  --color-line: var(--line);
+
+  --color-fg: var(--fg);
+  --color-fg-contact: var(--fg-contact);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+  --color-fg-faint: var(--fg-faint);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-display: var(--accent-display);
+
+  --color-pill: var(--pill);
+  --color-pill-fg: var(--pill-fg);
+  --color-chip: var(--chip);
+  --color-chip-fg: var(--chip-fg);
+
+  --color-card: var(--card);
+  --color-card-line: var(--card-line);
+  --color-plate-line: var(--plate-line);
+  --color-on-card: var(--on-card);
+  --color-on-card-muted: var(--on-card-muted);
+  --color-mint: var(--mint);
+  --color-cream: var(--cream);
+  --color-ink: var(--ink);
+
+  --color-footer: var(--footer);
+  --color-divider: var(--divider);
+
+  --shadow-plate: 0 12px 24px 0 rgb(0 0 0 / 0.5);
+  --shadow-card: 0 12px 12px 0 rgb(0 0 0 / 0.5);
+  --shadow-popover: inset 0 4px 4px 0 rgb(0 0 0 / 0.25);
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Primitives that never change with theme */
+:root {
+  --cream: #f1ebe4;
+  --ink: #212121;
+  --mint: #cdd9ca;
+  --card: #18231b;
+  --card-line: #302e2e;
+  --plate-line: #464343;
+  --on-card: #ffffff;
+  --on-card-muted: #b9bab4;
+  --accent: #5b6414;
+  --footer: #5b6414;
+  --divider: #e5e5e5; /* Figma variable "Divider" */
+}
+
+/* Theme: dark (Figma default) */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --base-canvas: #0f0f0e;
+  --base-raised: #121212;
+  --base-surface: #141413;
+  --base-inset: #0f0f0e;
+  --base-line: #2a2a28;
+
+  --fg: #f1ebe4;
+  --fg-contact: #eee5dc;
+  --fg-muted: #b9bab4;
+  --fg-subtle: #959090;
+  --fg-faint: #4d4e52;
+  --accent-soft: #6e702c;
+  --accent-display: #6e6e2d;
+
+  --pill: #ffffff;
+  --pill-fg: #212121;
+  --chip: #1a1a1a;
+  --chip-fg: #959090;
+}
+
+/* Theme: light (PROVISIONAL — not designed in Figma; derived from its palette) */
+[data-theme="light"] {
+  color-scheme: light;
+  --base-canvas: #f1ebe4;
+  --base-raised: #ebe4da;
+  --base-surface: #e6dfd4;
+  --base-inset: #f1ebe4;
+  --base-line: #d3cbbf;
+
+  --fg: #0f0f0e;
+  --fg-contact: #0f0f0e;
+  --fg-muted: #4d4e52;
+  --fg-subtle: #5d5d59;
+  --fg-faint: #9a978e;
+  --accent-soft: #5b6414;
+  --accent-display: #5b6414;
+
+  --pill: #0f0f0e;
+  --pill-fg: #f1ebe4;
+  --chip: #e2dacd;
+  --chip-fg: #4d4e52;
+}
+
+/* BG styles (PROVISIONAL — Figma names three but does not define them).
+   Each tints every surface token toward a colour that already exists in the palette. */
+:root,
+[data-bg="1"] { --tint: transparent; --tint-mix: 0%; }
+[data-bg="2"] { --tint: #18231b; --tint-mix: 42%; }
+[data-bg="3"] { --tint: #5b6414; --tint-mix: 14%; }
+[data-theme="light"][data-bg="2"] { --tint-mix: 16%; }
+[data-theme="light"][data-bg="3"] { --tint-mix: 12%; }
+
+:root {
+  --canvas: color-mix(in oklab, var(--base-canvas), var(--tint) var(--tint-mix));
+  --canvas-raised: color-mix(in oklab, var(--base-raised), var(--tint) var(--tint-mix));
+  --surface: color-mix(in oklab, var(--base-surface), var(--tint) var(--tint-mix));
+  --inset: color-mix(in oklab, var(--base-inset), var(--tint) var(--tint-mix));
+  --line: color-mix(in oklab, var(--base-line), var(--tint) var(--tint-mix));
+}
+
+html {
+  background: var(--canvas);
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+body {
+  background: var(--canvas);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+:where(a, button, [role="button"], [tabindex]):focus-visible {
+  outline: 2px solid var(--fg);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+::selection { background: var(--accent); color: #fff; }
+
+/* Type roles (Figma text styles) */
+@utility t-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: normal;
+}
+@utility t-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* Layout shell: Figma content width 1312 inside a 1440 frame (64px gutters). */
+@utility page-shell {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1440px;
+  padding-inline: 20px;
+  @media (min-width: 768px) { padding-inline: 32px; }
+  @media (min-width: 1024px) { padding-inline: 64px; }
+}
+
+/* Container-scaled display type keeps the desktop composition's proportions at any width */
+@utility cq { container-type: inline-size; }
+
+@utility hand-text {
+  font-family: var(--font-hand);
+  font-size: calc(var(--hand-size) * var(--hand-adjust));
+  text-wrap: balance;
+}
+
+/* ───────── Intro: pure CSS, plays from first paint with no hydration dependency (docs/MOTION.md §2) ─────────
+   `backwards` fill keeps the start pose during the delay and leaves no animation in effect afterwards. */
+@keyframes intro-rise { from { opacity: 0; transform: translate3d(0, 12px, 0); } }
+@keyframes intro-fade { from { opacity: 0; } }
+@keyframes intro-grow { from { transform: scaleX(0); } }
+@keyframes intro-wipe { from { transform: translate3d(0, 108%, 0); } }
+.intro-rise { animation: intro-rise 500ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--d, 0) * 1ms) backwards; }
+.intro-fade { animation: intro-fade 500ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--d, 0) * 1ms) backwards; }
+.intro-grow { animation: intro-grow 500ms cubic-bezier(0.77, 0, 0.175, 1) calc(var(--d, 0) * 1ms) backwards; transform-origin: left; }
+.intro-wipe { animation: intro-wipe 700ms cubic-bezier(0.23, 1, 0.32, 1) calc(var(--d, 0) * 1ms) backwards; }
+/* Line mask: a static clip with ascender/descender room. No padding or margin, so layout stays exactly as Figma. */
+.mask-line { clip-path: inset(-0.16em -0.12em); }
+@media (prefers-reduced-motion: reduce) {
+  .intro-rise, .intro-fade, .intro-grow, .intro-wipe { animation: intro-fade 150ms linear backwards; }
+}
+
+/* Hero exit drift: scroll-linked on the compositor, no JS, no spring lag, no dimming. */
+@keyframes hero-drift { to { transform: translate3d(0, -24px, 0); } }
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-drift { animation: hero-drift linear both; animation-timeline: scroll(root block); animation-range: 0 480px; }
+  }
+}
+
+/* ───────── View transitions (docs/MOTION.md §4) ───────── */
+::view-transition { pointer-events: none; }
+
+/* Header is a fixed spatial anchor. */
+::view-transition-group(site-header) { animation: none; z-index: 100; }
+::view-transition-old(site-header) { display: none; }
+::view-transition-new(site-header) { animation: none; }
+
+/* The default root cross-fade would double up with the page-level transition, so only the page-level one runs. */
+::view-transition-old(root), ::view-transition-new(root) { animation: none; }
+
+/* Shared project media morph (forward navigation only; back navigation uses the page transition alone). */
+::view-transition-group(.morph) { animation-duration: 380ms; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+
+/* Page transition: old content leaves fast, new content arrives a beat later with a short travel. All ease-out. */
+::view-transition-old(.nav-forward), ::view-transition-old(.nav-back) { animation: 120ms cubic-bezier(0.23, 1, 0.32, 1) both vt-fade reverse; }
+::view-transition-new(.nav-forward) { --vt-from: 24px;  animation: 260ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both vt-fade, 260ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both vt-slide; }
+::view-transition-new(.nav-back)    { --vt-from: -24px; animation: 260ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both vt-fade, 260ms cubic-bezier(0.23, 1, 0.32, 1) 80ms both vt-slide; }
+@keyframes vt-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vt-slide { from { translate: var(--vt-from) 0; } to { translate: 0 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*), ::view-transition-new(*), ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
+/* Me in Brief row reveals: reduced motion keeps the opacity change only. */
+@media (prefers-reduced-motion: reduce) {
+  .row-reveal { translate: none !important; scale: none !important; transition-duration: 150ms !important; transition-delay: 0s !important; }
+}

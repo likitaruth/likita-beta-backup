@@ -1,0 +1,9 @@
+{
+  "_note": "Figma file qe18zPq9hjVjvuBulQA51k. URLs came from the Figma MCP on 2026-11-04 and expire ~7 days later. If one 404s, re-run get_design_context / download_assets for the node, or export it from Figma straight into public/assets/ (PNG @2x for rasters, SVG for the illustration).",
+  "assets": [
+    { "file": "northstar-laptop.png", "node": "2144:11928", "url": "https://www.figma.com/api/mcp/asset/7202d540-a9d7-426b-8b70-13aff6e6959e.png" },
+    { "file": "portrait.png", "node": "2144:11995", "url": "https://www.figma.com/api/mcp/asset/4377a2c1-4d8f-471f-9fd6-6ab9cd09ad22.png" },
+    { "file": "contact-coffee.png", "node": "2144:12011", "url": "https://www.figma.com/api/mcp/asset/35cdc821-531c-402f-b6fb-9278d738ab89.png" },
+    { "file": "welcome-illustration.svg", "node": "2144:11252", "url": "https://www.figma.com/api/mcp/asset/e5132511-7506-4c74-bc23-0ea1aeb91002.svg" }
+  ]
+}
