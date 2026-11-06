@@ -30,6 +30,18 @@ export const site = {
   works: { eyebrow: "SELECTED WORKS", cta: "View Project" },
   projectsPage: { titleLead: "/SELECTED ", titleEmphasis: "WORKS", years: "2023 - 2026", cta: "View Project" },
 
+  aboutPage: {
+    titleLead: "/BEHIND",
+    titleEmphasis: "FRAMES",
+    // Copy verbatim from Figma 2077:9129 / 2077:9130 (including "Frame 3523", which reads like a stray design-tool label — FLAG).
+    paragraphs: [
+      "I began my professional journey as a customer support officer, and that foundation still shapes how I listen, ask better questions, and design with empathy. Don Norman's The Design of Everyday Things deeply reshaped how I think about user-centered design, and it still fuels the way I approach the craft.",
+      "It usually starts around Frame 3523 and somewhere along the way, I've come to love this industry and the problems I get to solve through it. I care about making digital experiences feel clear, intentional, and worth using. My work usually lives at the intersection of product strategy, interaction design, and refined execution, with a strong bias toward shipping ideas that are both useful and memorable.",
+    ],
+    photoAlt: "Likita working at a desk with two monitors",
+    gameLabel: "Game: Two truths and a lie.",
+  },
+
   about: {
     eyebrow: "ME IN BRIEF.",
     // FLAG: the subtitle is identical placeholder copy in all four Figma rows.
