@@ -10,10 +10,10 @@ export const site = {
     customize: "CUSTOMIZE",
     menu: [
       { label: "Home", href: "/" },
-      { label: "Works", href: "/#selected-work" },
-      { label: "About Me", href: "/#about" },
-      // FLAG: "Play A Game" exists in the Menu frame but no game/page frame exists yet.
-      { label: "Play A Game", href: "/play" },
+      { label: "Works", href: "/works" },
+      { label: "About Me", href: "/about" },
+      // FLAG: "Play A Game" exists in the Menu frame but no game page frame does; it opens the game preview on About Me.
+      { label: "Play A Game", href: "/about#audience" },
       { label: "Hit Me Up", href: "/contact" },
     ],
   },
@@ -81,8 +81,8 @@ export const site = {
       { t: "try.", em: true },
     ],
     nav: [
-      { label: "Works", href: "/#selected-work", style: "display" },
-      { label: "About Me", href: "/#about", style: "italic" },
+      { label: "Works", href: "/works", style: "display" },
+      { label: "About Me", href: "/about", style: "italic" },
       { label: "Hit Me Up", href: "/contact", style: "display" },
     ],
     // FLAG: Figma shows three pills (Gmail / LinkedIn / Mail) with no URLs. LinkedIn URL is missing.

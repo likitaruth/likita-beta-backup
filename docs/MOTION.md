@@ -149,3 +149,24 @@ Model: the front card is a real object; plates behind are the next cards.
 - **Me in Brief** (Figma 2153:6075 default / 2153:6294 hover): full-width rows (no side portrait). Row 01 is active by default and shows its arrow only. Pointer hover, keyboard focus, or — on touch — the row containing the viewport midline makes that row active *and engaged*: its arrow and character thumbnail reveal; every other row hides both. Pointer leave / blur returns to row 01 (unless keyboard focus is still inside a row).
 - Reveal is CSS-only, driven by `data-active` / `data-shown` on the row: arrow 300 ms in / 150 ms out (opacity, x 8→0, scale .9→1); thumbnail 380 ms in after 40 ms / 150 ms out (opacity, x 12→0, scale .95→1). Thumbnail slot is fixed-width and zero layout height, so rows stay 114 px in every state. Reduced motion: opacity only, 150 ms. Thumbnails hidden below `md` (arrow only).
 - **Reach out** (Figma 2153:6038): full-bleed 1440×594 section; photo in the right 61.88 % under an 80 % black scrim, bleeding to the viewport edge above 1440. Pins dark tokens (`data-theme="dark"`) because it sits on a photograph. Headline keeps the word-wipe reveal; the coffee note + squiggle sit at Figma coordinates from `xl`, and drop under the CTA below it.
+
+## Subpages (as built)
+
+Shared: `components/layout/subpage.tsx` (nav + page-level view transition + footer). Reveals reuse `Stage`/`Item`; all
+reduced-motion handling is inherited (opacity-only).
+
+- **Projects `/works`** — header wipes in on mount; ghost "2023 - 2026" drifts ±3% horizontally with a CSS `view()` timeline
+  (compositor only, off for reduced motion). Rows reveal once at 25% in view. Row hover / keyboard focus-within: cover zooms to
+  1.04 over 600ms ease-out-quint and the 20% black scrim lifts; sibling rows drop to 60% opacity (150-300ms). The pill is the real
+  link, stretched over the whole row. Cover morphs into the case-study hero on forward navigation (`project-<slug>-media`).
+- **About `/about`** — title wipes, photo `settle`s, copy rises; game band and Me in Brief reveal on view. Me in Brief is the
+  homepage component (its own interaction spec above).
+- **Case studies `/works/<slug>[/think|/build]`** — header, hero and tab bar stay; tab links use `transitionTypes=["nav-tab"]`
+  and only `case-body` cross-fades (120ms out, 240ms in with 10px rise). Tabs are links (`aria-current="page"`), so they work
+  without JS and are keyboard reachable. "Next" advances Design → Think → Build → next project.
+- **Contact `/contact`** — pure CSS "HIT ME UP" split. Open offsets are Figma's (line 1 +17px, line 2 +100px at 154px type, in em).
+  Closed state exists only for fine pointer + no reduced-motion; it opens on hover or focus-within (the email link lives in the
+  revealed row). Touch, coarse pointers and reduced motion always see the open state. 520ms ease-out-quint on `translate`,
+  260ms opacity on the email row.
+- **Menu** — rows are square; hover/focus = cream fill, Unbounded 900 label, dark arrow disc (Figma 2090:9921 right panel).
+  Header now sits at `z-50` so the menu and Customize popover stay above page content on every screen.

@@ -90,10 +90,10 @@ export function MenuOverlay() {
                 <Link
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="group flex items-center justify-between rounded-lg p-4 font-display text-[clamp(24px,5vw,40px)] font-normal leading-6 text-cream transition-colors hover:bg-white/5 md:p-6"
+                  className="group flex items-start justify-between p-4 font-display text-[clamp(24px,5vw,40px)] font-normal leading-6 text-cream transition-colors duration-200 ease-out-quint hover:bg-cream hover:font-black hover:text-card focus-visible:bg-cream focus-visible:font-black focus-visible:text-card focus-visible:outline-none md:p-6"
                 >
                   {item.label}
-                  <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line bg-cream text-ink transition-transform duration-300 ease-out-quint group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-full border border-line bg-cream text-ink transition-[transform,background-color,color] duration-300 ease-out-quint group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:bg-card group-hover:text-cream group-focus-visible:bg-card group-focus-visible:text-cream">
                     <ArrowUpRight />
                   </span>
                 </Link>
