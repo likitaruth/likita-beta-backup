@@ -258,3 +258,16 @@ body {
 ::view-transition-old(.case-swap) { animation: 120ms cubic-bezier(0.23, 1, 0.32, 1) both vt-fade reverse; }
 ::view-transition-new(.case-swap) { --vt-from: 0px; animation: 240ms cubic-bezier(0.23, 1, 0.32, 1) 60ms both vt-fade, 240ms cubic-bezier(0.23, 1, 0.32, 1) 60ms both vt-rise; }
 @keyframes vt-rise { from { translate: 0 10px; } to { translate: 0 0; } }
+
+/* ───────── Contact: "HIT ME UP" split (docs/MOTION.md §Contact) ─────────
+   Base = OPEN state (touch, reduced motion, no-hover). Only a fine pointer without reduced-motion gets the closed state,
+   which opens on hover or when focus is inside (the email link lives in the revealed row, so keyboard users open it by tabbing).
+   Offsets are Figma's: line 1 sits 17px (0.11em) lower and line 2 100px (0.65em) lower when open.
+   transform + opacity only; the block keeps its open height so the hover target never moves under the cursor. */
+.hit-shift { transition: translate 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+.hit-mid { transition: opacity 260ms cubic-bezier(0.23, 1, 0.32, 1) 120ms; }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .hit:not(:hover):not(:focus-within) .hit-line-1 .hit-shift { translate: 0 -0.11em; }
+  .hit:not(:hover):not(:focus-within) .hit-line-2 .hit-shift { translate: 0 -0.65em; }
+  .hit:not(:hover):not(:focus-within) .hit-mid { opacity: 0; transition-delay: 0s; transition-duration: 140ms; }
+}

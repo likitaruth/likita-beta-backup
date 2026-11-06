@@ -14,7 +14,7 @@ export const site = {
       { label: "About Me", href: "/#about" },
       // FLAG: "Play A Game" exists in the Menu frame but no game/page frame exists yet.
       { label: "Play A Game", href: "/play" },
-      { label: "Hit Me Up", href: "/#contact" },
+      { label: "Hit Me Up", href: "/contact" },
     ],
   },
 
@@ -55,6 +55,14 @@ export const site = {
     label: "Likita",
   },
 
+  contactPage: {
+    first: "HIT ",
+    firstEmphasis: "ME",
+    second: "UP",
+    // Figma copy reads "@likitaconnect@gmail.com" (stray leading @) — rendered as the plain address. FLAG: confirm.
+    lead: "Feel free to reach out to me directly ",
+  },
+
   contact: {
     eyebrow: "Reach out",
     headlineLead: "/LETS BUILD SOMETHING",
@@ -75,7 +83,7 @@ export const site = {
     nav: [
       { label: "Works", href: "/#selected-work", style: "display" },
       { label: "About Me", href: "/#about", style: "italic" },
-      { label: "Hit Me Up", href: "/#contact", style: "display" },
+      { label: "Hit Me Up", href: "/contact", style: "display" },
     ],
     // FLAG: Figma shows three pills (Gmail / LinkedIn / Mail) with no URLs. LinkedIn URL is missing.
     socials: [
