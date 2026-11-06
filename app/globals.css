@@ -244,3 +244,12 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .row-reveal { translate: none !important; scale: none !important; transition-duration: 150ms !important; transition-delay: 0s !important; }
 }
+
+/* ───────── Projects page ───────── */
+/* Ghost year range drifts sideways as it passes through the viewport (compositor, no JS). */
+@keyframes ghost-drift { from { translate: 3% 0; } to { translate: -3% 0; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .ghost-drift { animation: ghost-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
+  }
+}

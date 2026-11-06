@@ -28,6 +28,7 @@ export const site = {
   },
 
   works: { eyebrow: "SELECTED WORKS", cta: "View Project" },
+  projectsPage: { titleLead: "/SELECTED ", titleEmphasis: "WORKS", years: "2023 - 2026", cta: "View Project" },
 
   about: {
     eyebrow: "ME IN BRIEF.",

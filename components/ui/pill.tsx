@@ -8,6 +8,8 @@ const variants = {
   solid: "bg-pill text-pill-fg font-semibold text-[14px] leading-[normal] h-[45px] gap-3 px-[18px] hover:-translate-y-px active:translate-y-0",
   /** "Button / greys" on the project card */
   outline: "h-9 w-32 border border-mint text-mint font-medium text-[14px] leading-[1.45] px-3 hover:bg-mint hover:text-card",
+  /** "Button / greys" on subpages (white label, divider border) */
+  ghost: "h-9 w-32 border border-divider text-white font-medium text-[14px] leading-[1.45] px-3 hover:bg-white hover:text-ink",
   /** Footer social pills */
   footer: "h-9 w-32 border border-divider text-on-card font-medium text-[14px] leading-[1.45] px-3 hover:bg-white hover:text-footer",
 } as const;
