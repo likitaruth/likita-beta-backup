@@ -43,7 +43,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
               <Image src={project.cover} alt="" fill sizes="(min-width:1024px) 640px, 100vw" className="object-cover" priority />
             </div>
           </ViewTransition>
-          {project.description && <p className="max-w-[570px] text-[18px] leading-7 text-fg">{project.description}</p>}
+          {(project.description ?? project.blurb) && <p className="max-w-[570px] text-[18px] leading-7 text-fg">{project.description ?? project.blurb}</p>}
         </div>
         {/* FLAG: no Figma case study exists for this project yet. */}
       </div>
