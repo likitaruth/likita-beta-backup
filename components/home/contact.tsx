@@ -45,12 +45,13 @@ export function Contact() {
               <span className="text-accent-display"><SplitWords text={contact.headlineEmphasis} /></span>
             </h2>
           </div>
-          <Item as="p" kind="fade" className="text-[16px] leading-6 text-fg">{contact.body}</Item>
-          <Item kind="fade">
+          <Item as="p" kind="fade" className="text-[18px] leading-[1.6] text-fg/90">{contact.body}</Item>
+          <Item kind="fade" className="flex flex-wrap items-center gap-x-5 gap-y-3">
             <Pill variant="solid" href={`mailto:${email}`} className="group px-5" magnetic>
               {contact.cta}
               <ArrowRight className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5" />
             </Pill>
+            <a href={`mailto:${email}`} className="text-[14px] font-medium text-fg-muted underline decoration-white/25 underline-offset-[6px] transition-colors duration-200 hover:text-fg hover:decoration-current">{email}</a>
           </Item>
         </Stage>
 

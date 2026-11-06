@@ -80,12 +80,12 @@ export function AboutBody({ rows, characters, label }: Props) {
                 onFocus={() => set(i, true)}
                 className="flex items-center gap-4 pb-[27px] pt-7 md:gap-6"
               >
-                <span className={cn("w-[52px] shrink-0 text-[28px] font-bold leading-[44px] transition-colors duration-300 md:w-[72px] md:text-[40px]", on ? "text-accent-soft" : "text-fg-faint")}>
+                <span className={cn("w-[52px] shrink-0 text-[28px] font-bold leading-[44px] transition-colors duration-300 md:w-[72px] md:text-[40px]", on ? "text-accent-soft" : "text-fg-subtle/70")}>
                   {row.n}
                 </span>
                 <span className="flex min-w-0 flex-1 flex-col justify-center gap-3 text-fg">
                   <span className="text-[22px] font-semibold leading-8 md:text-[32px]">{row.title}</span>
-                  <span className="text-[14px] font-normal leading-[14px]">{row.sub}</span>
+                  <span className="text-[14px] font-normal leading-5 text-fg-muted">{row.sub}</span>
                 </span>
 
                 <span className="flex shrink-0 items-center gap-5 lg:mr-[27px]">
@@ -106,7 +106,7 @@ export function AboutBody({ rows, characters, label }: Props) {
                   <span
                     aria-hidden
                     className={cn(
-                      "row-reveal opacity-0 translate-x-2 scale-90 transition-[opacity,translate,scale] duration-150 ease-out-quint",
+                      "row-reveal opacity-35 translate-x-0 scale-95 transition-[opacity,translate,scale] duration-150 ease-out-quint",
                       "group-data-[active=true]/row:translate-x-0 group-data-[active=true]/row:scale-100 group-data-[active=true]/row:opacity-100 group-data-[active=true]/row:duration-300",
                     )}
                   >

@@ -24,10 +24,11 @@ export const site = {
     line2: "DESIGN",
     purpose: { lead: "FOR ", strong: "INCLUSIVITY,", italic: " IMPACT & SOLUTIONS", end: "." },
     cta: "Scroll to explore",
+    ctaSecondary: "Hit me up", // added: gives recruiters a direct route to contact above the fold
     welcome: "Hello, I’m Likita, Have a fun scroll!",
   },
 
-  works: { eyebrow: "SELECTED WORKS", cta: "View Project" },
+  works: { eyebrow: "SELECTED WORKS", cta: "View Project", all: "View all works" },
   projectsPage: { titleLead: "/SELECTED ", titleEmphasis: "WORKS", years: "2023 - 2026", cta: "View Project" },
 
   aboutPage: {
@@ -44,12 +45,13 @@ export const site = {
 
   about: {
     eyebrow: "ME IN BRIEF.",
-    // FLAG: the subtitle is identical placeholder copy in all four Figma rows.
+    // Figma repeats "The name and person." in all four rows (placeholder). Replaced with lines drawn only from existing
+    // copy (hero ethos, About Me paragraphs, game label) — FLAG: confirm wording.
     rows: [
-      { n: "01", title: "WHO?", sub: "The name and person.", href: "/about#who" },
-      { n: "02", title: "HOW?", sub: "The name and person.", href: "/about#how" },
-      { n: "03", title: "WHY?", sub: "The name and person.", href: "/about#why" },
-      { n: "04", title: "AUDIENCE?", sub: "The name and person.", href: "/about#audience" },
+      { n: "01", title: "WHO?", sub: "Designer, thinker and builder.", href: "/about#who" },
+      { n: "02", title: "HOW?", sub: "Product strategy, interaction design and refined execution.", href: "/about#how" },
+      { n: "03", title: "WHY?", sub: "Digital experiences that feel clear and worth using.", href: "/about#why" },
+      { n: "04", title: "AUDIENCE?", sub: "Play two truths and a lie.", href: "/about#audience" },
     ],
     // Figma "Group 1000001479" (hover state): the small character thumbnail carries a "Likita" hand-written label.
     label: "Likita",
@@ -65,7 +67,7 @@ export const site = {
 
   contact: {
     eyebrow: "Reach out",
-    headlineLead: "/LETS BUILD SOMETHING",
+    headlineLead: "/LET’S BUILD SOMETHING",
     headlineEmphasis: "MEANINGFUL.",
     body: "Wanna chat, discuss a project or want me to speak on a project?",
     cta: "Email me",

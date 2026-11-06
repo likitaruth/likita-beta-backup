@@ -312,7 +312,7 @@ function StackCard({ project, index, total, dir, source, ctaLabel, go, dragX, re
         {/* Text column (Figma 2144:11929: 575 × 290, vertically centred in the card) */}
         <div className="cq flex min-w-0 flex-1 flex-col gap-6 self-stretch xl:self-center">
           <div className="flex items-center justify-between xl:w-[564px] xl:max-w-full">
-            <p className="text-[12px] font-medium leading-3 text-on-card-muted">
+            <p className="text-[13px] font-medium leading-4 tabular-nums text-on-card-muted">
               <span className="font-bold text-accent">{counter(index + 1)} </span>
               <span>/ {counter(total)}</span>
             </p>
@@ -327,7 +327,7 @@ function StackCard({ project, index, total, dir, source, ctaLabel, go, dragX, re
                     aria-label={d === -1 ? "Previous project" : "Next project"}
                     aria-disabled={disabled}
                     onClick={() => !disabled && go(d, "button")}
-                    className={cn("rounded-full transition-colors duration-300", disabled ? "cursor-default text-accent" : "text-on-card")}
+                    className={cn("-m-2 rounded-full p-2 transition-colors duration-300", disabled ? "cursor-default text-accent" : "text-on-card")}
                   >
                     <CircleArrow direction={d === -1 ? "left" : "right"} tone={disabled ? "muted" : "active"} />
                   </button>
@@ -339,9 +339,9 @@ function StackCard({ project, index, total, dir, source, ctaLabel, go, dragX, re
           <div className="xl:min-h-[242px]">
             <div className="flex w-full flex-col gap-6">
               <h3 className="t-display w-fit text-[length:min(68px,calc(100cqw/8.1))] leading-[1.1765] text-mint">{project.title}</h3>
-              <div className="flex flex-col gap-10">
-                {project.description && (
-                  <p className="min-h-[62px] max-w-[570px] text-[18px] leading-[19px] text-on-card">{project.description}</p>
+              <div className="flex flex-col gap-8">
+                {(project.description ?? project.blurb) && (
+                  <p className="max-w-[540px] text-[18px] leading-[1.6] text-on-card/90 xl:min-h-[86px]">{project.description ?? project.blurb}</p>
                 )}
                 <div><Pill variant="outline" href={project.href} transitionTypes={["nav-forward"]} data-focus="cta">{ctaLabel}</Pill></div>
               </div>

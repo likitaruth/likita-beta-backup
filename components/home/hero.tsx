@@ -54,11 +54,12 @@ export function Hero() {
               <span className="font-sans font-normal italic">{hero.purpose.end}</span>
             </p>
 
-            <div style={d(400)} className="intro-rise pt-[10px]">
+            <div style={d(400)} className="intro-rise flex flex-wrap items-center gap-3 pt-[10px]">
               <Pill variant="solid" href="#selected-work" className="group" magnetic>
                 {hero.cta}
                 <ScrollArrow className="transition-transform duration-300 ease-out-quint group-hover:translate-y-0.5" />
               </Pill>
+              <Pill variant="quiet" href="/contact">{hero.ctaSecondary}</Pill>
             </div>
           </div>
 
