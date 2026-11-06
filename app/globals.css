@@ -253,3 +253,8 @@ body {
     .ghost-drift { animation: ghost-drift linear both; animation-timeline: view(); animation-range: entry 0% exit 100%; }
   }
 }
+
+/* ───────── Case study tab swap: only the body below the tab bar changes; header, hero and tabs stay put. ───────── */
+::view-transition-old(.case-swap) { animation: 120ms cubic-bezier(0.23, 1, 0.32, 1) both vt-fade reverse; }
+::view-transition-new(.case-swap) { --vt-from: 0px; animation: 240ms cubic-bezier(0.23, 1, 0.32, 1) 60ms both vt-fade, 240ms cubic-bezier(0.23, 1, 0.32, 1) 60ms both vt-rise; }
+@keyframes vt-rise { from { translate: 0 10px; } to { translate: 0 0; } }

@@ -9,11 +9,11 @@ const pageSlide = { "nav-forward": "nav-forward", "nav-back": "nav-back", defaul
  * Shared chrome for every non-home screen (Figma "hero-top" at 64,40 / 1312 wide + footer).
  * Owns the page-level view transition so each screen only supplies its content.
  */
-export function Subpage({ children, className }: { children: ReactNode; className?: string }) {
+export function Subpage({ children, className, compact }: { children: ReactNode; className?: string; /** Case studies sit the header 16px higher (Figma hero-top y=24 vs 40). */ compact?: boolean }) {
   return (
     <ViewTransition enter={pageSlide} exit={pageSlide} default="none">
       <main id="main" className={cn("bg-canvas", className)}>
-        <div className="page-shell pt-10">
+        <div className={cn("page-shell", compact ? "pt-6" : "pt-10")}>
           <SiteNav />
         </div>
         {children}
