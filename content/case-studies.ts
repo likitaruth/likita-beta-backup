@@ -27,9 +27,8 @@ export type CaseStudy = {
   title: string;
   lede: string;
   heroAlt: string;
-  role: string;
-  focus: string;
-  year: string;
+  /** Up to three label/value pairs shown under the hero (Figma: Role / Focus / Year). */
+  meta: [string, string][];
   reflection: { eyebrow: string; heading: string; body: string[]; pull: string };
   tabs: Partial<Record<TabKey, Tab>>;
 };
@@ -56,9 +55,7 @@ export const caseStudies: CaseStudy[] = [
     title: "A safe CRM action layer",
     lede: "A conversational interface that helps teams search, ask questions, and perform common CRM operations without hiding the permissions, validation, and accountability behind every system change.",
     heroAlt: "CRM workspace with the AI assistant panel open",
-    role: "Product design & Prototype",
-    focus: "AI / SAAS / CRM",
-    year: "2026",
+    meta: [["Role", "Product design & Prototype"], ["Focus", "AI / SAAS / CRM"], ["Year", "2026"]],
     reflection: {
       eyebrow: "Reflection",
       heading: "Shared Responsibility in AI",
@@ -189,6 +186,251 @@ export const caseStudies: CaseStudy[] = [
     },
   },
 ];
+
+/*
+ * ClientLens + Activepieces — migrated from likita.dev/works/owigo and likita.dev/works/activepieces.
+ * FLAGS:
+ *  - The page reader could only return summaries and short quotes, not verbatim paragraphs. Copy below is a faithful
+ *    rewrite of what each section says (no facts, numbers or claims added). Paste the exact original text over it if
+ *    you want word-for-word parity.
+ *  - Neither page states a year, so the third meta slot is Industry. Neither lists implementation internals, so each
+ *    Build tab holds system / outcome / collaboration / measurement material only.
+ *  - Image slots follow the source page order and captions; every image is a placeholder until exported
+ *    (likita.dev is blocked from the build sandbox).
+ *  - The source page lists "Teamforce" as client for ClientLens in one read and "ClientLens" as context in another; omitted.
+ */
+const clientlens: CaseStudy = {
+  slug: "clientlens",
+  title: "Explainable customer intelligence",
+  lede: "ClientLens is an AI-powered feature within an enterprise CRM that helps account managers find clients with similar behavioural patterns, understand why they match, and decide what to do next.",
+  heroAlt: "ClientLens overview: AI summary, match score, similarities, differences and recommended actions",
+  meta: [["Role", "UX/Product Designer & Builder"], ["Focus", "Explainable AI / Similarity Ranking / Decision Support"], ["Industry", "Customer Intelligence"]],
+  reflection: {
+    eyebrow: "Reflection",
+    heading: "Reviewable AI decisions",
+    body: [
+      "What matters most is the structure around the AI output: where it sits, what evidence supports it, how incomplete data is handled, how a user can challenge it, and how it connects to a decision.",
+      "Two directions follow from that. Move from recommendation to execution by linking suggestions to tasks, outreach or campaigns, with a way to give feedback. And make changing patterns visible through comparison history, score-change visibility, cohort comparison and feature-contribution controls.",
+    ],
+    pull: "The experience moves users from client context to pattern discovery, AI interpretation, evidence and action, instead of asking them to trust a black box.",
+  },
+  tabs: {
+    design: {
+      intro: {
+        eyebrow: "The solution",
+        heading: "Context to evidence to action",
+        body: [
+          "The workflow starts with a known client, ranks comparisons, keeps both clients in a shared workspace, and adds natural-language interpretation only when the user starts a detailed comparison.",
+        ],
+      },
+      blocks: [
+        { type: "image", alt: "ClientLens product flow from Client Detail through Find Similar, Similar Leads, AI Overview, Radar Preview and Deep Compare", ratio: 1068 / 520 },
+        {
+          type: "text",
+          eyebrow: "Client detail",
+          heading: "Start from a known client",
+          body: ["The reference screen opens with identity, status, segment, deposits, lifetime value, trading activity, risk, redeposit likelihood, engagement and profile-data availability. Find Similar sits inside the client profile, so every search stays tied to a reference client."],
+        },
+        { type: "image", alt: "Reference-client detail screen with the Find Similar Leads action", ratio: 1068 / 560 },
+        {
+          type: "text",
+          eyebrow: "Ranked similar leads",
+          heading: "Rank by evidence",
+          body: ["Results are ranked by overall match strength, with category signals, identity, status and segment alongside. High, medium and low bands keep large result sets manageable without a paragraph of explanation for every result."],
+        },
+        { type: "image", alt: "Ranked similar-client results with match score breakdowns", ratio: 1068 / 560 },
+        { type: "image", alt: "Anatomy of the results: persistent reference context, similarity bands and category-level evidence", ratio: 1068 / 560 },
+        {
+          type: "text",
+          eyebrow: "Persistent comparison context",
+          heading: "Keep the pair in view",
+          body: ["The same client pair stays visible across Overview, Radar Preview and Deep Compare, so the three views read as one workspace rather than disconnected reports."],
+        },
+        { type: "image", alt: "Radar Preview comparing behavioural and profile similarity across two clients", ratio: 1068 / 560 },
+        { type: "image", alt: "Deep Compare feature breakdown with client values and match results", ratio: 1068 / 560 },
+        {
+          type: "text",
+          eyebrow: "When AI is unavailable",
+          heading: "Never hide the evidence",
+          body: ["If an AI summary can't be generated, the structured scores remain available, so the underlying evidence is always reachable."],
+        },
+      ],
+    },
+    think: {
+      intro: {
+        eyebrow: "The problem",
+        heading: "From CRM data to decisions",
+        body: [
+          "Client data was spread across profiles, transactions, trading, communications and risk modules, so users had to move between them to compare clients.",
+          "Access to data was not the core problem. Users needed to know which behaviours produced a match and what action should follow.",
+        ],
+      },
+      blocks: [
+        { type: "image", alt: "Before and after: siloed CRM data versus the five-step ClientLens decision journey", ratio: 1068 / 520 },
+        {
+          type: "text",
+          eyebrow: "How might we",
+          heading: "Three questions that shaped the work",
+          body: ["The design brief reduced to three questions."],
+        },
+        {
+          type: "cards",
+          cols: 3,
+          items: [
+            { title: "Help users move from a known client to comparisons" },
+            { title: "Make each match explainable" },
+            { title: "Turn evidence into a next step while the user keeps the final decision" },
+          ],
+        },
+        {
+          type: "text",
+          eyebrow: "Information model",
+          heading: "Four information layers",
+          body: ["The design separates factual CRM data, calculated similarity, AI interpretation and operational recommendations. Keeping the layers apart stops generated insight from looking like raw customer data."],
+        },
+        { type: "image", alt: "Layered information model: observed CRM data, calculated similarity, AI interpretation, operational recommendations", ratio: 1068 / 560 },
+        { type: "cards", cols: 2, items: [
+          { n: "01", title: "Factual CRM data" },
+          { n: "02", title: "Calculated similarity" },
+          { n: "03", title: "AI interpretation" },
+          { n: "04", title: "Operational recommendations" },
+        ] },
+        {
+          type: "text",
+          eyebrow: "A progressive decision journey",
+          heading: "Five questions, in order",
+          body: ["Each step of the product answers one question, moving the user from context to action."],
+        },
+        { type: "cards", cols: 3, items: [
+          { n: "01", title: "Who is the client?" },
+          { n: "02", title: "Who is similar?" },
+          { n: "03", title: "Why did they match?" },
+          { n: "04", title: "Where do they differ?" },
+          { n: "05", title: "What should I do?" },
+        ] },
+      ],
+    },
+    build: {
+      intro: {
+        eyebrow: "Outcome",
+        heading: "A live intelligence layer",
+        body: ["ClientLens is live in the CRM and supports relationship managers and operational teams."],
+      },
+      blocks: [
+        {
+          type: "text",
+          eyebrow: "AI in the product",
+          heading: "Interpretation only when asked",
+          body: ["Natural-language interpretation appears only when a user starts a detailed comparison. Up to that point the product shows calculated scores and CRM facts, each kept in its own layer, and the structured scores stay available if a summary can't be generated."],
+        },
+        {
+          type: "text",
+          eyebrow: "Measuring the release",
+          heading: "Verified metrics come next",
+          body: ["Verified usage metrics are not included yet. A measurement phase is planned, tracking the signals below."],
+        },
+        { type: "image", alt: "Measurement funnel and planned instrumented product metrics", ratio: 1068 / 560 },
+        { type: "cards", cols: 2, items: [
+          { title: "Discovery", list: ["Time to find a relevant comparison", "Progression to comparison", "Use of deeper views"] },
+          { title: "Action", list: ["Recommendation engagement", "Completion and abandonment", "Adoption and post-action outcomes"] },
+        ] },
+        {
+          type: "text",
+          eyebrow: "What comes next",
+          heading: "Shipped, next, later",
+          body: ["The roadmap runs as a continuous improvement cycle: what has shipped, what is next, and later opportunities."],
+        },
+        { type: "image", alt: "Product roadmap showing shipped, next and later opportunities with a continuous improvement cycle", ratio: 1068 / 560 },
+      ],
+    },
+  },
+};
+
+const activepieces: CaseStudy = {
+  slug: "activepieces",
+  title: "Automation tool redesign",
+  lede: "Activepieces is a no-code tool that connects apps such as Gmail, Slack and Discord so users can build workflows, called Pieces, that automate repetitive tasks. Working as UI designer with the founder and a senior designer, I set out to make complex flows simpler.",
+  heroAlt: "Activepieces hero presentation",
+  meta: [["Role", "UI Designer"], ["Focus", "Workflow Clarity / Builder Experience / Design Systems"], ["Industry", "Automation"]],
+  reflection: {
+    eyebrow: "Reflection",
+    heading: "Clarity for technical products",
+    body: [
+      "Thoughtful structure adds a lot of value in technically dense products. Clarifying states, flows and component behaviour made automation easier to approach and trust.",
+      "The founder's feedback highlighted the value of collaborative design that improves usability and gives the team a shared language.",
+    ],
+    pull: "Clarity made automation easier to approach and trust.",
+  },
+  tabs: {
+    design: {
+      intro: {
+        eyebrow: "Design",
+        heading: "Redesigning core workflows",
+        body: ["The redesign covers four areas: workflow building, trigger selection, sidebar app discovery and dashboard visibility."],
+      },
+      blocks: [
+        { type: "image", alt: "Activepieces builder redesign", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "The builder", heading: "Easier to scan, step by step", body: ["The builder is more intuitive and easier to scan, with visual cues that support step-by-step creation."] },
+        { type: "image", alt: "Activepieces trigger selection redesign", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "Select trigger", heading: "Choose the right trigger with confidence", body: ["Search, filtering and clearer explanations make it easier to pick an accurate trigger."] },
+        { type: "image", alt: "Activepieces sidebar apps redesign", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "Sidebar apps", heading: "Find and add tools faster", body: ["The sidebar is reorganised so users can find and add tools faster, with clearer icons and guidance."] },
+        { type: "image", alt: "Activepieces dashboard redesign", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "Dashboard", heading: "A more approachable overview", body: ["A friendlier layout with clearer, more engaging widgets for app activity and workflow status."] },
+        { type: "image", alt: "Activepieces tools integration example", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "Tools integration", body: ["Workflow integrations are visualised more clearly, so users can see how their app connections relate to one another."] },
+      ],
+    },
+    think: {
+      intro: {
+        eyebrow: "The problem",
+        heading: "Simpler automation flows",
+        body: [
+          "Users need help understanding a flow at a glance and configuring it without feeling overwhelmed.",
+          "The redesign focused on clarity at the moments that matter most: building, triggering and monitoring automations.",
+        ],
+      },
+      blocks: [
+        { type: "image", alt: "Activepieces product overview", ratio: 1068 / 560 },
+        {
+          type: "text",
+          eyebrow: "Research",
+          heading: "Learning from workflow friction",
+          body: [
+            "Working closely with the founder and a senior designer exposed usability issues in setting up and managing automations.",
+            "That showed where the interface needed more structure, stronger visual cues and a more approachable path through technical tasks, so users could build faster, choose triggers with more confidence and monitor activity with less ambiguity.",
+          ],
+        },
+        { type: "text", eyebrow: "How might we", heading: "Three goals", body: ["The work was guided by three goals."] },
+        {
+          type: "cards",
+          cols: 3,
+          items: [
+            { title: "Make flows easier to understand across connected apps" },
+            { title: "Reduce friction in trigger selection, builder navigation and sidebar tools" },
+            { title: "Create a more consistent interface system that aligns design and development" },
+          ],
+        },
+      ],
+    },
+    build: {
+      intro: {
+        eyebrow: "System",
+        heading: "Material Design system",
+        body: ["Material Design was the foundation for consistent UI patterns, typography and colour, which improved collaboration between design and development."],
+      },
+      blocks: [
+        { type: "image", alt: "Activepieces design system overview", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "Shared language", heading: "One product language", body: ["Consistency helped build a cohesive product language and sped up both implementation and future features."] },
+        { type: "text", eyebrow: "Results", heading: "Faster setup, better confidence", body: ["The redesigned creation experience reduced setup time for complex automations and improved overall satisfaction."] },
+        { type: "cards", cols: 2, items: [{ title: "40%", lines: ["reduction in the time users needed to set up complex automations"] }] },
+        { type: "image", alt: "Activepieces founder review", ratio: 1068 / 560 },
+      ],
+    },
+  },
+};
+
+caseStudies.push(clientlens, activepieces);
 
 export const tabLabels: Record<TabKey, string> = { design: "Design", think: "Think", build: "Build" };
 export const tabOrder: TabKey[] = ["design", "think", "build"];

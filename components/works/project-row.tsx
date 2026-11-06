@@ -22,8 +22,8 @@ export function ProjectRow({ project, cta, priority }: { project: Project; cta: 
             {project.title}
           </Item>
           <div className="flex flex-col gap-8 md:mt-auto md:gap-[77px]">
-            {project.description && (
-              <Item as="p" className="max-w-[593px] text-[18px] font-medium uppercase leading-[19px] text-white">{project.description}</Item>
+            {(project.description ?? project.blurb) && (
+              <Item as="p" className="max-w-[593px] text-[18px] font-medium uppercase leading-[19px] text-white">{project.description ?? project.blurb}</Item>
             )}
             <Item className="w-fit">
               <Pill

@@ -14,6 +14,8 @@ export type Project = {
   description: string | null;
   image: { src: string; alt: string; width: number; height: number } | null;
   href: string;
+  /** Projects-page line used when the homepage has no approved description. Taken from the case study. */
+  blurb?: string;
   /** Projects-page cover (656×670 slot). PLACEHOLDER art until the Figma bitmaps are exported. */
   cover: string;
 };
@@ -27,7 +29,7 @@ export const projects: Project[] = [
     image: { src: "/assets/northstar-laptop.png", alt: "Northstar CRM workspace displayed on a laptop", width: 1000, height: 780 },
     href: "/works/northstar", cover: "/assets/projects/northstar.jpg",
   },
-  { slug: "clientlens", title: "CLIENTLENS", description: null, image: null, href: "/works/clientlens", cover: "/assets/projects/clientlens.jpg", },
+  { slug: "clientlens", title: "CLIENTLENS", description: null, blurb: "An AI-powered feature within an enterprise CRM that helps account managers find similar clients and understand why they match.", image: null, href: "/works/clientlens", cover: "/assets/projects/clientlens.jpg", },
   { slug: "crm-agent", title: "CRM AGENT", description: null, image: null, href: "/works/crm-agent", cover: "/assets/projects/crm-agent.jpg", },
-  { slug: "activepieces", title: "ACTIVEPIECES", description: null, image: null, href: "/works/activepieces", cover: "/assets/projects/activepieces.jpg", },
+  { slug: "activepieces", title: "ACTIVEPIECES", description: null, blurb: "A redesign of the builder, trigger selection, sidebar apps and dashboard of a no-code automation tool.", image: null, href: "/works/activepieces", cover: "/assets/projects/activepieces.jpg", },
 ];

@@ -49,8 +49,8 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
           </ViewTransition>
 
           <Item><dl className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {([["Role", study.role], ["Focus", study.focus], ["Year", study.year]] as const).map(([k, v], i) => (
-              <div key={k} className={cn("flex flex-col gap-4 text-[12px] font-semibold uppercase leading-[14px] text-fg-subtle", i === 1 && "sm:items-center", i === 2 && "sm:items-end")}>
+            {study.meta.map(([k, v], i) => (
+              <div key={k} className={cn("flex flex-col gap-4 text-[12px] font-semibold uppercase leading-[14px] text-fg-subtle", i === 1 && "sm:items-center sm:text-center", i === 2 && "sm:items-end sm:text-right")}>
                 <dt>{k}</dt>
                 <dd>{v}</dd>
               </div>
@@ -164,7 +164,7 @@ function BlockView({ block }: { block: Block }) {
           {block.items.map((c, i) => (
             <Item as="div" key={i} kind="settle" className="rounded-[20px] bg-surface p-6 text-[18px] leading-[20px] text-fg">
               {c.n && <p>{c.n}</p>}
-              {c.title && <p className={cn(!c.n && "mb-5")}>{c.title}</p>}
+              {c.title && <p className={cn(c.list && "mb-5")}>{c.title}</p>}
               {c.lines?.map((l) => <p key={l}>{l}</p>)}
               {c.list && <ul className="list-disc pl-[27px]">{c.list.map((l) => <li key={l}>{l}</li>)}</ul>}
               {c.n && !c.lines && !c.list && <p aria-hidden className="h-5" />}
