@@ -59,7 +59,6 @@ export function Hero() {
                 {hero.cta}
                 <ScrollArrow className="transition-transform duration-300 ease-out-quint group-hover:translate-y-0.5" />
               </Pill>
-              <Pill variant="quiet" href="/contact">{hero.ctaSecondary}</Pill>
             </div>
           </div>
 

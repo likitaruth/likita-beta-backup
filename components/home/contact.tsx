@@ -51,7 +51,6 @@ export function Contact() {
               {contact.cta}
               <ArrowRight className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5" />
             </Pill>
-            <a href={`mailto:${email}`} className="text-[14px] font-medium text-fg-muted underline decoration-white/25 underline-offset-[6px] transition-colors duration-200 hover:text-fg hover:decoration-current">{email}</a>
           </Item>
         </Stage>
 

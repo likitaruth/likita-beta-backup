@@ -24,7 +24,6 @@ export const site = {
     line2: "DESIGN",
     purpose: { lead: "FOR ", strong: "INCLUSIVITY,", italic: " IMPACT & SOLUTIONS", end: "." },
     cta: "Scroll to explore",
-    ctaSecondary: "Hit me up", // added: gives recruiters a direct route to contact above the fold
     welcome: "Hello, I’m Likita, Have a fun scroll!",
   },
 
