@@ -15,12 +15,12 @@
 export type TabKey = "design" | "think" | "build";
 
 export type Block =
-  | { type: "text"; eyebrow?: string; heading?: string; body: string[]; size?: 18 | 21 }
-  | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" }
+  | { type: "text"; eyebrow?: string; heading?: string; body: string[]; size?: 18 | 21; display?: boolean }
+  | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" | "screen" }
   | { type: "cards"; cols: 2 | 3; items: { n?: string; kicker?: string; title?: string; lines?: string[]; list?: string[] }[] }
   | { type: "pull"; text: string; heading?: string };
 
-export type Tab = { intro: { eyebrow: string; heading: string; body: string[] }; blocks: Block[] };
+export type Tab = { intro: { eyebrow?: string; heading: string; body: string[] }; blocks: Block[] };
 
 export type CaseStudy = {
   slug: string;
@@ -30,6 +30,8 @@ export type CaseStudy = {
   /** Optional real hero image; falls back to the placeholder. heroRatio is width / height. */
   heroSrc?: string;
   heroRatio?: number;
+  heroMax?: number;
+  heroTone?: "photo" | "screen";
   /** Up to three label/value pairs shown under the hero (Figma: Role / Focus / Year). */
   meta: [string, string][];
   reflection?: { eyebrow: string; heading: string; body: string[]; pull: string };
@@ -263,85 +265,67 @@ const clientlens: CaseStudy = {
 };
 
 
+/*
+ * Activepieces — Figma 2183:6218 (Design 2173:9865 / Think 2173:9977 / Build 2173:10077). Copy and image placement follow the frames.
+ * FLAGS: the Figma meta row (Product design & Prototype / AI-SAAS-CRM / 2026) is a copy of ClientLens, so the existing
+ * role / focus / industry values are kept. Stray words in Figma ("Reduce", "Create a more consistent interface ") that
+ * trail two of the three "How might we" cards are left out. The eyebrow "system" above "Faster Setup, Better Confidence"
+ * is kept as drawn. The Figma counter (01 / 05) is derived by the site instead.
+ */
+const AP = "/assets/activepieces";
+const apIntro: Tab["intro"] = {
+  heading: "Simpler Automation Flow",
+  body: [
+    "Activepieces helps people automate work across multiple tools, but the product experience needed to make those flows easier to understand at a glance and less overwhelming to configure.",
+    "The focus of the redesign work was to improve clarity in key interaction moments, especially where users needed to build, trigger, and monitor automations without losing confidence in the process.",
+  ],
+};
 const activepieces: CaseStudy = {
   slug: "activepieces",
-  title: "Automation tool redesign",
-  lede: "Activepieces is a no-code tool that connects apps such as Gmail, Slack and Discord so users can build workflows, called Pieces, that automate repetitive tasks. Working as UI designer with the founder and a senior designer, I set out to make complex flows simpler.",
-  heroAlt: "Activepieces hero presentation",
+  title: "Automation Tool Redesign",
+  lede: "Activepieces is a no-code automation tool that connects apps like Gmail, Slack, and Discord so users can create workflows, or \u201cPieces\u201d, that automate repetitive tasks. As a UI Designer, I worked with the founder and senior designer to make those complex flows more straightforward and easier to use.",
+  heroAlt: "Activepieces flow builder with the Blackbaud action list open, shown on a monitor",
+  heroSrc: `${AP}/hero-flow-monitor.webp`,
+  heroRatio: 1312 / 600,
+  heroMax: 1312,
+  heroTone: "screen",
   meta: [["Role", "UI Designer"], ["Focus", "Workflow Clarity / Builder Experience / Design Systems"], ["Industry", "Automation"]],
-  reflection: {
-    eyebrow: "Reflection",
-    heading: "Clarity for technical products",
-    body: [
-      "Thoughtful structure adds a lot of value in technically dense products. Clarifying states, flows and component behaviour made automation easier to approach and trust.",
-      "The founder's feedback highlighted the value of collaborative design that improves usability and gives the team a shared language.",
-    ],
-    pull: "Clarity made automation easier to approach and trust.",
-  },
   tabs: {
     design: {
-      intro: {
-        eyebrow: "Design",
-        heading: "Redesigning core workflows",
-        body: ["The redesign covers four areas: workflow building, trigger selection, sidebar app discovery and dashboard visibility."],
-      },
+      intro: apIntro,
       blocks: [
-        { type: "image", alt: "Activepieces builder redesign", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "The builder", heading: "Easier to scan, step by step", body: ["The builder is more intuitive and easier to scan, with visual cues that support step-by-step creation."] },
-        { type: "image", alt: "Activepieces trigger selection redesign", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "Select trigger", heading: "Choose the right trigger with confidence", body: ["Search, filtering and clearer explanations make it easier to pick an accurate trigger."] },
-        { type: "image", alt: "Activepieces sidebar apps redesign", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "Sidebar apps", heading: "Find and add tools faster", body: ["The sidebar is reorganised so users can find and add tools faster, with clearer icons and guidance."] },
-        { type: "image", alt: "Activepieces dashboard redesign", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "Dashboard", heading: "A more approachable overview", body: ["A friendlier layout with clearer, more engaging widgets for app activity and workflow status."] },
-        { type: "image", alt: "Activepieces tools integration example", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "Tools integration", body: ["Workflow integrations are visualised more clearly, so users can see how their app connections relate to one another."] },
+        { type: "text", eyebrow: "workflows", heading: "Redesigning Core Workflows", body: ["The redesign work centered on the product areas that most directly shaped usability: workflow building, trigger selection, app discovery in the sidebar, and dashboard visibility."] },
+        { type: "text", heading: "The Builder", body: ["The builder was redesigned to feel more intuitive and easier to scan, with clearer visual cues that support workflow creation step by step."] },
+        { type: "image", src: `${AP}/builder-canvas.webp`, tone: "screen", alt: "Redesigned Activepieces builder: an empty canvas with the flow name, Test Flow and Publish actions", ratio: 1068 / 590 },
+        { type: "text", heading: "Select Trigger", body: ["Search, filtering, and clearer explanations made trigger selection easier and more accurate for users starting new automations."] },
+        { type: "image", src: `${AP}/select-trigger.webp`, tone: "screen", alt: "Select Step panel with a search field, tabs and a list of apps including Airtable, Amazon S3 and Asana", ratio: 1068 / 590 },
+        { type: "text", heading: "Side Bar Apps", body: ["The sidebar was reorganized to help users find and add the right tools faster, supported by clearer icons and helpful guidance."] },
+        { type: "image", src: `${AP}/sidebar-apps.webp`, tone: "screen", alt: "Sidebar app list with clearer icons and guidance", ratio: 1068 / 590 },
+        { type: "text", heading: "Dashboard", body: ["A more approachable dashboard helped users monitor app activity and workflow status through clearer, more visually engaging widgets."] },
+        { type: "image", src: `${AP}/dashboard-flows.webp`, tone: "screen", alt: "Flows dashboard with a table of flows, status toggles and a task usage bar", ratio: 1068 / 590 },
       ],
     },
     think: {
-      intro: {
-        eyebrow: "The problem",
-        heading: "Simpler automation flows",
-        body: [
-          "Users need help understanding a flow at a glance and configuring it without feeling overwhelmed.",
-          "The redesign focused on clarity at the moments that matter most: building, triggering and monitoring automations.",
-        ],
-      },
+      intro: apIntro,
       blocks: [
-        { type: "image", alt: "Activepieces product overview", ratio: 1068 / 560 },
-        {
-          type: "text",
-          eyebrow: "Research",
-          heading: "Learning from workflow friction",
-          body: [
-            "Working closely with the founder and a senior designer exposed usability issues in setting up and managing automations.",
-            "That showed where the interface needed more structure, stronger visual cues and a more approachable path through technical tasks, so users could build faster, choose triggers with more confidence and monitor activity with less ambiguity.",
-          ],
-        },
-        { type: "text", eyebrow: "How might we", heading: "Three goals", body: ["The work was guided by three goals."] },
-        {
-          type: "cards",
-          cols: 3,
-          items: [
-            { title: "Make flows easier to understand across connected apps" },
-            { title: "Reduce friction in trigger selection, builder navigation and sidebar tools" },
-            { title: "Create a more consistent interface system that aligns design and development" },
-          ],
-        },
+        { type: "cards", cols: 3, items: [
+          { kicker: "How might we?", title: "Make automation-building flows easier to understand for users working across multiple connected apps." },
+          { kicker: "How might we?", title: "Reduce friction in key setup moments like selecting triggers, navigating the builder, and managing sidebar tools." },
+          { kicker: "How might we?", title: "Create a more consistent interface system that supports both better usability and stronger design-development alignment." },
+        ] },
+        { type: "text", eyebrow: "research", heading: "Learning from Workflow Simplicity", body: ["Working alongside the founder and senior designer gave me direct visibility into the usability issues people encountered while trying to set up and manage automations. That collaboration helped clarify where the interface needed more structure, stronger visual cues, and a more approachable path through technically complex tasks."] },
       ],
     },
     build: {
-      intro: {
-        eyebrow: "System",
-        heading: "Material Design system",
-        body: ["Material Design was the foundation for consistent UI patterns, typography and colour, which improved collaboration between design and development."],
-      },
+      intro: apIntro,
       blocks: [
-        { type: "image", alt: "Activepieces design system overview", ratio: 1068 / 560 },
-        { type: "text", eyebrow: "Shared language", heading: "One product language", body: ["Consistency helped build a cohesive product language and sped up both implementation and future features."] },
-        { type: "text", eyebrow: "Results", heading: "Faster setup, better confidence", body: ["The redesigned creation experience reduced setup time for complex automations and improved overall satisfaction."] },
-        { type: "cards", cols: 2, items: [{ title: "40%", lines: ["reduction in the time users needed to set up complex automations"] }] },
-        { type: "image", alt: "Activepieces founder review", ratio: 1068 / 560 },
+        { type: "text", eyebrow: "system", heading: "Material Design System", display: true, body: ["Material Design was used as the foundation for stronger collaboration between design and development, helping the team work from a more consistent set of UI patterns, typography, and color decisions. That system-level consistency made it easier to build a cohesive product language while also speeding up implementation and future feature work."] },
+        { type: "image", src: `${AP}/material-design-system.webp`, tone: "screen", alt: "Material Design components used as the system foundation: tabs, cards, lists, chips, buttons and dialogs", ratio: 1068 / 575 },
+        { type: "text", heading: "Tools Integration", body: ["Workflow integrations were also visualized more clearly so users could better understand how app connections relate to one another inside the product."] },
+        { type: "image", src: `${AP}/tools-integration-branch.webp`, tone: "screen", alt: "Branch step with True and False paths and a settings panel showing required fields", ratio: 1068 / 546 },
+        { type: "text", eyebrow: "system", heading: "Faster Setup, Better Confidence", body: ["The redesign of the workflow creation experience helped reduce the time users needed to set up complex automations while also improving overall satisfaction with the product."] },
+        { type: "text", eyebrow: "OUTCOME", heading: "40%", body: ["Reduction in the time it took users to set up complex automations, helping them work more productively."] },
+        { type: "image", src: `${AP}/outcome-discord-feedback.webp`, tone: "screen", alt: "Discord conversation where the founder says the redesigned back end is very clear to users", ratio: 1068 / 500 },
       ],
     },
   },

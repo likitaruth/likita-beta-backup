@@ -46,7 +46,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
 
           <ViewTransition name={`project-${study.slug}-media`} share={{ "nav-forward": "morph", default: "none" }} default="none">
             {study.heroSrc ? (
-              <Item kind="fade" className="cs-ex cs-ex--photo mx-auto w-full" style={{ aspectRatio: study.heroRatio ?? 1068 / 600, maxWidth: 1068 }}>
+              <Item kind="fade" className={cn("cs-ex mx-auto w-full", study.heroTone === "screen" ? "cs-ex--screen" : "cs-ex--photo")} style={{ aspectRatio: study.heroRatio ?? 1068 / 600, maxWidth: study.heroMax ?? 1068 }}>
                 <div className="cs-ex-in">
                   <Image src={study.heroSrc} alt={study.heroAlt} fill priority sizes="(min-width:1100px) 1068px, 100vw" className="object-cover" />
                 </div>
@@ -70,7 +70,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
 
         <Stage amount={0.2} className="mx-auto flex w-full max-w-[1068px] flex-col gap-10 pt-4 md:pt-[40px]">
           <div className="flex flex-col gap-1">
-            <Item as="p" className={label}>{data.intro.eyebrow}</Item>
+            {data.intro.eyebrow && <Item as="p" className={label}>{data.intro.eyebrow}</Item>}
             <Item as="h2" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none">{data.intro.heading}</Item>
           </div>
           <Item className={cn(body, "flex flex-col gap-5")}>
@@ -133,7 +133,9 @@ function BlockView({ block }: { block: Block }) {
           {(block.eyebrow || block.heading) && (
             <div className="flex flex-col">
               {block.eyebrow && <Item as="p" className="text-[12px] font-semibold uppercase leading-[28px] text-fg-subtle">{block.eyebrow}</Item>}
-              {block.heading && <Item as="h3" className="text-[clamp(22px,4vw,28px)] font-medium leading-[1.04] text-fg">{block.heading}</Item>}
+              {block.heading && (block.display
+                ? <Item as="h3" kind="wipe" className="t-display text-[clamp(28px,7.5vw,56px)] font-medium uppercase leading-none text-fg">{block.heading}</Item>
+                : <Item as="h3" className="text-[clamp(22px,4vw,28px)] font-medium leading-[1.04] text-fg">{block.heading}</Item>)}
             </div>
           )}
           <Item className={cn("flex flex-col gap-5 text-fg", block.size === 21 ? "text-[19px] leading-[1.38] md:text-[21px]" : "text-[18px] leading-[1.15]")}>
