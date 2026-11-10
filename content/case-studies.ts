@@ -16,20 +16,23 @@ export type TabKey = "design" | "think" | "build";
 
 export type Block =
   | { type: "text"; eyebrow?: string; heading?: string; body: string[]; size?: 18 | 21 }
-  | { type: "image"; alt: string; ratio: number; width?: number }
-  | { type: "cards"; cols: 2 | 3; items: { n?: string; title?: string; lines?: string[]; list?: string[] }[] }
-  | { type: "pull"; text: string };
+  | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" }
+  | { type: "cards"; cols: 2 | 3; items: { n?: string; kicker?: string; title?: string; lines?: string[]; list?: string[] }[] }
+  | { type: "pull"; text: string; heading?: string };
 
 export type Tab = { intro: { eyebrow: string; heading: string; body: string[] }; blocks: Block[] };
 
 export type CaseStudy = {
   slug: string;
   title: string;
-  lede: string;
+  lede: string | string[];
   heroAlt: string;
+  /** Optional real hero image; falls back to the placeholder. heroRatio is width / height. */
+  heroSrc?: string;
+  heroRatio?: number;
   /** Up to three label/value pairs shown under the hero (Figma: Role / Focus / Year). */
   meta: [string, string][];
-  reflection: { eyebrow: string; heading: string; body: string[]; pull: string };
+  reflection?: { eyebrow: string; heading: string; body: string[]; pull: string };
   tabs: Partial<Record<TabKey, Tab>>;
 };
 
@@ -188,163 +191,77 @@ export const caseStudies: CaseStudy[] = [
 ];
 
 /*
- * ClientLens + Activepieces — migrated from likita.dev/works/owigo and likita.dev/works/activepieces.
- * FLAGS:
- *  - The page reader could only return summaries and short quotes, not verbatim paragraphs. Copy below is a faithful
- *    rewrite of what each section says (no facts, numbers or claims added). Paste the exact original text over it if
- *    you want word-for-word parity.
- *  - Neither page states a year, so the third meta slot is Industry. Neither lists implementation internals, so each
- *    Build tab holds system / outcome / collaboration / measurement material only.
- *  - Image slots follow the source page order and captions; every image is a placeholder until exported
- *    (likita.dev is blocked from the build sandbox).
- *  - The source page lists "Teamforce" as client for ClientLens in one read and "ClientLens" as context in another; omitted.
+ * ClientLens — exact copy and image placement from Figma 2171:9645 (Design 2171:8814 / Think 2171:9033 / Build 2171:9154).
+ * Images are web-sized WebP/JPG in /public/assets/case/clientlens. Frame ratios are the Figma frame sizes.
+ * Notes: the Figma Build tab "Next" button reads "Think"; the site flow is kept (Build -> next project).
+ * The counter is derived from the project list, not hard-coded.
  */
+const CL = "/assets/case/clientlens";
+const clIntro: Tab["intro"] = {
+  eyebrow: "Product journey",
+  heading: "Context to Evidence to Action",
+  body: ["The shipped workflow begins with a known client, ranks relevant comparisons, preserves both clients inside a shared comparison workspace, and introduces natural-language interpretation only when the user intentionally begins a detailed comparison."],
+};
 const clientlens: CaseStudy = {
   slug: "clientlens",
-  title: "Explainable customer intelligence",
-  lede: "ClientLens is an AI-powered feature within an enterprise CRM that helps account managers find clients with similar behavioural patterns, understand why they match, and decide what to do next.",
-  heroAlt: "ClientLens overview: AI summary, match score, similarities, differences and recommended actions",
-  meta: [["Role", "UX/Product Designer & Builder"], ["Focus", "Explainable AI / Similarity Ranking / Decision Support"], ["Industry", "Customer Intelligence"]],
-  reflection: {
-    eyebrow: "Reflection",
-    heading: "Reviewable AI decisions",
-    body: [
-      "What matters most is the structure around the AI output: where it sits, what evidence supports it, how incomplete data is handled, how a user can challenge it, and how it connects to a decision.",
-      "Two directions follow from that. Move from recommendation to execution by linking suggestions to tasks, outreach or campaigns, with a way to give feedback. And make changing patterns visible through comparison history, score-change visibility, cohort comparison and feature-contribution controls.",
-    ],
-    pull: "The experience moves users from client context to pattern discovery, AI interpretation, evidence and action, instead of asking them to trust a black box.",
-  },
+  title: "Explainable Customer Intelligence",
+  lede: [
+    "ClientLens is an AI-powered feature within an enterprise CRM that helps account managers find clients with similar behavioural patterns, understand what drives those similarities, and identify appropriate engagement opportunities.",
+    "It brings trading activity, financial behaviour, CRM notes, communication habits, risk indicators, lead-source data, and lifecycle engagement into one investigation workflow.",
+  ],
+  heroAlt: "ClientLens similar-leads results on a laptop at a walnut desk",
+  heroSrc: `${CL}/hero-walnut-desk.jpg`,
+  heroRatio: 1068 / 600,
+  meta: [["Role", "Product design & Prototype"], ["Focus", "AI / SAAS / CRM"], ["Year", "2026"]],
   tabs: {
     design: {
-      intro: {
-        eyebrow: "The solution",
-        heading: "Context to evidence to action",
-        body: [
-          "The workflow starts with a known client, ranks comparisons, keeps both clients in a shared workspace, and adds natural-language interpretation only when the user starts a detailed comparison.",
-        ],
-      },
+      intro: clIntro,
       blocks: [
-        { type: "image", alt: "ClientLens product flow from Client Detail through Find Similar, Similar Leads, AI Overview, Radar Preview and Deep Compare", ratio: 1068 / 520 },
-        {
-          type: "text",
-          eyebrow: "Client detail",
-          heading: "Start from a known client",
-          body: ["The reference screen opens with identity, status, segment, deposits, lifetime value, trading activity, risk, redeposit likelihood, engagement and profile-data availability. Find Similar sits inside the client profile, so every search stays tied to a reference client."],
-        },
-        { type: "image", alt: "Reference-client detail screen with the Find Similar Leads action", ratio: 1068 / 560 },
-        {
-          type: "text",
-          eyebrow: "Ranked similar leads",
-          heading: "Rank by evidence",
-          body: ["Results are ranked by overall match strength, with category signals, identity, status and segment alongside. High, medium and low bands keep large result sets manageable without a paragraph of explanation for every result."],
-        },
-        { type: "image", alt: "Ranked similar-client results with match score breakdowns", ratio: 1068 / 560 },
-        { type: "image", alt: "Anatomy of the results: persistent reference context, similarity bands and category-level evidence", ratio: 1068 / 560 },
-        {
-          type: "text",
-          eyebrow: "Persistent comparison context",
-          heading: "Keep the pair in view",
-          body: ["The same client pair stays visible across Overview, Radar Preview and Deep Compare, so the three views read as one workspace rather than disconnected reports."],
-        },
-        { type: "image", alt: "Radar Preview comparing behavioural and profile similarity across two clients", ratio: 1068 / 560 },
-        { type: "image", alt: "Deep Compare feature breakdown with client values and match results", ratio: 1068 / 560 },
-        {
-          type: "text",
-          eyebrow: "When AI is unavailable",
-          heading: "Never hide the evidence",
-          body: ["If an AI summary can't be generated, the structured scores remain available, so the underlying evidence is always reachable."],
-        },
+        { type: "text", eyebrow: "Product journey", heading: "Client Detail", body: ["The journey starts with identity, status, segment, deposits, lifetime value, trading activity, risk, redeposit likelihood, engagement, and profile-data availability. Anchoring Find Similar inside the client profile keeps the investigation grounded in a reference client and a clear business hypothesis."] },
+        { type: "image", src: `${CL}/mockup-lead-detail.webp`, tone: "photo", alt: "Client detail screen with the Find Similar action, shown on a laptop on a sunny terrace", ratio: 1068 / 600 },
+        { type: "text", eyebrow: "Product journey", heading: "Ranked Similar Leads", body: ["Ranked results prioritize overall match strength, category-level signals, identity, status, and segment so users can decide whether a result is relevant enough to investigate. High, medium, and low bands make a large client set manageable without generating a paragraph for every result."] },
+        { type: "image", src: `${CL}/mockup-similar-leads.webp`, tone: "cut", alt: "Ranked similar-client results with match scores, shown on an angled laptop", ratio: 1068 / 700 },
+        { type: "text", eyebrow: "comparison workspace", heading: "Persistent Comparison Context", body: ["The same client pair remains visible across Overview, Radar Preview, and Deep Compare. This shared state prevents each view from feeling like a disconnected report and reduces the need to repeatedly select or reconstruct context.", "Structured scores remain available even when an AI summary cannot be generated, providing graceful degradation without hiding the underlying evidence."] },
+        { type: "image", src: `${CL}/mockup-deep-compare.webp`, tone: "photo", alt: "Deep Compare feature breakdown for a client pair, shown on a laptop on a sofa", ratio: 1068 / 700 },
       ],
     },
     think: {
-      intro: {
-        eyebrow: "The problem",
-        heading: "From CRM data to decisions",
-        body: [
-          "Client data was spread across profiles, transactions, trading, communications and risk modules, so users had to move between them to compare clients.",
-          "Access to data was not the core problem. Users needed to know which behaviours produced a match and what action should follow.",
-        ],
-      },
+      intro: clIntro,
       blocks: [
-        { type: "image", alt: "Before and after: siloed CRM data versus the five-step ClientLens decision journey", ratio: 1068 / 520 },
-        {
-          type: "text",
-          eyebrow: "How might we",
-          heading: "Three questions that shaped the work",
-          body: ["The design brief reduced to three questions."],
-        },
-        {
-          type: "cards",
-          cols: 3,
-          items: [
-            { title: "Help users move from a known client to comparisons" },
-            { title: "Make each match explainable" },
-            { title: "Turn evidence into a next step while the user keeps the final decision" },
-          ],
-        },
-        {
-          type: "text",
-          eyebrow: "Information model",
-          heading: "Four information layers",
-          body: ["The design separates factual CRM data, calculated similarity, AI interpretation and operational recommendations. Keeping the layers apart stops generated insight from looking like raw customer data."],
-        },
-        { type: "image", alt: "Layered information model: observed CRM data, calculated similarity, AI interpretation, operational recommendations", ratio: 1068 / 560 },
-        { type: "cards", cols: 2, items: [
-          { n: "01", title: "Factual CRM data" },
-          { n: "02", title: "Calculated similarity" },
-          { n: "03", title: "AI interpretation" },
-          { n: "04", title: "Operational recommendations" },
-        ] },
-        {
-          type: "text",
-          eyebrow: "A progressive decision journey",
-          heading: "Five questions, in order",
-          body: ["Each step of the product answers one question, moving the user from context to action."],
-        },
         { type: "cards", cols: 3, items: [
-          { n: "01", title: "Who is the client?" },
-          { n: "02", title: "Who is similar?" },
-          { n: "03", title: "Why did they match?" },
-          { n: "04", title: "Where do they differ?" },
-          { n: "05", title: "What should I do?" },
+          { kicker: "How might we?", title: "Help account managers move from a known client to relevant comparisons without manually searching across CRM modules." },
+          { kicker: "How might we?", title: "Make every AI-selected match explainable by showing the behaviours, dimensions, and differences behind the score." },
+          { kicker: "How might we?", title: "Turn comparison evidence into a clear next step while keeping the user responsible for the final decision." },
         ] },
+        { type: "text", eyebrow: "Information Model", heading: "Four Information Layers", body: ["ClientLens combines four distinct information layers: factual CRM values, calculated similarity data, AI-generated interpretation, and operational recommendations. Separating these layers keeps generated insight from being mistaken for raw customer data and makes the reasoning easier to inspect."] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", title: "Factual CRM Data", lines: ["Deposits, lifetime value, trading activity, status, communication records, lead source, and lifecycle stage establish the underlying client context."] },
+          { n: "02", title: "Calculated Similarity", lines: ["Overall scores, category percentages, feature-level matches, confidence bands, and unavailable comparisons form the structured comparison result."] },
+          { n: "03", title: "Interpretation and Action", lines: ["AI-generated explanations clarify why a match matters, while operational recommendations translate the evidence into a reviewable next step"] },
+        ] },
+        { type: "image", src: `${CL}/information-model.webp`, tone: "dark", alt: "Information model showing the four layers: factual CRM data, calculated similarity, AI interpretation and operational recommendations", ratio: 1068 / 612 },
+        { type: "text", heading: "A Progressive Decision Journey", body: ["The experience was reframed around five questions: Who is this client? Who are the similar clients? Why were they matched? Where do they differ? What should the user do with the information?", "This progression moves from client context to discovery, interpretation, evidence, and action. It gives account officers a concise path while preserving deeper comparison detail for analysts who need it."] },
+        { type: "image", src: `${CL}/product-flow.webp`, tone: "flow", alt: "Product flow from Client Detail through Find Similar, Similar Leads, AI Overview, Radar Preview and Deep Compare", ratio: 1077 / 132.8 },
+        { type: "text", eyebrow: "Reflection", heading: "Reviewable AI Decisions", body: ["The most important part of an intelligent feature is the structure around its output: where it appears, what evidence supports it, how incomplete data is handled, how users inspect or challenge it, and how it connects to an operational decision."] },
+        { type: "image", src: `${CL}/product-roadmap.webp`, tone: "dark", alt: "Product roadmap showing shipped, next and later opportunities", ratio: 1068 / 800 },
       ],
     },
     build: {
-      intro: {
-        eyebrow: "Outcome",
-        heading: "A live intelligence layer",
-        body: ["ClientLens is live in the CRM and supports relationship managers and operational teams."],
-      },
+      intro: clIntro,
       blocks: [
-        {
-          type: "text",
-          eyebrow: "AI in the product",
-          heading: "Interpretation only when asked",
-          body: ["Natural-language interpretation appears only when a user starts a detailed comparison. Up to that point the product shows calculated scores and CRM facts, each kept in its own layer, and the structured scores stay available if a summary can't be generated."],
-        },
-        {
-          type: "text",
-          eyebrow: "Measuring the release",
-          heading: "Verified metrics come next",
-          body: ["Verified usage metrics are not included yet. A measurement phase is planned, tracking the signals below."],
-        },
-        { type: "image", alt: "Measurement funnel and planned instrumented product metrics", ratio: 1068 / 560 },
+        { type: "image", src: `${CL}/anatomy-of-the-system.webp`, tone: "dark", alt: "Anatomy of the ClientLens system", ratio: 1068 / 500 },
+        { type: "text", eyebrow: "Outcome", heading: "A Live Intelligence Layer", body: ["ClientLens is live within the CRM. It gives relationship managers and operational teams a structured way to begin from a known client, discover comparable profiles, understand why they match, inspect differences, and use visible evidence to inform engagement decisions.", "Verified usage metrics are not yet included. The next measurement phase will track time to identify a relevant comparison, progression from results to comparison, use of deeper evidence views, recommendation engagement, completion and abandonment, adoption, and operational outcomes after recommended actions."] },
+        { type: "image", src: `${CL}/measurement-funnel.webp`, tone: "dark", alt: "Measurement funnel for the next phase of ClientLens metrics", ratio: 1068 / 800 },
         { type: "cards", cols: 2, items: [
-          { title: "Discovery", list: ["Time to find a relevant comparison", "Progression to comparison", "Use of deeper views"] },
-          { title: "Action", list: ["Recommendation engagement", "Completion and abandonment", "Adoption and post-action outcomes"] },
+          { title: "Move from recommendation to execution", lines: ["Future iterations can connect a recommendation directly to a task, outreach sequence, or campaign while collecting feedback on whether the suggestion was useful or acted upon."] },
+          { title: "Make changing patterns visible", lines: ["Comparison history, score-change visibility, cohort comparison, and deeper feature-contribution controls can extend the same product model without creating a separate AI experience."] },
         ] },
-        {
-          type: "text",
-          eyebrow: "What comes next",
-          heading: "Shipped, next, later",
-          body: ["The roadmap runs as a continuous improvement cycle: what has shipped, what is next, and later opportunities."],
-        },
-        { type: "image", alt: "Product roadmap showing shipped, next and later opportunities with a continuous improvement cycle", ratio: 1068 / 560 },
+        { type: "pull", heading: "Closing Thought", text: "The final experience does not ask users to trust a black-box recommendation. It helps them move from client context, to pattern discovery, to AI interpretation, to evidence, and finally to action." },
       ],
     },
   },
 };
+
 
 const activepieces: CaseStudy = {
   slug: "activepieces",

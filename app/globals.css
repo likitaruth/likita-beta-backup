@@ -289,3 +289,76 @@ body {
   .works-panel { animation: works-fade 0.2s linear both; }
   @keyframes works-fade { from { opacity: 0; } to { opacity: 1; } }
 }
+
+/* ───────── Case study: sticky tabs + depth (components/case) ───────── */
+::view-transition-group(.case-ind) { animation-duration: 420ms; animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1); }
+
+.cs-tabs-pill {
+  max-width: 100%;
+  background: #1a1a19;
+  box-shadow: inset 0 0 0 1px #262624;
+  transition: max-width 600ms var(--ease-out-quint), background-color 400ms, box-shadow 500ms;
+}
+.cs-tabs[data-stuck="true"] .cs-tabs-pill {
+  max-width: 440px;
+  background: rgb(16 16 15 / 0.82);
+  box-shadow: inset 0 0 0 1px rgb(241 235 228 / 0.1), 0 18px 40px -10px rgb(0 0 0 / 0.8);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+}
+.cs-tab small { font-variant-numeric: tabular-nums; }
+.cs-ind { box-shadow: 0 6px 14px -4px rgb(0 0 0 / 0.6); }
+.cs-prog { opacity: 0; transform: scaleX(var(--p, 0)); transition: opacity 400ms; }
+.cs-tabs[data-stuck="true"] .cs-prog { opacity: 1; }
+@media (max-width: 640px) { .cs-tab small { display: none; } }
+
+/* Hero / exhibit frames */
+.cs-ex { position: relative; isolation: isolate; border-radius: 24px; }
+.cs-ex-in { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; }
+.cs-ex-in img { transform: scale(1.06); }
+.cs-ex--photo { box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 40px 70px -30px rgb(0 0 0 / 0.9), 0 18px 30px -18px rgb(0 0 0 / 0.8); }
+.cs-ex--photo::before, .cs-ex--dark::before {
+  content: ""; position: absolute; inset: 8% 5% 0; z-index: -1; border-radius: 40px; filter: blur(50px);
+  background: radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--accent-soft) 60%, transparent), transparent 70%); opacity: 0.4;
+}
+.cs-ex--dark { background: #0b0c0e; box-shadow: 0 0 0 1px rgb(154 162 58 / 0.22), 0 0 0 8px rgb(154 162 58 / 0.04), 0 40px 70px -30px #000; }
+.cs-ex--dark .cs-ex-in img { transform: none; }
+.cs-ex--cut { border-radius: 0; background: radial-gradient(60% 55% at 50% 52%, rgb(241 235 228 / 0.1), transparent 70%); }
+.cs-ex--cut .cs-ex-in { overflow: visible; }
+.cs-ex--cut .cs-ex-in img { transform: none; filter: drop-shadow(0 40px 40px rgb(0 0 0 / 0.6)); }
+.cs-ex--cut::after { content: ""; position: absolute; left: 12%; right: 12%; bottom: 6%; height: 40px; z-index: -1; background: radial-gradient(50% 50% at 50% 50%, rgb(0 0 0 / 0.7), transparent 70%); filter: blur(10px); }
+.cs-ex--flow { border-radius: 20px; background: #f8f8f8; box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 30px 50px -28px rgb(0 0 0 / 0.8); overflow: hidden; }
+
+/* Slow parallax on photos: compositor-only, scroll-driven, skipped for reduced motion. */
+@keyframes cs-par { from { translate: 0 -3.5%; } to { translate: 0 3.5%; } }
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cs-ex--photo .cs-ex-in img { animation: cs-par linear both; animation-timeline: view(); animation-range: cover 0% cover 100%; }
+  }
+}
+
+/* Cards */
+.cs-card {
+  position: relative; border-radius: 20px; padding: 24px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--surface), white 5%), var(--surface));
+  box-shadow: inset 0 0 0 1px rgb(241 235 228 / 0.07), inset 0 1px 0 rgb(241 235 228 / 0.09), 0 24px 30px -22px rgb(0 0 0 / 0.9);
+  transition: transform 500ms var(--ease-out-quint), box-shadow 400ms;
+}
+.cs-card::before { content: ""; position: absolute; left: 24px; top: 0; width: 40px; height: 2px; background: var(--accent-soft); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .cs-card:hover { transform: translateY(-4px); box-shadow: inset 0 0 0 1px rgb(154 162 58 / 0.35), inset 0 1px 0 rgb(241 235 228 / 0.12), 0 30px 36px -20px #000; }
+}
+
+/* Meta ledger */
+.cs-meta > div { position: relative; border-top: 1px solid var(--line); padding-top: 20px; }
+.cs-meta > div::before { content: ""; position: absolute; left: 0; top: -1px; width: 28px; height: 2px; background: var(--accent-soft); }
+@media (min-width: 640px) {
+  .cs-meta > div:nth-child(2)::before { left: 50%; margin-left: -14px; }
+  .cs-meta > div:nth-child(3)::before { left: auto; right: 0; }
+}
+
+/* Closing quote + ghost "Next" */
+.cs-quote { position: relative; }
+.cs-quote::before { content: "\201C"; position: absolute; left: 50%; top: -52px; translate: -50% 0; font: 600 140px/1 var(--font-display); color: color-mix(in oklab, var(--accent-soft) 35%, transparent); pointer-events: none; }
+.cs-ghost { position: absolute; left: 50%; top: 38%; translate: -50% -50%; font: 700 clamp(110px, 20vw, 260px)/1 var(--font-display); letter-spacing: -0.05em; color: rgb(241 235 228 / 0.035); white-space: nowrap; pointer-events: none; user-select: none; }
+[data-theme="light"] .cs-ghost { color: rgb(20 20 19 / 0.05); }
