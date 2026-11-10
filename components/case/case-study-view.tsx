@@ -25,7 +25,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
       <article className="page-shell cq flex flex-col gap-10 pb-24 pt-[72px] md:pb-[120px]">
         <Stage trigger="mount" gap={0.08} className="flex flex-col gap-10">
           <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-5">
               <div className="flex items-start justify-between">
                 <Item as="div" kind="fade">
                   <Link href="/works" transitionTypes={["nav-back"]} className={cn(label, "group inline-flex items-center gap-2 transition-colors hover:text-fg")}>
@@ -37,9 +37,9 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
                   <b className="font-bold text-accent">{String(index + 1).padStart(2, "0")} </b>/ {String(projects.length).padStart(2, "0")}
                 </Item>
               </div>
-              <Item as="h1" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none md:max-w-[1088px]">{study.title}</Item>
+              <Item as="h1" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none text-center">{study.title}</Item>
             </div>
-            <Item className={cn(body, "flex max-w-[1312px] flex-col gap-4")}>
+            <Item className={cn(body, "mx-auto flex max-w-[780px] flex-col gap-4 text-center")}>
               {[study.lede].flat().map((t) => <p key={t}>{t}</p>)}
             </Item>
           </div>
