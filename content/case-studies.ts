@@ -331,7 +331,197 @@ const activepieces: CaseStudy = {
   },
 };
 
-caseStudies.push(clientlens, activepieces);
+
+/*
+ * NORTHSTAR — content and screenshots from the published Northstar artifact (claude.ai/artifact/FXFcop4Kwh1KpCwuc5YmK7).
+ * FLAGS: the artifact's numbered annotation pins are folded into the copy (the image block has no overlay). The decision
+ * tree, role table, before/after lanes, recovery run and approval timeline are expressed as cards, since the shared blocks
+ * have no diagram/table type. The artifact's "Limits & next" and closing line become the Reflection block.
+ */
+const NS = "/assets/northstar";
+const nsIntro: Tab["intro"] = {
+  heading: "A CRM that stays honest about what its AI doesn't know",
+  body: [
+    "Retention teams reactivating dormant enterprise clients work in tools built around modules, not outcomes. The judgment that decides who gets contacted lives outside the system, in exports and spreadsheets, where nobody can audit it.",
+    "Northstar starts from a business outcome. The AI investigates and drafts, people keep authority over consequential decisions, and the handoffs between them are designed rather than left to chance.",
+  ],
+};
+const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", src: `${NS}/${file}.webp`, tone: "screen", alt, ratio });
+const northstar: CaseStudy = {
+  slug: "northstar",
+  title: "An AI-native CRM that shows its uncertainty",
+  lede: "Northstar is a working prototype of a goal-driven CRM for retention teams. I designed the journey from a stated goal to an audited action, then built it end to end as a React and TypeScript front end on synthetic data: 7 flows, 3 roles and 10 designed failure scenarios.",
+  heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
+  heroSrc: `${NS}/summary.webp`,
+  heroRatio: 1.6,
+  heroMax: 1068,
+  heroTone: "screen",
+  meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Working prototype on synthetic data"]],
+  reflection: {
+    eyebrow: "limits & next",
+    heading: "What this is, and what it isn't yet",
+    body: [
+      "Still a prototype. The data is 36 invented clients built to exercise eligible, uncertain and excluded paths, and execution is simulated: no real email was sent and no live CRM or provider was connected. The design reasoning comes from the problem framing, not from studies with retention or compliance teams, and nothing here measures reactivation, conversion or time saved.",
+      "Next: test the journey with real retention managers and approvers and watch where they hesitate at each seam. Measure time to a trusted decision, not clicks saved. Learn which conflicts teams resolve fastest and which they escalate. Then connect a real data source behind the same boundary, keeping execution simulated until approvals hold under load.",
+    ],
+    pull: "The AI does the investigating. People keep the authority. The space between them is designed, not left to chance.",
+  },
+  tabs: {
+    design: {
+      intro: nsIntro,
+      blocks: [
+        { type: "text", eyebrow: "the experience", heading: "From a goal to an audited action, in one connected thread", body: ["The journey runs Goal, Investigation, Evidence, Opportunities, Refinement, Approval, Execution and Recovery. Every screen belongs to one investigation, so a finding, the plan it led to and the approval it needed never lose their connection."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Designed", list: ["10 Figma screens across 7 flows", "States the screens didn't cover: running investigation, impact review, approval outcomes, execution recovery", "Role and autonomy boundaries"] },
+          { kicker: "Implemented", list: ["A working prototype of every flow", "Plan versioning and approval of an exact version", "Role-based actions, audit log, simulated execution with safe retries"] },
+          { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
+          { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "No user research or business metrics yet", "Never connected to a live CRM or email provider"] },
+        ] },
+        { type: "text", eyebrow: "goal · workspace", heading: "The home screen asks for an outcome, then shows the next decision", body: ["First-time users see a goal composer, three suggested goals and a short explanation of what happens next. There are no empty charts. Returning users see Needs attention and Continue work, ordered by the next useful decision rather than the last page they opened.", "The list depends on the role. A retention manager sees “Waiting for approval of plan v1”. An approver sees the same item as “Authorize plan v1”."] },
+        ns("first-run", "First-run workspace with a welcome message, a Create your first business goal button, onboarding steps and suggested goals"),
+        { type: "text", body: ["First run: one primary action, and suggested goals that fill in the composer and stay editable before anything runs."] },
+        ns("home", "Returning workspace with a goal composer, a Needs attention list showing consent review, approval needed and findings ready, and a Continue work list"),
+        { type: "text", body: ["Returning: a new goal is always one line away, pending decisions come first and are tagged by type, and Continue work links to the next decision, not the last screen."] },
+        { type: "text", eyebrow: "investigation · seam 1", heading: "The AI shows its work while it runs, and reports findings, not verdicts", body: ["An investigation shows what it is checking as it goes: interpreting the goal, gathering evidence, verifying consent and KYC, classifying, drafting a plan. The progress screen states the boundary plainly: investigations only read evidence.", "When it finishes, the badge reads Investigation complete while the goal reads review ready. They are separate states on purpose. Finishing the analysis doesn't mean the business goal is met, and the interface never suggests otherwise."] },
+        ns("running", "Investigation in progress, with five steps, two complete, a progress bar and a note that investigations only read evidence"),
+        { type: "text", body: ["Progress is calculated from the start time, so it survives a page reload. The read-only boundary is stated where the user is waiting, which is when they wonder what the system is doing. This screen is not in the original Figma file. I designed it during the build to cover the gap between submitting a goal and seeing findings."] },
+        { type: "text", eyebrow: "opportunities · seam 2", heading: "“Needs review” and “omitted by criteria” look alike. They are different problems", body: ["A client can be left out of outreach for two very different reasons. Held for review means the evidence conflicts, so a person must resolve it. Omitted by criteria means the client qualifies but the current plan rules leave them out, so the fix is a plan change. Each state has its own label, colour and next action.", "Inside a client record, each piece of evidence names its source and observation time, and is marked either Verified fact or Conflict. The AI never picks a side between conflicting records. It shows both."] },
+        ns("opportunities", "Reactivation opportunities table with an amber banner saying 14 records need evidence review, and a Plan status column showing Omitted by criteria and In current plan"),
+        { type: "text", body: ["The uncertain group is announced before the table, together with what is still safe: verified clients can continue. Plan status is its own column, separate from eligibility."] },
+        ns("client-conflict", "Client sheet for Omar Haddad: Needs review, consent Unknown, held out of outreach until reviewed"),
+        { type: "text", body: ["Conflict: the headline says why this client is held, and the uncertain field is flagged inside the facts, not hidden in a tooltip."] },
+        ns("client-omitted", "Client sheet for Tariq Bello: eligible, omitted by criteria for plan v1, with a Refine current plan button and a verified last-trade fact"),
+        { type: "text", body: ["Omitted: the status comes with its own fix, refine the plan or exclude the client explicitly in the next version. Facts carry their source and the time they were observed."] },
+        { type: "text", eyebrow: "refinement · seam 3", heading: "You can't save a plan change until you've seen who it affects", body: ["Refining a plan always creates a new version. Plan v1 stays untouched. Save as new version stays locked until the user runs Review impact, which lists the audience before and after, by name, with the rule that removed each person.", "If the user edits anything after reviewing, the impact review is marked out of date and saving locks again. This is the same rule that governs approvals, applied one step earlier: a decision only counts for the exact inputs it was made on."] },
+        ns("refine-impact", "Refine plan v2 drawer with an impact review showing the audience going from 10 to 5, with named clients removed and the reasons"),
+        { type: "text", body: ["Reviewed: 10 to 5 clients, each removal explained, and saving unlocks only now."] },
+        ns("refine-stale", "The same drawer after an edit: the impact review is labelled out of date and saving is disabled until it is reviewed again"),
+        { type: "text", body: ["Stale: the old review fades and is labelled out of date, and the footer explains why saving locked and how to unlock it."] },
+        { type: "text", eyebrow: "approval · seam 3", heading: "Requesting approval doesn't send anything. Approval covers one version", body: ["The campaign screen splits into the plan and an authorization rail. The rail names the executable candidate: plan version, audience size, channel. It says outright that requesting approval does not execute outreach, because people hesitate before buttons that might have side effects.", "The approver sees the same plan with different controls: approve this version, or request changes with a required note. The approval states that version number in writing."] },
+        ns("campaign-draft", "Campaigns screen with plan v2 draft and a Prepare authorization rail with a Request approval button"),
+        { type: "text", body: ["Manager view: the exact thing being authorized, and the side effects of the button, stated up front."] },
+        ns("campaign-review", "Approver view with an awaiting approval badge, Approve plan v2 and Request changes buttons, and a note that approval applies only to version 2"),
+        { type: "text", body: ["Approver view (labelled Compliance Reviewer in the build): the version is in the button label, and any later change needs a new approval."] },
+        { type: "text", eyebrow: "execution · seam 4", heading: "Every consequential step leaves a record a person can read and a system can verify", body: ["Execution asks for one last confirmation with the real number of recipients. The Activity log then separates AI and system, human decisions and execution. Each event has a plain-language summary, the key numbers and the technical record underneath, so a compliance reviewer and an engineer can read the same event."] },
+        ns("execute-confirm", "Confirmation dialog: Schedule outreach to 5 clients, using the approved plan v2 draft, recorded as an execution event"),
+        { type: "text", body: ["The confirmation states the count, the version and that the step is recorded. It does not say “Are you sure?”."] },
+        ns("activity", "Activity log filtered into AI and system, Human decisions and Execution, showing an Outreach scheduled event with its technical record expanded"),
+        { type: "text", body: ["Filters by who acted, events that state the outcome in plain language, and the structured record behind a disclosure with a copy button."] },
+        { type: "text", heading: "On phones", body: ["The Figma file was desktop only. On phones, tables become cards, side drawers go full screen, and the uncertainty banner stays above the list."] },
+        { type: "image", src: `${NS}/phone-summary.webp`, tone: "screen", alt: "Investigation summary on a phone, awaiting approval", ratio: 780 / 1328, width: 340 },
+        { type: "image", src: `${NS}/phone-opps.webp`, tone: "screen", alt: "Opportunities on a phone, filtered to records that need review, shown as cards", ratio: 780 / 1328, width: 340 },
+      ],
+    },
+    think: {
+      intro: nsIntro,
+      blocks: [
+        { type: "text", eyebrow: "the problem", heading: "A CRM asks which workflow you want. A retention team has a goal.", body: ["A retention manager doesn't want a dashboard. They want dormant enterprise clients to come back this month, without emailing someone who withdrew consent. In a traditional CRM, the judgment that decides who gets contacted lives outside the system, in exports and spreadsheets, where nobody can audit it."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Workflow-driven CRM", title: "The user does the investigation.", list: ["Open the dormant-accounts dashboard (human)", "Build filters for inactivity and deposits (human)", "Export a report to a spreadsheet (human)", "Check consent in another system (gap)", "Decide who is “probably fine” (unrecorded)", "Send the campaign (irreversible)"], lines: ["The riskiest decisions happen where the system can't see them."] },
+          { kicker: "Northstar", title: "The user makes the decisions.", list: ["State the business goal (human)", "Investigate records against the goal (AI)", "Inspect evidence and resolve conflicts (uncertain)", "Refine the plan, preview its impact (human)", "Authorize one exact plan version (approver)", "Execute, reconcile, retry safely (system)"], lines: ["Each step leaves a record of who, or what, decided, and from which evidence."] },
+        ] },
+        { type: "pull", heading: "Design challenge", text: "How might we turn CRM work from manual task execution into goal-driven, AI-assisted decisions, without giving up transparency, safety or human control?" },
+        { type: "text", eyebrow: "the core idea", heading: "Most AI products design the answer. Northstar designs the space around it.", body: ["An AI that reaches a conclusion is the easy part. Trust breaks in the handoffs: between what the model concluded and what it actually saw, between what it knows and what it can't know, between a human's approval and what gets executed, and between a failed send and a safe retry. I treated these four seams as the product."] },
+        { type: "cards", cols: 2, items: [
+          { n: "01", kicker: "Seam 1 · AI reasoning", title: "Show the evidence", lines: ["“What did it actually look at?”", "Findings link to the client records behind them. Evidence carries a freshness date. Every number opens its source."] },
+          { n: "02", kicker: "Seam 2 · Uncertainty", title: "Keep the unknown visible", lines: ["“What doesn't it know?”", "Conflicting or missing evidence becomes its own state. Uncertain consent is never treated as permission."] },
+          { n: "03", kicker: "Seam 3 · Human decision", title: "Bind approval to a version", lines: ["“Who decided, on what, exactly?”", "Edits create a new version. Approval covers one version. A change makes earlier reviews and approvals stale."] },
+          { n: "04", kicker: "Seam 4 · Execution", title: "Design the recovery", lines: ["“What happened, and is it safe to retry?”", "Completed, failed and unknown outcomes stay distinct. Unknowns are reconciled before retrying. Completed actions are never repeated."] },
+        ] },
+        { type: "text", eyebrow: "classification · seam 2", heading: "Uncertain is a destination, not a rounding error", body: ["Every client record goes through the same questions. Only one path leads into an audience, and even that path ends at a person, not at a send."] },
+        { type: "cards", cols: 3, items: [
+          { kicker: "Evidence present? No", title: "Held · missing", lines: ["Says what is missing; no conclusion drawn."] },
+          { kicker: "Sources agree? No", title: "Held · conflict", lines: ["Both records shown; a person resolves it."] },
+          { kicker: "Consent unknown", title: "Held · review", lines: ["Never treated as permission."] },
+          { kicker: "Consent withdrawn", title: "Excluded", lines: ["With the rule that excluded it."] },
+          { kicker: "Matches plan? No", title: "Omitted", lines: ["Eligible; fixed by refining the plan."] },
+          { kicker: "Matches plan? Yes", title: "Draft audience", lines: ["Still needs a human approval."] },
+        ] },
+        { type: "text", eyebrow: "autonomy", heading: "Four kinds of action, decided before any prompt was written", body: ["Autonomy is a design property, not a model setting. I sorted every action in the journey into one of four groups, and the interface follows from that sorting. A button lives where its group says it may."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "AI may do", title: "Without asking", list: ["Read CRM evidence against the goal", "Classify records as eligible, uncertain or excluded", "Draft a plan and outreach copy", "Calculate the impact of a proposed edit"] },
+          { kicker: "AI does, then tells", title: "With notification", list: ["Investigation completed or stopped", "Plan version generated", "Evidence freshness and source gaps", "AI provider unavailable"] },
+          { kicker: "Needs a person", title: "With approval", list: ["Resolving uncertain consent or eligibility", "Saving a changed plan version", "Authorizing a plan for execution", "Retrying an action whose outcome is unknown"] },
+          { kicker: "Must never", title: "Hard limits", list: ["Treat unknown consent as permission", "Execute on a stale or unapproved version", "Answer follow-up questions without evidence to ground them", "Repeat an action that already completed"] },
+        ] },
+        { type: "cards", cols: 3, items: [
+          { kicker: "Retention Manager", list: ["Set goals and run investigations", "Review opportunities and refine plans", "Request approval for a plan version", "Inspect evidence, plans and the audit log"] },
+          { kicker: "Approver", list: ["Authorize or return a plan version", "Inspect evidence, plans and the audit log"] },
+          { kicker: "Viewer", list: ["Inspect permitted items only"] },
+        ] },
+        { type: "text", eyebrow: "failure catalogue", heading: "Ten things that go wrong, designed before the happy path was finished", body: ["Each failure answers the same four questions in the interface: what happened, why, what is still safe, and what the user can do next. A failure that can't answer all four isn't designed yet."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Seam 2", title: "Missing evidence", lines: ["User sees which fact is missing, on the client record.", "Still safe: no conclusion is drawn from the gap.", "Next: held for review until the evidence arrives."] },
+          { kicker: "Seam 2", title: "Conflicting evidence", lines: ["User sees both records, labelled Conflict, with their sources.", "Still safe: the AI never quietly chooses one.", "Next: a person resolves the conflict on the record."] },
+          { kicker: "Seam 2", title: "Uncertain consent", lines: ["User sees “Held for review” in the plan status column.", "Still safe: the client is excluded from every audience.", "Next: human review before any outreach."] },
+          { kicker: "Seam 1", title: "Invalid recommendation", lines: ["User sees the rule the plan breaks, at the field.", "Still safe: output is checked against business rules before display.", "Next: correct or revise it as a new version."] },
+          { kicker: "Seam 3", title: "Restricted permissions", lines: ["User sees who can act, and how to hand off to them.", "Still safe: review, approval and execution are blocked for that role.", "Next: hand off to the right role."] },
+          { kicker: "Seam 3", title: "Stale approval", lines: ["User sees that the approval belongs to an earlier version.", "Still safe: the changed plan cannot run on the old approval.", "Next: request approval for the new version."] },
+          { kicker: "Seam 4", title: "Failed execution", lines: ["User sees exactly which actions failed.", "Still safe: completed actions are left alone.", "Next: a controlled retry of the failed actions only."] },
+          { kicker: "Seam 4", title: "Unknown outcome", lines: ["User sees “Unknown”, not a guess of sent or failed.", "Still safe: no retry until the status is reconciled.", "Next: reconcile the status, then decide."] },
+          { kicker: "Seam 1", title: "AI provider unavailable", lines: ["User sees “Grounded follow-ups are not available”, with the reason.", "Still safe: no made-up answers to fill the gap.", "Next: work continues from verified findings."] },
+          { kicker: "Seam 4", title: "Duplicate action", lines: ["User sees completed actions marked as skipped on retry.", "Still safe: execution safeguards stop repeat sends.", "Next: nothing to do. The record shows why."] },
+        ] },
+        { type: "text", eyebrow: "recovery · seam 4", heading: "Ten sends. Eight complete, one failed, one unknown. Now what?", body: ["This is the run from the prototype's verification journey. The tempting design is a single “Retry” that sends to anyone not marked complete. That would resend to the unknown client, who may already have received the email. Northstar treats the three outcomes differently."] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", kicker: "Outcomes reported", title: "Keep three states, not two", lines: ["8 completed, 1 failed, 1 unknown. “Unknown” is shown as it is. Showing it as failed invites a duplicate send. Showing it as sent hides a possible gap."] },
+          { n: "02", kicker: "Reconcile", title: "Resolve the unknown first", lines: ["The unknown action's status is reconciled with the execution record before it can be retried."] },
+          { n: "03", kicker: "Controlled retry", title: "Retry only what failed", lines: ["Safeguards on each action skip the eight completed sends. The retry covers only the failure, and the log records why each action was skipped."] },
+        ] },
+        { type: "text", body: ["Verified in the prototype: retrying did not duplicate the successful actions. The run used synthetic data and a simulated execution channel."] },
+        { type: "text", eyebrow: "approval · staleness", heading: "An approval is a promise about one version. Edits break it, on purpose", body: ["Plan v1 is drafted: the AI proposes 10 verified clients. The approver authorizes v1, by number. Then the manager excludes a client, and v1's approval no longer describes what would run. Plan v2 is a new version, impact is reviewed again and v1 stays in history, unchanged. Only an approval of v2 can release v2.", "In the build, a plan that is awaiting approval can't be refined. The request must be withdrawn first, so nobody can change a plan while someone else is reviewing it."] },
+        { type: "text", eyebrow: "trade-offs", heading: "Every safety rule costs some speed. These are the trades I chose", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Chose", title: "Outcome-first workspace", lines: ["Over module navigation: contacts, deals, reports.", "Cost: less familiar to people used to classic CRMs, who expect a module menu."] },
+          { kicker: "Chose", title: "Evidence before recommendation", lines: ["Over a confident one-line answer.", "Cost: more to read before acting. Every number links to its source to keep that short."] },
+          { kicker: "Chose", title: "Visible uncertainty", lines: ["Over a cleaner list that hides 14 open questions.", "Cost: the product looks less finished. That's accurate, so it stays."] },
+          { kicker: "Chose", title: "Exact-version approval", lines: ["Over approving “the campaign”.", "Cost: small edits need re-approval. Impact review makes each one quick to judge."] },
+          { kicker: "Chose", title: "Disabled follow-ups when ungrounded", lines: ["Over a chat box that always answers.", "Cost: the feature can look missing. The disabled state explains why."] },
+          { kicker: "Chose", title: "Persistent decision threads", lines: ["Over disposable AI conversations.", "Cost: more structure to model, but findings, plans and approvals stay linked to their investigation."] },
+          { kicker: "Chose", title: "Bounded execution", lines: ["Over end-to-end automation.", "Cost: slower than a fully automated send, and more explainable when something goes wrong."] },
+        ] },
+      ],
+    },
+    build: {
+      intro: nsIntro,
+      blocks: [
+        { type: "text", eyebrow: "the implementation", heading: "The safety rules are in the system, not only in the UI", display: true, body: ["A disabled button is not a control. The rules from the Think section (versioning, approval scope, role checks, idempotent retries) are enforced below the interface, and the interface reflects them."] },
+        { type: "text", eyebrow: "architecture", heading: "The AI provider sits behind a boundary. Nothing it returns is trusted by default", body: [] },
+        { type: "cards", cols: 3, items: [
+          { kicker: "Layer 1", title: "Interface", list: ["Workspace", "Investigation", "Opportunities", "Plan refinement", "Campaigns", "Activity"], lines: ["Requests carry the user's role."] },
+          { kicker: "Layer 2", title: "Application", list: ["Permission checks", "Validation", "State persistence"] },
+          { kicker: "Layer 3", title: "Domain services", list: ["Investigation", "Planning and versioning", "Approval (exact version)", "Execution (safe retries)", "Audit log, written by every service"] },
+          { kicker: "Boundary", title: "AI provider", list: ["Structured responses only", "Checked against business rules", "Unavailable: follow-ups disabled"] },
+          { kicker: "Layer 4", title: "Data and channels", list: ["Synthetic CRM records", "Simulated execution channel"] },
+        ] },
+        { type: "text", eyebrow: "mechanisms", heading: "How the rules hold", body: [] },
+        { type: "cards", cols: 3, items: [
+          { title: "Plan versioning", lines: ["Plans are never edited in place. A refinement writes version n+1 that records which version it came from. History is append-only."] },
+          { title: "Exact-version approval", lines: ["An approval stores the version it covers. Execution only runs the version that was approved, so a newer version needs its own approval."] },
+          { title: "Structured AI output", lines: ["The model returns structured data, not prose. Each response is checked against business rules before the user sees it, and fixed or rejected if it fails."] },
+          { title: "Safe retries", lines: ["Execution safeguards track each action, so a retry skips the ones that already completed. Unknown outcomes are reconciled before they can be retried."] },
+          { title: "Role permissions", lines: ["Restricted roles can't review, approve or execute. The check guards the action itself, so hiding a button is never the only safeguard."] },
+          { title: "Audit log", lines: ["Every service writes events with a plain-language summary and a technical record. People and tools read the same history."] },
+        ] },
+        { type: "text", eyebrow: "front end", heading: "A front end rebuilt to match the Figma, with every state addressable by link", body: ["The Figma file was rebuilt as a React and TypeScript front end. Colour, type and spacing tokens were taken directly from the file. Filters, sorting, open drawers and the selected plan version all live in the URL, so any state can be shared, reloaded or opened from a link in the Activity log. Animations respect the reduced-motion setting, and drawers trap focus and return it on close."] },
+        { type: "cards", cols: 2, items: [
+          { n: "13", title: "Unit and component tests", lines: ["Audience rules, next-decision logic, goal validation."] },
+          { n: "10/10", title: "Journey steps passed", lines: ["In the automated test that walks the whole journey."] },
+          { n: "0", title: "WCAG 2.1 AA violations", lines: ["In an axe scan of 9 screens and drawers."] },
+          { n: "3", title: "Widths checked", lines: ["375, 768 and 1440px, with no horizontal scrolling."] },
+        ] },
+        { type: "text", eyebrow: "validation", heading: "What the end-to-end prototype run verified", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the approver and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },
+          { kicker: "Results", list: ["11 clients initially eligible", "14 to 13 uncertain records after one resolution", "10 clients in the revised target audience", "8 completed, 1 failed, 1 unknown execution outcomes", "0 duplicated actions after retry"] },
+        ] },
+        { type: "text", body: ["Prototype verification on synthetic data. These numbers confirm the system behaved correctly. They are not customer results or business impact."] },
+      ],
+    },
+  },
+};
+
+caseStudies.push(clientlens, activepieces, northstar);
 
 export const tabLabels: Record<TabKey, string> = { design: "Design", think: "Think", build: "Build" };
 export const tabOrder: TabKey[] = ["design", "think", "build"];
