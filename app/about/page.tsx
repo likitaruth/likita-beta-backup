@@ -1,8 +1,8 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import { Subpage } from "@/components/layout/subpage";
 import { About } from "@/components/home/about";
 import { AboutVideo } from "@/components/about/about-video";
+import { TwoTruthsGame } from "@/components/about/two-truths-game";
 import { FigmaFrame } from "@/components/about/figma-frame";
 import { Item, Stage } from "@/components/motion/stage";
 import { site } from "@/content/site";
@@ -49,11 +49,9 @@ export default function AboutPage() {
       <section id="audience" aria-label={a.gameLabel} className="mt-12 scroll-mt-24 lg:mt-[69px]">
         <Stage amount={0.2}>
           <Item as="p" kind="fade" className="page-shell t-eyebrow flex items-center gap-3.5 !tracking-normal text-[#958e8e]"><span aria-hidden className="h-0.5 w-7 bg-accent-soft" />{a.gameLabel}</Item>
-          {/* FLAG: Figma ships this as one flattened raster (2780×1068); it is not interactive. Export "image 116885" over this placeholder. */}
+          {/* Rebuilt as a playable game from the reference video (the Figma frame is a flat raster). */}
           <Item kind="fade" className="page-shell mt-5">
-            <div className="ab-panel relative aspect-[2780/1068] w-full">
-              <Image src="/assets/about-game.png" alt="Preview of the Two Truths and a Lie game" fill sizes="(min-width:1440px) 1312px, 100vw" className="object-cover" />
-            </div>
+            <TwoTruthsGame />
           </Item>
         </Stage>
       </section>
