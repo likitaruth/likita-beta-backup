@@ -362,3 +362,45 @@ body {
 .cs-quote::before { content: "\201C"; position: absolute; left: 50%; top: -52px; translate: -50% 0; font: 600 140px/1 var(--font-display); color: color-mix(in oklab, var(--accent-soft) 35%, transparent); pointer-events: none; }
 .cs-ghost { position: absolute; left: 50%; top: 38%; translate: -50% -50%; font: 700 clamp(110px, 20vw, 260px)/1 var(--font-display); letter-spacing: -0.05em; color: rgb(241 235 228 / 0.035); white-space: nowrap; pointer-events: none; user-select: none; }
 [data-theme="light"] .cs-ghost { color: rgb(20 20 19 / 0.05); }
+
+/* ───────── About: hero video + Figma-frame chip ───────── */
+.ab-frame { position: absolute; inset: 0; overflow: hidden; border-radius: 14px; background: #0b0b0a; box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 50px 80px -30px #000, 0 18px 30px -16px rgb(0 0 0 / 0.8); }
+.ab-plate { position: absolute; inset: 0; translate: 16px 16px; border-radius: 14px; box-shadow: inset 0 0 0 1px rgb(154 162 58 / 0.35); }
+.ab-vid::before { content: ""; position: absolute; inset: 6% -6% -4%; z-index: -1; background: radial-gradient(55% 55% at 50% 50%, rgb(110 112 44 / 0.5), transparent 70%); filter: blur(40px); opacity: 0.55; }
+.ab-br { position: absolute; z-index: 3; width: 22px; height: 22px; border: 2px solid #9aa23a; }
+.ab-br-a { left: -10px; top: -10px; border-right: 0; border-bottom: 0; }
+.ab-br-b { right: -10px; top: -10px; border-left: 0; border-bottom: 0; }
+.ab-br-c { left: -10px; bottom: -10px; border-right: 0; border-top: 0; }
+.ab-br-d { right: -10px; bottom: -10px; border-left: 0; border-top: 0; }
+.ab-cap { position: absolute; left: 16px; bottom: 18px; z-index: 3; display: flex; align-items: center; gap: 8px; font: 600 11px/1 var(--font-sans); letter-spacing: 0.1em; color: #f1ebe4; font-variant-numeric: tabular-nums; }
+.ab-cap i { width: 6px; height: 6px; border-radius: 50%; background: #9aa23a; }
+.ab-pp { position: absolute; right: 14px; bottom: 10px; z-index: 3; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: #f1ebe4; border: 1px solid rgb(241 235 228 / 0.35); background: rgb(15 15 14 / 0.5); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); transition: background-color 200ms; }
+.ab-pp:hover { background: rgb(15 15 14 / 0.75); }
+.ab-pp:focus-visible { outline: 2px solid #9aa23a; outline-offset: 2px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .ab-frame { clip-path: inset(100% 0 0 0 round 14px); animation: ab-wipe 1.15s 0.45s var(--ease-out-quint) forwards; }
+  .ab-frame video { scale: 1.12; animation: ab-zoom 1.8s 0.45s var(--ease-out-quint) forwards; }
+  .ab-plate { opacity: 0; translate: 0 0; animation: ab-plate 1s 0.85s var(--ease-out-quint) forwards; }
+  .ab-vid::before { opacity: 0; animation: ab-glow 1.6s 1s var(--ease-out-quint) forwards; }
+  .ab-br { opacity: 0; animation: ab-brk 0.6s var(--ease-out-quint) forwards; }
+  .ab-br-a { animation-delay: 1.25s; } .ab-br-b { animation-delay: 1.33s; } .ab-br-c { animation-delay: 1.41s; } .ab-br-d { animation-delay: 1.49s; }
+  .ab-cap, .ab-pp { opacity: 0; animation: ab-fade 0.6s 1.6s forwards; }
+  .ab-tick { transform: scaleX(0); transform-origin: left; animation: ab-tick 0.8s 1.1s var(--ease-out-quint) forwards; }
+}
+@keyframes ab-wipe { to { clip-path: inset(0 0 0 0 round 14px); } }
+@keyframes ab-zoom { to { scale: 1.02; } }
+@keyframes ab-plate { to { opacity: 1; translate: 16px 16px; } }
+@keyframes ab-glow { to { opacity: 0.55; } }
+@keyframes ab-brk { from { opacity: 0; scale: 1.5; } to { opacity: 1; scale: 1; } }
+@keyframes ab-fade { to { opacity: 1; } }
+@keyframes ab-tick { to { transform: none; } }
+
+.ab-panel { position: relative; overflow: hidden; border-radius: 24px; background: linear-gradient(180deg, color-mix(in oklab, var(--surface), white 4%), var(--surface)); box-shadow: inset 0 0 0 1px rgb(241 235 228 / 0.07), inset 0 1px 0 rgb(241 235 228 / 0.09), 0 50px 80px -40px #000; }
+.ab-panel::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 80% at 50% 0%, rgb(110 112 44 / 0.16), transparent 70%); pointer-events: none; }
+
+/* "Frame 3523" as a selected Figma frame */
+.fig-frame { position: relative; display: inline-block; margin: 0 0.35em; padding: 0 0.4em; color: #fff; background: rgb(255 255 255 / 0.07); outline: 1px dashed #3b9bf5; outline-offset: 2px; white-space: nowrap; }
+.fig-label { position: absolute; left: -3px; bottom: calc(100% + 10px); font-size: 12px; line-height: 1; font-weight: 500; color: #4aa3ff; white-space: nowrap; pointer-events: none; }
+.fig-h { position: absolute; width: 7px; height: 7px; background: #fff; border: 1px solid #3b9bf5; }
+.fig-h-tl { left: -6px; top: -6px; } .fig-h-tr { right: -6px; top: -6px; } .fig-h-bl { left: -6px; bottom: -6px; } .fig-h-br { right: -6px; bottom: -6px; }

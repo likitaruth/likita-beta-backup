@@ -35,10 +35,10 @@ export const site = {
     titleEmphasis: "FRAMES",
     // Copy verbatim from Figma 2077:9129 / 2077:9130 (including "Frame 3523", which reads like a stray design-tool label — FLAG).
     paragraphs: [
-      "I began my professional journey as a customer support officer, and that foundation still shapes how I listen, ask better questions, and design with empathy. Don Norman's The Design of Everyday Things deeply reshaped how I think about user-centered design, and it still fuels the way I approach the craft.",
+      "I began my professional journey as a customer support officer, and that foundation still shapes how I listen, ask better questions, and design with empathy.",
       "It usually starts around Frame 3523 and somewhere along the way, I've come to love this industry and the problems I get to solve through it. I care about making digital experiences feel clear, intentional, and worth using. My work usually lives at the intersection of product strategy, interaction design, and refined execution, with a strong bias toward shipping ideas that are both useful and memorable.",
     ],
-    photoAlt: "Likita working at a desk with two monitors",
+    photoAlt: "Likita working at a desk with two monitors, with a candle on the desk and a shelf of plants behind",
     gameLabel: "Game: Two truths and a lie.",
   },
 
