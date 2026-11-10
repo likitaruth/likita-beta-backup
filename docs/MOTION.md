@@ -170,3 +170,12 @@ reduced-motion handling is inherited (opacity-only).
   260ms opacity on the email row.
 - **Menu** — rows are square; hover/focus = cream fill, Unbounded 900 label, dark arrow disc (Figma 2090:9921 right panel).
   Header now sits at `z-50` so the menu and Customize popover stay above page content on every screen.
+
+## Selected Works — index + stage (homepage)
+- Replaces the pinned card stack. `WorksIndex` = vertical tablist of the four titles + one stage. Hover (mouse, 80 ms intent), click/tap,
+  ↑/↓/Home/End and the stage arrows all select.
+- Stage covers wipe with `clip-path` (0.8 s, `cubic-bezier(.77,0,.18,1)`) while the outgoing cover scales to 1.06; the glass panel rises in
+  0.2 s later. Reduced motion: opacity-only cross-fade, no autoplay.
+- Autoplay only for fine-pointer users, only while ≥50 % on screen, paused on hover/focus, off for good after the first manual selection.
+  The active title's progress line is the timer (`animationend` advances); it rests full-width when autoplay is off.
+- Shared element: each cover keeps `ViewTransition name="project-<slug>-media"`, so View Project still morphs into the case study.
