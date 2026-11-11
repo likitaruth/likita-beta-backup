@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { ProjectMedia } from "@/components/ui/project-media";
 import Link from "next/link";
 import { ViewTransition, useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
 import { Pill } from "@/components/ui/pill";
@@ -96,27 +97,13 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
               <div key={pr.slug} data-state={state} aria-hidden={i !== index} className="works-layer absolute inset-0">
                 <ViewTransition name={`project-${pr.slug}-media`} share={{ "nav-forward": "morph", default: "none" }} default="none">
                   <div className="absolute inset-0">
-                    <Image
-                      src={pr.cover}
-                      alt=""
-                      fill
-                      draggable={false}
+                    <ProjectMedia
+                      media={pr.media}
                       sizes="(min-width:1280px) 720px, 100vw"
                       priority={i === 0}
+                      active={i === index}
                       className="select-none object-cover"
                     />
-                    <div aria-hidden className="absolute inset-0 bg-gradient-to-br from-card/70 via-card/25 to-card/50" />
-                    {pr.image && (
-                      <Image
-                        src={pr.image.src}
-                        alt={pr.image.alt}
-                        width={pr.image.width}
-                        height={pr.image.height}
-                        draggable={false}
-                        sizes="(min-width:1280px) 520px, 80vw"
-                        className="absolute left-1/2 top-[42%] h-[72%] w-auto max-w-[80%] -translate-x-1/2 -translate-y-1/2 select-none object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.5)] xl:top-[40%] xl:h-[68%]"
-                      />
-                    )}
                   </div>
                 </ViewTransition>
               </div>

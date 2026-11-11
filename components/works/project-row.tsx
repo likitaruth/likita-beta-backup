@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectMedia } from "@/components/ui/project-media";
 import { ViewTransition } from "react";
 import { Item, Stage } from "@/components/motion/stage";
 import { Pill } from "@/components/ui/pill";
@@ -41,7 +41,7 @@ export function ProjectRow({ project, cta, priority }: { project: Project; cta: 
 
         <ViewTransition name={`project-${project.slug}-media`} share={{ "nav-forward": "morph", default: "none" }} default="none">
           <Item kind="fade" className="relative order-first aspect-[656/670] w-full overflow-hidden md:order-none md:w-1/2">
-            <Image src={project.cover} alt="" fill priority={priority} sizes="(min-width:1024px) 656px, (min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[600ms] ease-out-quint group-hover/row:scale-[1.04] group-has-[:focus-visible]/row:scale-[1.04]" />
+            <ProjectMedia media={project.media} priority={priority} sizes="(min-width:1024px) 656px, (min-width:768px) 50vw, 100vw" className="object-cover transition-transform duration-[600ms] ease-out-quint group-hover/row:scale-[1.04] group-has-[:focus-visible]/row:scale-[1.04]" />
             <div aria-hidden className={cn("absolute inset-0 bg-black/20 transition-opacity duration-300 ease-out-quint group-hover/row:opacity-0 group-has-[:focus-visible]/row:opacity-0")} />
           </Item>
         </ViewTransition>

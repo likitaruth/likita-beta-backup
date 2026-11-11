@@ -12,12 +12,11 @@ export type Project = {
   slug: string;
   title: string;
   description: string | null;
-  image: { src: string; alt: string; width: number; height: number } | null;
+  /** Thumbnail shown on the homepage stage and the Works page (image, or a muted looping video with a poster). */
+  media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
   href: string;
   /** Projects-page line used when the homepage has no approved description. Taken from the case study. */
   blurb?: string;
-  /** Projects-page cover (656×670 slot). PLACEHOLDER art until the Figma bitmaps are exported. */
-  cover: string;
 };
 
 export const projects: Project[] = [
@@ -26,10 +25,10 @@ export const projects: Project[] = [
     title: "NORTHSTAR",
     description:
       "An AI-native CRM workspace designed to turn fragmented customer data into evidence-backed recommendations and human-controlled actions.",
-    image: { src: "/assets/northstar-laptop.png", alt: "Northstar CRM workspace displayed on a laptop", width: 1000, height: 780 },
-    href: "/works/northstar", cover: "/assets/projects/northstar.jpg",
+    media: { type: "video", src: "/assets/northstar-thumbnail.mp4", poster: "/assets/northstar-thumbnail-poster.webp" },
+    href: "/works/northstar",
   },
-  { slug: "clientlens", title: "CLIENTLENS", description: null, blurb: "An AI-powered feature within an enterprise CRM that helps account managers find similar clients and understand why they match.", image: null, href: "/works/clientlens", cover: "/assets/projects/clientlens.jpg", },
-  { slug: "crm-agent", title: "CRM AGENT", description: null, image: null, href: "/works/crm-agent", cover: "/assets/projects/crm-agent.jpg", },
-  { slug: "activepieces", title: "ACTIVEPIECES", description: null, blurb: "A redesign of the builder, trigger selection, sidebar apps and dashboard of a no-code automation tool.", image: null, href: "/works/activepieces", cover: "/assets/projects/activepieces.jpg", },
+  { slug: "clientlens", title: "CLIENTLENS", description: null, blurb: "An AI-powered feature within an enterprise CRM that helps account managers find similar clients and understand why they match.", media: { type: "image", src: "/assets/clientlens-thumbnail.webp" }, href: "/works/clientlens" },
+  { slug: "crm-agent", title: "CRM AGENT", description: null, media: { type: "image", src: "/assets/crm-agent-thumbnail.webp" }, href: "/works/crm-agent" },
+  { slug: "activepieces", title: "ACTIVEPIECES", description: null, blurb: "A redesign of the builder, trigger selection, sidebar apps and dashboard of a no-code automation tool.", media: { type: "image", src: "/assets/activepieces-thumbnail.webp" }, href: "/works/activepieces" },
 ];

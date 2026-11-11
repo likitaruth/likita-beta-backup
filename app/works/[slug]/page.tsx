@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { ProjectMedia } from "@/components/ui/project-media";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ViewTransition } from "react";
@@ -40,7 +40,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start">
           <ViewTransition name={`project-${project.slug}-media`} share={{ "nav-forward": "morph", default: "none" }} default="none">
             <div className="relative aspect-[500/390] w-full max-w-[640px] shrink-0 overflow-hidden rounded-[20px] bg-card">
-              <Image src={project.cover} alt="" fill sizes="(min-width:1024px) 640px, 100vw" className="object-cover" priority />
+              <ProjectMedia media={project.media} sizes="(min-width:1024px) 640px, 100vw" className="object-cover" priority />
             </div>
           </ViewTransition>
           {(project.description ?? project.blurb) && <p className="max-w-[570px] text-[18px] leading-7 text-fg">{project.description ?? project.blurb}</p>}
