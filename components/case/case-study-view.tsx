@@ -158,7 +158,7 @@ function BlockView({ block }: { block: Block }) {
       }
       return (
         <Stage amount={0.15}>
-          <Item kind="fade" className={cn("cs-ex mx-auto w-full", `cs-ex--${block.src ? tone : "photo"}`, !block.src && "bg-surface")} style={{ aspectRatio: block.ratio, maxWidth: 1068 }}>
+          <Item kind="fade" className={cn("cs-ex mx-auto w-full", `cs-ex--${block.src ? tone : "photo"}`, !block.src && "bg-surface")} style={{ aspectRatio: block.ratio, maxWidth: block.width ?? 1068 }}>
             <div className="cs-ex-in">
               <Image src={src} alt={block.alt} fill sizes={sizes} className={tone === "photo" || !block.src ? "object-cover" : "object-contain"} />
             </div>
