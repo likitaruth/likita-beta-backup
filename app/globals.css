@@ -264,11 +264,12 @@ body {
    which opens on hover or when focus is inside (the email link lives in the revealed row, so keyboard users open it by tabbing).
    Offsets are Figma's: line 1 sits 17px (0.11em) lower and line 2 100px (0.65em) lower when open.
    transform + opacity only; the block keeps its open height so the hover target never moves under the cursor. */
-.hit-shift { transition: translate 520ms cubic-bezier(0.22, 1, 0.36, 1); }
+/* The lines themselves move (not their text inside the wipe mask), so a shifted word is never cropped by its own mask. */
+.hit-line-1, .hit-line-2 { transition: translate 520ms cubic-bezier(0.22, 1, 0.36, 1); }
 .hit-mid { transition: opacity 260ms cubic-bezier(0.23, 1, 0.32, 1) 120ms; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .hit:not(:hover):not(:focus-within) .hit-line-1 .hit-shift { translate: 0 -0.11em; }
-  .hit:not(:hover):not(:focus-within) .hit-line-2 .hit-shift { translate: 0 -0.65em; }
+  .hit:not(:hover):not(:focus-within) .hit-line-1 { translate: 0 -0.11em; }
+  .hit:not(:hover):not(:focus-within) .hit-line-2 { translate: 0 -0.65em; }
   .hit:not(:hover):not(:focus-within) .hit-mid { opacity: 0; transition-delay: 0s; transition-duration: 140ms; }
 }
 
