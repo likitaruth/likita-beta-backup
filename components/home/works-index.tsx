@@ -4,7 +4,6 @@ import Image from "next/image";
 import { ProjectMedia } from "@/components/ui/project-media";
 import Link from "next/link";
 import { ViewTransition, useCallback, useEffect, useId, useRef, useState, type KeyboardEvent } from "react";
-import { Pill } from "@/components/ui/pill";
 import { CircleArrow } from "@/components/ui/icons";
 import { useReducedMotionSafe } from "@/lib/motion";
 import { cn } from "@/lib/cn";
@@ -71,7 +70,6 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
   };
 
   const p = projects[index];
-  const text = p.description ?? p.blurb ?? null;
 
   return (
     <div
@@ -110,8 +108,8 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
             );
           })}
 
-          {/* Whole cover is a link too (the CTA remains the accessible one) */}
-          <Link href={p.href} transitionTypes={["nav-forward"]} aria-hidden tabIndex={-1} className="absolute inset-0 z-[3]" />
+          {/* The whole cover is the link to the project */}
+          <Link href={p.href} transitionTypes={["nav-forward"]} aria-label={`${ctaLabel}: ${p.title}`} className="absolute inset-0 z-[3] focus-visible:outline-2 focus-visible:-outline-offset-4 focus-visible:outline-fg" />
 
           {/* HUD */}
           <div className="pointer-events-none absolute inset-x-4 top-4 z-[4] flex items-center justify-between xl:inset-x-6 xl:top-6">
@@ -136,15 +134,6 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
                 );
               })}
             </div>
-          </div>
-        </div>
-
-        {/* Glass panel */}
-        <div className="relative z-[4] mx-3 -mt-7 mb-3 xl:absolute xl:bottom-6 xl:left-6 xl:m-0 xl:w-[440px]">
-          <div key={p.slug} className="works-panel flex flex-col gap-5 rounded-2xl border border-cream/20 bg-card/85 p-5 shadow-[0_30px_40px_rgb(0_0_0/0.4)] backdrop-blur-md sm:p-6 xl:p-7">
-            <p className="t-display text-[22px] leading-tight text-mint xl:sr-only">{p.title}</p>
-            {text && <p className="text-[16px] leading-[1.6] text-on-card/90">{text}</p>}
-            <div><Pill variant="outline" href={p.href} transitionTypes={["nav-forward"]} data-focus="cta">{ctaLabel}</Pill></div>
           </div>
         </div>
       </div>
