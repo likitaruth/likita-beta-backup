@@ -64,7 +64,7 @@ export function Hero() {
 
           {/* Welcome illustration (xl: pinned like Figma; below: flows after the CTA). Hidden until first downward scroll. */}
           <div className="relative mt-10 h-[261px] w-[281px] md:ml-auto xl:absolute xl:right-[68px] xl:top-[224px] xl:mt-0">
-            <WelcomeCharacter src="/assets/welcome-illustration.svg" alt="Illustration of Likita smiling and waving" caption={hero.welcome} />
+            <WelcomeCharacter src="/assets/welcome-illustration.webp" alt="Illustration of Likita peeking around a pole with curly hair, smiling" caption={hero.welcome} />
           </div>
         </div>
       </div>

@@ -19,21 +19,20 @@ export function Contact() {
       data-theme="dark"
       className="relative isolate overflow-hidden bg-[var(--base-surface)] text-fg"
     >
-      {/* Scrim spans the whole viewport width; the photo is anchored to the 1440 frame and bleeds to the right edge on wider screens. */}
-      <div aria-hidden className="absolute inset-0 z-[1] bg-[rgb(0_0_0/0.8)]" />
+      {/* The artwork is the full-width section background (its darkening is baked in); below lg a light scrim keeps the copy readable over the cup. */}
+      <div aria-hidden className="absolute inset-0 z-[1] bg-black/50 lg:hidden" />
 
       <div className="page-shell relative flex flex-col pb-14 pt-14 md:pb-16 md:pt-16 lg:pb-[77px] lg:pt-[91px]">
         <div
           aria-hidden
-          className="absolute inset-y-0 left-0 z-0 lg:left-[38.14%]"
-          style={{ right: "min(0px, calc((1440px - 100vw) / 2))" }}
+          className="absolute inset-0 z-0"
         >
           <Image
-            src="/assets/contact-coffee.png"
+            src="/assets/contact-coffee.webp"
             alt=""
             fill
-            sizes="(min-width:1024px) 62vw, 100vw"
-            className="object-cover"
+            sizes="100vw"
+            className="object-cover object-right"
           />
         </div>
 
