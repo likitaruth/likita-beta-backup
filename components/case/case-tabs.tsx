@@ -75,7 +75,6 @@ export function CaseTabs({ slug, tabs, active }: { slug: string; tabs: TabKey[];
                     <span aria-hidden className="cs-ind absolute inset-0 -z-10 rounded-full bg-cream" />
                   </ViewTransition>
                 )}
-                <small aria-hidden className="text-[10px] font-bold tracking-[0.08em] opacity-55">{String(i + 1).padStart(2, "0")}</small>
                 {tabLabels[t]}
               </Link>
             );
