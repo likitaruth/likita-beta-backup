@@ -18,25 +18,31 @@ export function Dice3D({ onFail }: { onFail: () => void }) {
     let disposed = false;
     let cleanup = () => {};
 
-    (async () => {
+    const start = async () => {
       let THREE: typeof import("three");
       let RoundedBoxGeometry: typeof import("three/examples/jsm/geometries/RoundedBoxGeometry.js").RoundedBoxGeometry;
       let RoomEnvironment: typeof import("three/examples/jsm/environments/RoomEnvironment.js").RoomEnvironment;
+      const load = async () => ({
+        THREE: await import("three"),
+        geo: await import("three/examples/jsm/geometries/RoundedBoxGeometry.js"),
+        env: await import("three/examples/jsm/environments/RoomEnvironment.js"),
+      });
       try {
-        THREE = await import("three");
-        ({ RoundedBoxGeometry } = await import("three/examples/jsm/geometries/RoundedBoxGeometry.js"));
-        ({ RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js"));
+        let m;
+        try { m = await load(); } catch { await new Promise((r) => setTimeout(r, 800)); m = await load(); } // one retry (stale dev chunks, flaky network)
+        THREE = m.THREE; RoundedBoxGeometry = m.geo.RoundedBoxGeometry; RoomEnvironment = m.env.RoomEnvironment;
       } catch { if (!disposed) onFail(); return; }
       if (disposed) return;
 
       let renderer: import("three").WebGLRenderer;
       try {
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true }); // default GPU: forcing the discrete GPU can trigger GPU switches/context loss on dual-GPU laptops
       } catch { onFail(); return; }
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.05;
       renderer.outputColorSpace = THREE.SRGBColorSpace;
+      renderer.debug.onShaderError = () => { if (!disposed) onFail(); };
       const canvas = renderer.domElement;
       canvas.style.cssText = "position:absolute;inset:0;width:100%;height:100%;display:block";
       canvas.setAttribute("aria-hidden", "true");
@@ -168,7 +174,7 @@ export function Dice3D({ onFail }: { onFail: () => void }) {
         const lift = pivot.position.y;
         floor.material.opacity = 0.9 * Math.max(0.45, 1 - lift * 0.28);
         floor.scale.set(1.1 - lift * 0.12, 1.1 - lift * 0.12, 1);
-        renderer.render(scene, cam);
+        try { renderer.render(scene, cam); } catch { onFail(); return; }
         raf = requestAnimationFrame(frame);
       };
       const kick = () => { if (!raf && visible) raf = requestAnimationFrame(frame); };
@@ -177,20 +183,27 @@ export function Dice3D({ onFail }: { onFail: () => void }) {
         renderer.setSize(r.width, r.height, false); cam.aspect = r.width / r.height; cam.updateProjectionMatrix();
         if (!visible || !raf) renderer.render(scene, cam);
       };
+      // three.js already calls preventDefault on "webglcontextlost" so the browser can restore it; resume drawing when it does.
+      const onRestored = () => { last = 0; kick(); };
+      canvas.addEventListener("webglcontextrestored", onRestored);
       const ro = new ResizeObserver(size); ro.observe(el); size();
       const io = new IntersectionObserver(([e]) => { visible = e.isIntersecting; if (visible) kick(); }, { threshold: 0.05 });
       io.observe(el);
       const onVis = () => kick(); document.addEventListener("visibilitychange", onVis);
 
       cleanup = () => {
-        cancelAnimationFrame(raf); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange", onVis);
+        cancelAnimationFrame(raf); canvas.removeEventListener("webglcontextrestored", onRestored); ro.disconnect(); io.disconnect(); document.removeEventListener("visibilitychange", onVis);
         el.removeEventListener("pointerdown", onDown); el.removeEventListener("pointermove", onMove); el.removeEventListener("pointerup", onUp);
         geo.dispose(); mat.dispose(); maps.forEach((m) => m.dispose()); shadowTex.dispose(); floor.geometry.dispose(); floor.material.dispose();
         envRT.dispose(); pm.dispose(); renderer.dispose(); renderer.forceContextLoss(); canvas.remove();
       };
-    })();
+    };
 
-    return () => { disposed = true; cleanup(); };
+    // Create the WebGL context only once the die is near the viewport (the game sits far down the page).
+    const wake = new IntersectionObserver(([e]) => { if (e.isIntersecting) { wake.disconnect(); start(); } }, { rootMargin: "300px" });
+    wake.observe(el);
+
+    return () => { disposed = true; wake.disconnect(); cleanup(); };
   }, [onFail]);
 
   return <div ref={host} className="absolute inset-0" style={{ touchAction: "pan-y" }} />;
