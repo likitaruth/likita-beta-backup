@@ -20,12 +20,12 @@ export function Dice3D({ onFail }: { onFail: () => void }) {
 
     (async () => {
       let THREE: typeof import("three");
-      let RoundedBoxGeometry: typeof import("three/addons/geometries/RoundedBoxGeometry.js").RoundedBoxGeometry;
-      let RoomEnvironment: typeof import("three/addons/environments/RoomEnvironment.js").RoomEnvironment;
+      let RoundedBoxGeometry: typeof import("three/examples/jsm/geometries/RoundedBoxGeometry.js").RoundedBoxGeometry;
+      let RoomEnvironment: typeof import("three/examples/jsm/environments/RoomEnvironment.js").RoomEnvironment;
       try {
         THREE = await import("three");
-        ({ RoundedBoxGeometry } = await import("three/addons/geometries/RoundedBoxGeometry.js"));
-        ({ RoomEnvironment } = await import("three/addons/environments/RoomEnvironment.js"));
+        ({ RoundedBoxGeometry } = await import("three/examples/jsm/geometries/RoundedBoxGeometry.js"));
+        ({ RoomEnvironment } = await import("three/examples/jsm/environments/RoomEnvironment.js"));
       } catch { if (!disposed) onFail(); return; }
       if (disposed) return;
 
