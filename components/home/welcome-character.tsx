@@ -63,17 +63,17 @@ export function WelcomeCharacter({ src, alt, caption }: { src: string; alt: stri
 
   return (
     <>
-      <div ref={ref} aria-hidden style={HIDDEN} className="welcome-char relative h-[261px] w-[281px] will-change-transform">
+      <div ref={ref} aria-hidden style={HIDDEN} className="welcome-char relative h-[183px] w-[197px] will-change-transform">
         <Image
           src={src}
           alt={alt}
-          width={281}
-          height={261}
+          width={197}
+          height={183}
           priority
           unoptimized
-          className="absolute left-0 top-0 h-[261px] w-[281px] max-w-none"
+          className="absolute left-0 top-0 h-[183px] w-[197px] max-w-none"
         />
-        <p className="absolute left-[106px] top-[221px] w-[152px] hand-text [--hand-size:12px] font-bold leading-5 text-fg-muted">{caption}</p>
+        <p className="absolute left-[74px] top-[155px] w-[122px] hand-text [--hand-size:11px] font-bold leading-[18px] text-fg-muted">{caption}</p>
       </div>
       {/* No JS: never leave the character hidden. */}
       <noscript><style>{".welcome-char{opacity:1!important;transform:none!important}"}</style></noscript>
