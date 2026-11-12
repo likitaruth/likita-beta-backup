@@ -44,16 +44,14 @@ export const site = {
 
   about: {
     eyebrow: "ME IN BRIEF.",
-    // Figma repeats "The name and person." in all four rows (placeholder). Replaced with lines drawn only from existing
-    // copy (hero ethos, About Me paragraphs, game label) — FLAG: confirm wording.
     rows: [
-      { n: "01", title: "WHO?", sub: "Designer, thinker and builder.", href: "/about#who" },
-      { n: "02", title: "HOW?", sub: "Product strategy, interaction design and refined execution.", href: "/about#how" },
-      { n: "03", title: "WHY?", sub: "Digital experiences that feel clear and worth using.", href: "/about#why" },
-      { n: "04", title: "AUDIENCE?", sub: "Play two truths and a lie.", href: "/about#audience" },
+      { n: "01", title: "Who?", sub: "The name, person and origin", note: "nice to meet you!", href: "/about#who" },
+      { n: "02", title: "How?", sub: "From customer support to product design", note: "ticket → flow", href: "/about#how" },
+      { n: "03", title: "Why?", sub: "Curiosity and meaningful work", note: "always asking “what if?”", href: "/about#why" },
+      { n: "04", title: "Audience?", sub: "Design for all", note: "every body, every screen", href: "/about#audience" },
     ],
-    // Figma "Group 1000001479" (hover state): the small character thumbnail carries a "Likita" hand-written label.
-    label: "Likita",
+    // Accessible label for the About video shown in the "Who?" panel.
+    videoLabel: "Likita at her desk, working",
   },
 
   contactPage: {

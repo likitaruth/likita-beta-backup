@@ -497,3 +497,113 @@ body {
 .cs-ex--screen { border-radius: 20px; box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 40px 70px -30px rgb(0 0 0 / 0.9), 0 18px 30px -18px rgb(0 0 0 / 0.8); }
 .cs-ex--screen::before { content: ""; position: absolute; inset: 8% 5% 0; z-index: -1; border-radius: 40px; filter: blur(50px); background: radial-gradient(60% 60% at 50% 50%, color-mix(in oklab, var(--accent-soft) 60%, transparent), transparent 70%); opacity: 0.3; }
 .cs-ex--screen .cs-ex-in img { transform: none; }
+
+/* ───────── Me in Brief — sketchbook strip ───────── */
+.mb-strip { display: grid; gap: 12px; grid-template-columns: var(--cols); height: 580px; transition: grid-template-columns 850ms cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-pn { position: relative; isolation: isolate; overflow: hidden; border-radius: 22px; background: var(--bg); color: var(--c); transition: translate 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-pn:not(.on):hover { translate: 0 -6px; }
+.mb-pn[data-i="0"] { --bg: #18231b; --c: #f1ebe4; --mut: #b9bab4; }
+.mb-pn[data-i="1"] { --bg: #f1ebe4; --c: #18231b; --mut: #4d4e52; }
+.mb-pn[data-i="2"] { --bg: #cdd9ca; --c: #18231b; --mut: #3b4a3d; }
+.mb-pn[data-i="3"] { --bg: #5b6414; --c: #f1ebe4; --mut: #dfe1b8; }
+.mb-head { position: absolute; inset: 0; z-index: 2; display: flex; width: 100%; flex-direction: column; align-items: center; justify-content: space-between; padding: 22px 0 20px; transition: opacity 350ms; }
+.mb-pn.on .mb-head { opacity: 0; pointer-events: none; }
+.mb-head-n { font-size: 20px; font-weight: 700; opacity: 0.8; }
+.mb-head-t { writing-mode: vertical-rl; rotate: 180deg; font-size: 30px; font-weight: 600; }
+.mb-plus { display: grid; width: 40px; height: 40px; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-size: 22px; line-height: 1; transition: rotate 500ms cubic-bezier(0.22, 1, 0.36, 1), background-color 300ms, color 300ms; }
+.mb-pn:not(.on):hover .mb-plus, .mb-head:focus-visible .mb-plus { rotate: 90deg; background: var(--c); color: var(--bg); }
+.mb-head:focus-visible { outline: 2px solid currentColor; outline-offset: -6px; border-radius: 22px; }
+.mb-body { position: absolute; inset: 0; display: grid; grid-template-columns: minmax(0, 1fr) 352px; align-items: center; gap: 40px; padding: 48px 64px 48px 56px; visibility: hidden; opacity: 0; transition: opacity 300ms, visibility 0s 300ms; }
+.mb-pn.on .mb-body { visibility: visible; opacity: 1; transition: opacity 500ms 350ms, visibility 0s; }
+.mb-num { margin-bottom: 18px; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; color: var(--mut); }
+.mb-h { font-family: var(--font-display); font-weight: 600; font-size: clamp(34px, 3.3vw, 48px); line-height: 1; text-transform: uppercase; letter-spacing: -0.01em; clip-path: inset(0 0 100% 0); translate: 0 14px; }
+.mb-pn.on .mb-h { animation: mb-wipe 900ms 400ms forwards cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-sent { margin-top: 26px; min-height: 3.8em; max-width: 15em; font-size: 28px; font-weight: 500; line-height: 1.25; }
+.mb-caret { display: inline-block; width: 2px; height: 1em; margin-left: 2px; vertical-align: -0.12em; background: currentColor; animation: mb-blink 1s steps(1) infinite; }
+.mb-hand { display: inline-block; margin-top: 22px; font-family: var(--font-hand); font-size: calc(30px * var(--hand-adjust)); font-weight: 700; color: var(--mut); rotate: -3deg; opacity: 0; }
+.mb-pn.on .mb-hand { animation: mb-up 600ms 1900ms forwards cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-more { display: inline-flex; align-items: center; gap: 8px; margin-top: 26px; margin-left: 24px; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; opacity: 0; }
+.mb-pn.on .mb-more { animation: mb-up 600ms 2100ms forwards cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-sheetwrap { position: relative; width: 352px; aspect-ratio: 4 / 5; justify-self: center; rotate: -6deg; translate: 0 -50px; opacity: 0; }
+.mb-pn.on .mb-sheetwrap { animation: mb-drop 900ms 450ms forwards cubic-bezier(0.3, 1.4, 0.5, 1); }
+.mb-sheet { position: absolute; inset: 0; overflow: hidden; border-radius: 6px; padding: 12px; background-color: #f1ebe4; background-image: radial-gradient(rgb(22 22 22 / 0.09) 1px, transparent 1.2px); background-size: 18px 18px; box-shadow: 0 30px 40px -18px rgb(0 0 0 / 0.55), 0 2px 0 rgb(0 0 0 / 0.1); }
+.mb-sheet--video { padding: 0; background: #0b0b0a; }
+.mb-sheet video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.mb-tape { position: absolute; z-index: 3; top: -12px; left: 50%; width: 92px; height: 28px; margin-left: -46px; background: rgb(241 235 160 / 0.82); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25); rotate: -3deg; }
+.mb-tape--b { top: auto; right: -24px; bottom: -10px; left: auto; width: 70px; margin: 0; background: rgb(205 217 202 / 0.85); rotate: 38deg; }
+.mb-pause { position: absolute; left: 10px; bottom: 10px; z-index: 4; display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; background: rgb(15 15 14 / 0.6); color: #f1ebe4; backdrop-filter: blur(4px); }
+.mb-pause:focus-visible { outline: 2px solid #f1ebe4; outline-offset: 2px; }
+
+/* handwritten "Likita" — top of the video so it never covers the footage */
+.mb-likita { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.mb-likita::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 38%; background: linear-gradient(to bottom, rgb(0 0 0 / 0.5), transparent); }
+.mb-hi { position: absolute; left: 20px; top: 14px; font-family: var(--font-hand); font-size: calc(16px * var(--hand-adjust)); font-weight: 700; color: #f1ebe4; text-shadow: 0 2px 8px rgb(0 0 0 / 0.6); rotate: -5deg; opacity: 0; }
+.mb-name { position: absolute; left: 18px; top: 28px; font-family: var(--font-hand); font-size: calc(42px * var(--hand-adjust)); font-weight: 700; line-height: 1; color: #f1ebe4; text-shadow: 0 2px 10px rgb(0 0 0 / 0.65); rotate: -5deg; transform-origin: left center; clip-path: inset(-10% 100% -10% 0); }
+.mb-likita svg { position: absolute; left: 20px; top: 84px; width: 150px; height: 20px; overflow: visible; }
+.mb-likita svg path { fill: none; stroke: #f1ebe4; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 2px 5px rgb(0 0 0 / 0.6)); }
+.mb-pn.is-on .mb-hi { animation: mb-up 500ms 100ms forwards cubic-bezier(0.22, 1, 0.36, 1); }
+.mb-pn.is-on .mb-name { animation: mb-write 1100ms 350ms forwards cubic-bezier(0.5, 0, 0.2, 1); }
+.mb-pn.is-on .mb-likita svg path { animation: mb-draw 700ms 1350ms forwards ease-out; }
+.mb-pn.is-on .mb-likita svg path.p2 { animation-delay: 1550ms; }
+
+/* sketch art */
+.mb-art { display: block; width: 100%; height: 100%; }
+.mb-key { animation: mb-tap 900ms var(--k) infinite ease-in-out; }
+.mb-scr-a { animation: mb-scrA 9s infinite; } .mb-scr-b { animation: mb-scrB 9s infinite; }
+.mb-dots circle { animation: mb-dot 1s infinite; } .mb-dots circle:nth-child(2) { animation-delay: .15s; } .mb-dots circle:nth-child(3) { animation-delay: .3s; }
+.mb-cursor { animation: mb-cur 9s infinite; }
+.mb-steam { opacity: 0; animation: mb-steam 2.4s infinite; } .mb-s2 { animation-delay: 1.1s; }
+.mb-q { animation: mb-qf 4.2s infinite ease-in-out; transform-box: fill-box; transform-origin: center; }
+.mb-q2 { animation-delay: -1s; } .mb-q3 { animation-delay: -2.2s; } .mb-q4 { animation-delay: -3s; }
+.mb-lens { animation: mb-sweep 7s infinite ease-in-out; }
+.mb-reveal-clip { animation: mb-sweepclip 7s infinite ease-in-out; clip-path: circle(62px at 150px 270px) view-box; }
+.mb-tangle { animation: mb-wob 3.5s infinite ease-in-out; }
+.mb-spark { animation: mb-sp 2s infinite ease-in-out; transform-box: fill-box; transform-origin: center; } .mb-sp2 { animation-delay: -1s; }
+.mb-face { animation: mb-pop 700ms calc(var(--i) * 90ms + 150ms) both cubic-bezier(0.22, 1, 0.36, 1), mb-bob 3.4s calc(var(--i) * 300ms + 1s) infinite ease-in-out; }
+.mb-link { fill: none; animation: mb-march 2s linear infinite; }
+.mb-ic { opacity: 0; animation: mb-ic 8s infinite; } .mb-ic2 { animation-delay: 2s; } .mb-ic3 { animation-delay: 4s; } .mb-ic4 { animation-delay: 6s; }
+.mb-art.draw .mb-ink { stroke-dasharray: 1; stroke-dashoffset: 1; fill-opacity: 0; animation: mb-draw 900ms var(--d, 0s) forwards ease-out, mb-fill 500ms calc(var(--d, 0s) + 600ms) forwards; }
+
+@keyframes mb-wipe { to { clip-path: inset(-10% -5% -10% -5%); translate: 0 0; } }
+@keyframes mb-up { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@keyframes mb-drop { to { rotate: 1.8deg; translate: 0 0; opacity: 1; } }
+@keyframes mb-blink { 50% { opacity: 0; } }
+@keyframes mb-write { to { clip-path: inset(-10% -4% -10% 0); } }
+@keyframes mb-draw { to { stroke-dashoffset: 0; } }
+@keyframes mb-fill { to { fill-opacity: 1; } }
+@keyframes mb-tap { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(2.5px); } }
+@keyframes mb-scrA { 0%, 40% { opacity: 1; } 48%, 92% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes mb-scrB { 0%, 40% { opacity: 0; } 48%, 92% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes mb-dot { 0%, 100% { transform: translateY(0); } 40% { transform: translateY(-4px); } }
+@keyframes mb-cur { 0%, 46% { transform: translate(232px, 238px); } 60% { transform: translate(318px, 214px); } 72% { transform: translate(214px, 282px); } 84%, 100% { transform: translate(300px, 250px); } }
+@keyframes mb-steam { 0% { opacity: 0; transform: translateY(8px); } 30% { opacity: .8; } 100% { opacity: 0; transform: translateY(-10px); } }
+@keyframes mb-qf { 0%, 100% { transform: translateY(6px) rotate(-6deg); } 50% { transform: translateY(-10px) rotate(7deg); } }
+@keyframes mb-sweepclip { 0%, 100% { clip-path: circle(62px at 150px 270px) view-box; } 25% { clip-path: circle(62px at 240px 250px) view-box; } 50% { clip-path: circle(62px at 240px 330px) view-box; } 75% { clip-path: circle(62px at 160px 320px) view-box; } }
+@keyframes mb-sweep { 0%, 100% { transform: translate(150px, 270px); } 25% { transform: translate(240px, 250px); } 50% { transform: translate(240px, 330px); } 75% { transform: translate(160px, 320px); } }
+@keyframes mb-wob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+@keyframes mb-sp { 0%, 100% { transform: scale(.6) rotate(0); } 50% { transform: scale(1.1) rotate(20deg); } }
+@keyframes mb-pop { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
+@keyframes mb-bob { 0%, 100% { translate: 0 0; } 50% { translate: 0 -5px; } }
+@keyframes mb-march { to { stroke-dashoffset: -20; } }
+@keyframes mb-ic { 0% { opacity: 0; transform: translate(200px, 276px) scale(.7); } 4%, 22% { opacity: 1; transform: translate(200px, 276px) scale(1); } 26%, 100% { opacity: 0; transform: translate(200px, 276px) scale(.7); } }
+
+@media (max-width: 899px) {
+  .mb-strip { grid-template-columns: 1fr; height: auto; transition: none; }
+  .mb-pn { min-height: 76px; }
+  .mb-head { position: relative; inset: auto; height: 76px; flex-direction: row; padding: 0 20px; gap: 16px; }
+  .mb-head-t { writing-mode: horizontal-tb; rotate: none; flex: 1; font-size: 24px; }
+  .mb-pn.on .mb-head { opacity: 1; pointer-events: auto; }
+  .mb-pn.on .mb-plus { rotate: 45deg; }
+  .mb-body { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; padding: 8px 20px 40px; }
+  .mb-sheetwrap { width: min(300px, 80%); align-self: center; }
+  .mb-sent { min-height: 0; font-size: 22px; }
+  .mb-pn:not(.on) .mb-body { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-pn, .mb-strip, .mb-body, .mb-plus, .mb-head { transition-duration: 1ms !important; }
+  .mb-pn.on .mb-h, .mb-pn.on .mb-hand, .mb-pn.on .mb-more, .mb-pn.on .mb-sheetwrap { animation-duration: 1ms !important; animation-delay: 0s !important; }
+  .mb-key, .mb-dots circle, .mb-cursor, .mb-steam, .mb-q, .mb-lens, .mb-reveal-clip, .mb-tangle, .mb-spark, .mb-face, .mb-link, .mb-ic, .mb-scr-a, .mb-scr-b, .mb-caret { animation: none !important; }
+  .mb-scr-b { opacity: 0; } .mb-ic1 { opacity: 1; } .mb-lens { transform: translate(200px, 300px); } .mb-reveal-clip { clip-path: circle(62px at 200px 300px) view-box; }
+  .mb-name { clip-path: none !important; } .mb-hi { opacity: 1 !important; } .mb-likita svg path { stroke-dashoffset: 0 !important; animation: none !important; }
+  .mb-art.draw .mb-ink { animation: none !important; stroke-dashoffset: 0; fill-opacity: 1; }
+}
