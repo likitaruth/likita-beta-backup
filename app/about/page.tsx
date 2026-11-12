@@ -56,7 +56,7 @@ export default function AboutPage() {
         </Stage>
       </section>
 
-      <div className="mt-12 lg:mt-[0px]"><About /></div>
+      <div className="mt-12 lg:mt-[0px]"><About defaultOpen={1} /></div>
     </Subpage>
   );
 }

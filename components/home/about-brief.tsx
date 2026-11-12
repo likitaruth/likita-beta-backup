@@ -15,9 +15,9 @@ const COLLAPSED = "128px";
  * Who pins the About video with a handwritten Likita signature across the top; the others hold line sketches that draw themselves.
  * Tabs pattern (arrow keys move, Enter/Space open). Reduced motion: no typing, no looping, sketches static, video stays on its poster.
  */
-export function AboutBrief({ items, label }: { items: readonly BriefItem[]; label: string }) {
-  const [open, setOpen] = useState(0);
-  const [typed, setTyped] = useState(items[0].sub);
+export function AboutBrief({ items, label, defaultOpen = 0 }: { items: readonly BriefItem[]; label: string; defaultOpen?: number }) {
+  const [open, setOpen] = useState(defaultOpen);
+  const [typed, setTyped] = useState(items[defaultOpen].sub);
   const [reduced, setReduced] = useState(true); // assume reduced until measured, so SSR output is the calm state
   const [wide, setWide] = useState(true);
   const heads = useRef<(HTMLButtonElement | null)[]>([]);

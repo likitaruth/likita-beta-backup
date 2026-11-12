@@ -68,12 +68,12 @@
     </g>
     <!-- sticky note, mug, steam -->
     <g transform="rotate(6 372 150)"><rect class="mb-ink" x="352" y="130" width="40" height="36" fill="#f3e9a6" stroke-width="2.4"/></g>
-    <text x="360" y="153" font-family="Caveat" font-size="17" font-weight="700" fill="${INK}" stroke="none" transform="rotate(6 372 150)">#4021</text>
+    <text x="360" y="153" style="font-family:var(--font-hand)" font-size="17" font-weight="700" fill="${INK}" stroke="none" transform="rotate(6 372 150)">#4021</text>
     <path class="mb-ink" d="M326 380 h34 v30 h-34 z" fill="${W}"/>${ink("M360 388 q16 4 0 18")}
     <path class="mb-steam mb-s1" d="M336 372 q-6 -10 0 -18 t0 -18"/><path class="mb-steam mb-s2" d="M348 372 q-6 -10 0 -18 t0 -18"/>
-    <text x="36" y="86" font-family="Caveat" font-size="34" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-5 36 86)">tickets</text>
+    <text x="36" y="86" style="font-family:var(--font-hand)" font-size="34" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-5 36 86)">tickets</text>
     ${ink("M130 80 C 170 62 210 70 232 100", `stroke-width="2.6"`)}${ink("M222 92 l12 10 l-16 4")}
-    <text x="222" y="60" font-family="Caveat" font-size="34" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-3 222 60)">→ flows</text>
+    <text x="222" y="60" style="font-family:var(--font-hand)" font-size="34" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-3 222 60)">→ flows</text>
   `, "mb-art-how");
 
   /* ---------- WHY: curiosity → meaningful ---------- */
@@ -81,10 +81,10 @@
   const heart = "M200 372 C 120 318 112 252 160 244 C 184 240 196 256 200 268 C 204 256 216 240 240 244 C 288 252 280 318 200 372 Z";
   const why = () => S(`
     <!-- floating questions -->
-    <text class="mb-q mb-q1" x="60" y="120" font-family="Caveat" font-size="64" font-weight="700" fill="${INK}" stroke="none">?</text>
-    <text class="mb-q mb-q2" x="160" y="84" font-family="Caveat" font-size="48" font-weight="700" fill="${INK}" stroke="none">?</text>
-    <text class="mb-q mb-q3" x="300" y="130" font-family="Caveat" font-size="72" font-weight="700" fill="${INK}" stroke="none">?</text>
-    <text class="mb-q mb-q4" x="236" y="60" font-family="Caveat" font-size="40" font-weight="700" fill="${INK}" stroke="none">?</text>
+    <text class="mb-q mb-q1" x="60" y="120" style="font-family:var(--font-hand)" font-size="64" font-weight="700" fill="${INK}" stroke="none">?</text>
+    <text class="mb-q mb-q2" x="160" y="84" style="font-family:var(--font-hand)" font-size="48" font-weight="700" fill="${INK}" stroke="none">?</text>
+    <text class="mb-q mb-q3" x="300" y="130" style="font-family:var(--font-hand)" font-size="72" font-weight="700" fill="${INK}" stroke="none">?</text>
+    <text class="mb-q mb-q4" x="236" y="60" style="font-family:var(--font-hand)" font-size="40" font-weight="700" fill="${INK}" stroke="none">?</text>
     <!-- page of tangles -->
     <rect class="mb-ink" x="40" y="170" width="320" height="250" rx="10" fill="${W}"/>
     <g class="mb-tangle" stroke-width="2.6"><path class="mb-ink" d="${tangle}" transform="translate(0 -70)"/><path class="mb-ink" d="${tangle}" transform="translate(10 -20)"/><path class="mb-ink" d="${tangle}" transform="translate(-10 30)"/></g>
@@ -102,7 +102,7 @@
     </g>
     <g class="mb-spark mb-sp1" transform="translate(330 220)">${ink("M0 -14 V14 M-14 0 H14 M-9 -9 L9 9 M9 -9 L-9 9", `stroke-width="2.6"`)}</g>
     <g class="mb-spark mb-sp2" transform="translate(70 380)">${ink("M0 -10 V10 M-10 0 H10", `stroke-width="2.6"`)}</g>
-    <text x="40" y="468" font-family="Caveat" font-size="32" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-2 40 468)">what if…? → why it matters</text>
+    <text x="40" y="468" style="font-family:var(--font-hand)" font-size="32" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-2 40 468)">what if…? → why it matters</text>
   `, "mb-art-why");
 
   /* ---------- AUDIENCE: design for all ---------- */
@@ -132,12 +132,12 @@
     <!-- the one screen everybody shares -->
     <rect class="mb-ink" x="140" y="196" width="120" height="160" rx="16" fill="${W}" stroke-width="3.4"/>
     ${ink("M184 206 h32", `stroke-width="3"`)}
-    <g class="mb-ic mb-ic1" transform="translate(200 276)"><text x="0" y="14" text-anchor="middle" font-family="Montserrat" font-weight="800" font-size="52" fill="${INK}" stroke="none">Aa</text></g>
+    <g class="mb-ic mb-ic1" transform="translate(200 276)"><text x="0" y="14" text-anchor="middle" style="font-family:var(--font-sans)" font-weight="800" font-size="52" fill="${INK}" stroke="none">Aa</text></g>
     <g class="mb-ic mb-ic2" transform="translate(200 276)"><circle class="mb-ink" r="26"/><path d="M0 -26 A26 26 0 0 1 0 26 Z" fill="${INK}"/></g>
     <g class="mb-ic mb-ic3" transform="translate(200 276)">${ink("M-26 -8 v16 M-13 -20 v40 M0 -30 v60 M13 -20 v40 M26 -8 v16", `stroke-width="5"`)}</g>
     <g class="mb-ic mb-ic4" transform="translate(200 276)"><circle class="mb-ink" r="26"/><circle cx="0" cy="-12" r="4" fill="${INK}"/>${ink("M-14 -4 h28 M0 -4 v12 l-9 16 M0 8 l9 16", `stroke-width="3.4"`)}</g>
     ${people}
-    <text x="70" y="488" font-family="Caveat" font-size="32" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-2 70 488)">one design, every body</text>
+    <text x="70" y="488" style="font-family:var(--font-hand)" font-size="32" font-weight="700" fill="${INK}" stroke="none" transform="rotate(-2 70 488)">one design, every body</text>
   `, "mb-art-aud");
 
 
