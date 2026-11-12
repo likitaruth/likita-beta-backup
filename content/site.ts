@@ -84,10 +84,9 @@ export const site = {
       { label: "About Me", href: "/about", style: "italic" },
       { label: "Hit Me Up", href: "/contact", style: "display" },
     ],
-    // FLAG: Figma shows three pills (Gmail / LinkedIn / Mail) with no URLs. LinkedIn URL is missing.
     socials: [
       { label: "Gmail", href: "mailto:likitaconnect@gmail.com" },
-      { label: "LinkedIn", href: null as string | null },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/ruthlikita/" },
       { label: "Mail", href: "mailto:likitaconnect@gmail.com" },
     ],
     credit: { a: "Likita", b: " with ", c: "love 2026" },

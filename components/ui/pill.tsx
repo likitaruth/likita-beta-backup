@@ -33,7 +33,7 @@ export function Pill(props: AsLink | AsButton) {
     const { href, ...linkRest } = rest as AsLink;
     const external = /^(mailto:|https?:)/.test(href);
     node = external ? (
-      <a href={href} className={classes} {...(linkRest as object)}>{children}</a>
+      <a href={href} className={classes} {...(/^https?:/.test(href) ? { target: "_blank", rel: "noopener noreferrer" } : {})} {...(linkRest as object)}>{children}</a>
     ) : (
       <Link href={href} className={classes} {...linkRest}>{children}</Link>
     );

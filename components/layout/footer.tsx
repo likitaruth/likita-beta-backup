@@ -28,15 +28,10 @@ export function Footer() {
 
           <ul className="flex flex-row flex-wrap gap-3 md:flex-col">
             {footer.socials
-              .filter((s, i, all) => !s.href || all.findIndex((o) => o.href === s.href) === i)
+              .filter((s, i, all) => all.findIndex((o) => o.href === s.href) === i)
               .map((s) => (
                 <li key={s.label}>
-                  {s.href ? (
-                    <Pill variant="footer" href={s.href}>{s.label}</Pill>
-                  ) : (
-                    // FLAG: URL missing in Figma — rendered inert until provided.
-                    <span aria-disabled="true" className="inline-flex h-9 w-32 items-center justify-center rounded-full border border-divider px-3 text-[14px] font-medium leading-[1.45] opacity-80">{s.label}</span>
-                  )}
+                  <Pill variant="footer" href={s.href}>{s.label}</Pill>
                 </li>
               ))}
           </ul>
