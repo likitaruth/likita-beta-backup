@@ -421,6 +421,8 @@ body {
 /* Intro + dice */
 .tt-intro { display: grid; flex: 1; align-items: center; gap: 24px; margin: 8px 0; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); }
 .tt-stage { position: relative; display: grid; place-items: center; min-height: 380px; perspective: 900px; cursor: grab; user-select: none; touch-action: manipulation; }
+.tt-stage:active { cursor: grabbing; }
+.tt-chip { z-index: 1; pointer-events: none; }
 .tt-ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; border: 1px solid var(--tt-line); translate: -50% -50%; }
 .tt-ring-1 { width: 300px; height: 300px; }
 .tt-ring-2 { width: 420px; height: 420px; border-style: dashed; border-color: #232321; }

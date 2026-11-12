@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Dice3D } from "./dice-3d";
 import { cn } from "@/lib/cn";
 import { gameCopy as C, gameRounds, gameTiers, gameWins } from "@/content/game";
 
@@ -18,26 +19,30 @@ const Cross = () => (
   <svg aria-hidden viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"><path d="M4 4l8 8M12 4l-8 8" /></svg>
 );
 
-/** Decorative dice: slow idle spin, tumbles when pressed. Pointer-only; hidden from assistive tech. */
+/** Decorative dice: realistic 3D die (drag to turn, click to roll). Falls back to the CSS cube without WebGL. Hidden from assistive tech. */
 function Dice() {
   const [rolls, setRolls] = useState(0);
+  const [css, setCss] = useState(false);
+  const fail = useCallback(() => setCss(true), []);
   return (
-    <div aria-hidden className="tt-stage" onPointerDown={() => setRolls((n) => n + 1)}>
+    <div aria-hidden className="tt-stage" onPointerDown={() => css && setRolls((n) => n + 1)}>
       <span className="tt-ring tt-ring-1" /><span className="tt-ring tt-ring-2" />
-      <div className="tt-float">
-        <div key={rolls} className={cn("tt-cube", rolls > 0 && "tt-tumble")}>
-          {FACES.map(([f, n]) => (
-            <div key={f} className={`tt-face tt-${f}`}>
-              {Array.from({ length: 9 }, (_, i) => {
-                const on = PIPS[n].includes(i);
-                return <i key={i} className={on ? (i === PIPS[n][PIPS[n].length - 1] ? "on lie" : "on") : ""} />;
-              })}
-            </div>
-          ))}
+      {css ? (
+        <div className="tt-float">
+          <div key={rolls} className={cn("tt-cube", rolls > 0 && "tt-tumble")}>
+            {FACES.map(([f, n]) => (
+              <div key={f} className={`tt-face tt-${f}`}>
+                {Array.from({ length: 9 }, (_, i) => {
+                  const on = PIPS[n].includes(i);
+                  return <i key={i} className={on ? (i === PIPS[n][PIPS[n].length - 1] ? "on lie" : "on") : ""} />;
+                })}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      ) : <Dice3D onFail={fail} />}
       <span className="tt-chip tt-chip-a">Truth</span>
-      <span className="tt-chip tt-chip-b">Truth</span>
+      <span className="tt-chip tt-chip-b">Choose</span>
       <span className="tt-chip tt-chip-c">Lie</span>
     </div>
   );
