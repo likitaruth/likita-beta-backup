@@ -11,7 +11,7 @@ export const viewport: Viewport = { themeColor: "#0f0f0e", colorScheme: "dark li
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark" data-bg="1" data-scroll-behavior="smooth" className={fontVariables} suppressHydrationWarning>
+    <html lang="en" data-theme="dark" data-bg="2" data-scroll-behavior="smooth" className={fontVariables} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: prefsScript }} />
       </head>

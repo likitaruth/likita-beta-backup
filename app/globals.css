@@ -609,3 +609,7 @@ body {
   .mb-name { clip-path: none !important; } .mb-hi { opacity: 1 !important; } .mb-likita svg path { stroke-dashoffset: 0 !important; animation: none !important; }
   .mb-art.draw .mb-ink { animation: none !important; stroke-dashoffset: 0; fill-opacity: 1; }
 }
+
+/* Menu: while any item is hovered or focused, the current-page item gives up its highlight so only that one reads as active. */
+.menu-nav:is(:hover, :focus-within) a[aria-current="page"]:not(:hover, :focus-visible) { background-color: transparent; color: var(--card); font-weight: 400; }
+.menu-nav:is(:hover, :focus-within) a[aria-current="page"]:not(:hover, :focus-visible) > span:last-child { border-color: var(--card); }

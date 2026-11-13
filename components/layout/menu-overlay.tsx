@@ -82,7 +82,7 @@ export function MenuOverlay() {
             </button>
             <motion.nav
               aria-label="Primary"
-              className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain"
+              className="menu-nav flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain"
               initial="hidden"
               animate="show"
               variants={{ hidden: {}, show: { transition: { staggerChildren: prefs.reduced ? 0 : 0.05, delayChildren: prefs.reduced ? 0 : 0.08 } } }}

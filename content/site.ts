@@ -19,7 +19,7 @@ export const site = {
   },
 
   hero: {
-    ethos: ["DESIGNER.", "THINKER.", "BUILDER"],
+    ethos: ["DESIGNER.", "THINKER.", "BUILDER."],
     line1: "PRODUCT",
     line2: "DESIGN",
     purpose: { lead: "FOR ", strong: "AI-NATIVE CRM", italic: " & B2B SAAS", end: "." },

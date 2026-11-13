@@ -37,9 +37,9 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
                   <b className="font-bold text-accent">{String(index + 1).padStart(2, "0")} </b>/ {String(projects.length).padStart(2, "0")}
                 </Item>
               </div>
-              <Item as="h1" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none text-center">{study.title}</Item>
+              <Item as="h1" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none mx-auto w-full max-w-[1068px] text-left">{study.title}</Item>
             </div>
-            <Item className={cn(body, "mx-auto flex max-w-[780px] flex-col gap-4 text-center")}>
+            <Item className={cn(body, "mx-auto flex w-full max-w-[1068px] flex-col gap-4 text-left")}>
               {[study.lede].flat().map((t) => <p key={t}>{t}</p>)}
             </Item>
           </div>

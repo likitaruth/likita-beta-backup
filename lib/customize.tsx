@@ -14,19 +14,19 @@ export const BG_STYLES: ReadonlyArray<{ id: BgStyle; label: string; swatch: stri
 ];
 
 /** Blocking inline script: applies saved prefs before first paint (no theme flash). */
-export const prefsScript = `(function(){var d=document.documentElement;try{var p=JSON.parse(localStorage.getItem('${KEY}')||'{}');d.dataset.theme=p.theme==='light'?'light':'dark';d.dataset.bg=/^[123]$/.test(p.bg)?p.bg:'1';}catch(e){d.dataset.theme='dark';d.dataset.bg='1';}})();`;
+export const prefsScript = `(function(){var d=document.documentElement;try{var p=JSON.parse(localStorage.getItem('${KEY}')||'{}');d.dataset.theme=p.theme==='light'?'light':'dark';d.dataset.bg=/^[123]$/.test(p.bg)?p.bg:'2';}catch(e){d.dataset.theme='dark';d.dataset.bg='2';}})();`;
 
 type Ctx = { theme: Theme; bg: BgStyle; setTheme: (t: Theme) => void; setBg: (b: BgStyle) => void; toggleTheme: () => void };
 const CustomizeContext = createContext<Ctx | null>(null);
 
 export function CustomizeProvider({ children }: { children: ReactNode }) {
   const [theme, setThemeState] = useState<Theme>("dark");
-  const [bg, setBgState] = useState<BgStyle>("1");
+  const [bg, setBgState] = useState<BgStyle>("2");
 
   useEffect(() => {
     const d = document.documentElement;
     setThemeState(d.dataset.theme === "light" ? "light" : "dark");
-    setBgState(/^[123]$/.test(d.dataset.bg ?? "") ? (d.dataset.bg as BgStyle) : "1");
+    setBgState(/^[123]$/.test(d.dataset.bg ?? "") ? (d.dataset.bg as BgStyle) : "2");
   }, []);
 
   const persist = useCallback((next: { theme?: Theme; bg?: BgStyle }) => {
