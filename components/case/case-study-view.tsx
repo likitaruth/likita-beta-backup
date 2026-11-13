@@ -46,9 +46,9 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
 
           <ViewTransition name={`project-${study.slug}-media`} share={{ "nav-forward": "morph", default: "none" }} default="none">
             {study.heroSrc ? (
-              <Item kind="fade" className={cn("cs-ex mx-auto w-full", study.heroTone === "screen" ? "cs-ex--screen" : "cs-ex--photo")} style={{ aspectRatio: study.heroRatio ?? 1068 / 600, maxWidth: study.heroMax ?? 1068 }}>
+              <Item kind="fade" className={cn("cs-ex mx-auto w-full", study.heroTone === "screen" ? "cs-ex--screen" : study.heroTone === "mockup" ? "cs-ex--mockup" : "cs-ex--photo")} style={{ aspectRatio: study.heroRatio ?? 1068 / 600, maxWidth: study.heroMax ?? 1068 }}>
                 <div className="cs-ex-in">
-                  <Image src={study.heroSrc} alt={study.heroAlt} fill priority sizes="(min-width:1100px) 1068px, 100vw" className="object-cover" />
+                  <Image src={study.heroSrc} alt={study.heroAlt} fill priority quality={study.heroTone === "mockup" ? 92 : 75} sizes="(min-width:1100px) 1068px, 100vw" className="object-cover" />
                 </div>
               </Item>
             ) : (
@@ -160,7 +160,7 @@ function BlockView({ block }: { block: Block }) {
         <Stage amount={0.15}>
           <Item kind="fade" className={cn("cs-ex mx-auto w-full", `cs-ex--${block.src ? tone : "photo"}`, !block.src && "bg-surface")} style={{ aspectRatio: block.ratio, maxWidth: block.width ?? 1068 }}>
             <div className="cs-ex-in">
-              <Image src={src} alt={block.alt} fill sizes={sizes} className={tone === "photo" || !block.src ? "object-cover" : "object-contain"} />
+              <Image src={src} alt={block.alt} fill quality={tone === "mockup" ? 92 : 75} sizes={sizes} className={tone === "photo" || !block.src ? "object-cover" : "object-contain"} />
             </div>
           </Item>
         </Stage>

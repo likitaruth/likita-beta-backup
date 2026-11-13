@@ -16,7 +16,7 @@ export type TabKey = "design" | "think" | "build";
 
 export type Block =
   | { type: "text"; eyebrow?: string; heading?: string; body: string[]; size?: 18 | 21; display?: boolean }
-  | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" | "screen" }
+  | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" | "screen" | "mockup" }
   | { type: "cards"; cols: 2 | 3; items: { n?: string; kicker?: string; title?: string; lines?: string[]; list?: string[] }[] }
   | { type: "pull"; text: string; heading?: string };
 
@@ -31,7 +31,7 @@ export type CaseStudy = {
   heroSrc?: string;
   heroRatio?: number;
   heroMax?: number;
-  heroTone?: "photo" | "screen";
+  heroTone?: "photo" | "screen" | "mockup";
   /** Up to three label/value pairs shown under the hero (Figma: Role / Focus / Year). */
   meta: [string, string][];
   reflection?: { eyebrow: string; heading: string; body: string[]; pull: string };
@@ -605,16 +605,16 @@ const nsIntro: Tab["intro"] = {
     "Northstar starts from a business outcome. The AI investigates and drafts, people keep authority over consequential decisions, and the handoffs between them are designed rather than left to chance.",
   ],
 };
-const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", src: `${NS}/${file}.webp`, tone: "screen", alt, ratio });
+const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", src: `${NS}/mock/${file}.webp`, tone: "mockup", alt, ratio });
 const northstar: CaseStudy = {
   slug: "northstar",
   title: "An AI-native CRM that shows its uncertainty",
   lede: "Northstar is a working prototype of a goal-driven CRM for retention teams. I designed the journey from a stated goal to an audited action, then built it end to end as a React and TypeScript front end on synthetic data: 7 flows, 3 roles and 10 designed failure scenarios.",
   heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
-  heroSrc: `${NS}/summary.webp`,
+  heroSrc: `${NS}/mock/summary.webp`,
   heroRatio: 1.6,
   heroMax: 1068,
-  heroTone: "photo",
+  heroTone: "mockup",
   meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Working prototype on synthetic data"]],
   reflection: {
     eyebrow: "limits & next",
@@ -667,8 +667,7 @@ const northstar: CaseStudy = {
         ns("activity", "Activity log filtered into AI and system, Human decisions and Execution, showing an Outreach scheduled event with its technical record expanded"),
         { type: "text", body: ["Filters by who acted, events that state the outcome in plain language, and the structured record behind a disclosure with a copy button."] },
         { type: "text", heading: "On phones", body: ["The Figma file was desktop only. On phones, tables become cards, side drawers go full screen, and the uncertainty banner stays above the list."] },
-        { type: "image", src: `${NS}/phone-summary.webp`, tone: "screen", alt: "Investigation summary on a phone, awaiting approval", ratio: 780 / 1328, width: 340 },
-        { type: "image", src: `${NS}/phone-opps.webp`, tone: "screen", alt: "Opportunities on a phone, filtered to records that need review, shown as cards", ratio: 780 / 1328, width: 340 },
+        { type: "image", src: `${NS}/mock/phones.webp`, tone: "mockup", alt: "Two phones: the investigation summary awaiting approval, and opportunities filtered to records that need review, shown as cards", ratio: 1.6 },
       ],
     },
     think: {

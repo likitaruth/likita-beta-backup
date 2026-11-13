@@ -613,3 +613,6 @@ body {
 /* Menu: while any item is hovered or focused, the current-page item gives up its highlight so only that one reads as active. */
 .menu-nav:is(:hover, :focus-within) a[aria-current="page"]:not(:hover, :focus-visible) { background-color: transparent; color: var(--card); font-weight: 400; }
 .menu-nav:is(:hover, :focus-within) a[aria-current="page"]:not(:hover, :focus-visible) > span:last-child { border-color: var(--card); }
+
+.cs-ex--mockup { border-radius: 20px; box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 40px 70px -30px rgb(0 0 0 / 0.9), 0 18px 30px -18px rgb(0 0 0 / 0.8); }
+.cs-ex--mockup .cs-ex-in img { transform: none; }
