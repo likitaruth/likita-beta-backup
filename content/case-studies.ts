@@ -193,72 +193,206 @@ export const caseStudies: CaseStudy[] = [
 ];
 
 /*
- * ClientLens — exact copy and image placement from Figma 2171:9645 (Design 2171:8814 / Think 2171:9033 / Build 2171:9154).
- * Images are web-sized WebP/JPG in /public/assets/case/clientlens. Frame ratios are the Figma frame sizes.
- * Notes: the Figma Build tab "Next" button reads "Think"; the site flow is kept (Build -> next project).
- * The counter is derived from the project list, not hard-coded.
+ * ClientLens — copy and structure from the published ClientLens artifact (claude.ai/artifact/P57oksJpMxocZ6yDBhCzua).
+ * Screens are the six exports bundled with that artifact, in /public/assets/case/clientlens.
+ * FLAGS:
+ *  1. The artifact marks several details as assumptions to verify before sharing (role, team size, timeline, pilot metrics,
+ *     quotes, 1.4M records, 02:00 UTC batch, and similar). They are reproduced as written; check them before publishing.
+ *  2. The artifact's numbered annotation pins are folded into the copy (the image block has no overlay). The diagram, quadrant,
+ *     ownership split, trade-offs, pipeline and JSON contract are expressed as cards, since the shared blocks have no
+ *     diagram/table/code type.
+ *  3. Problem and Constraints open the Think tab, Outcomes closes the Build tab, and "What didn't work / What's next" plus the
+ *     closing line become the Reflection block.
+ *  4. The Figma file could not be reached when this was built, so no visuals were pulled from it.
  */
 const CL = "/assets/case/clientlens";
+const cl = (file: string, alt: string, ratio: number, width?: number): Block => ({ type: "image", src: `${CL}/${file}.webp`, tone: "screen", alt, ratio, width });
 const clIntro: Tab["intro"] = {
-  eyebrow: "Product journey",
-  heading: "Context to Evidence to Action",
-  body: ["The shipped workflow begins with a known client, ranks relevant comparisons, preserves both clients inside a shared comparison workspace, and introduces natural-language interpretation only when the user intentionally begins a detailed comparison."],
+  eyebrow: "the problem",
+  heading: "Two clients with the same tags. Opposite strategies.",
+  body: [
+    "John and Lisa are both tagged VIP, Gold Trader and Micro Account. John is active and worth $8,400. Lisa has churned and is worth $400. In the CRM they looked identical, so they received the same deposit bonus campaign. For Lisa that campaign was the most common trigger of compliance complaints on churned accounts. The labels described who clients were when they signed up, not how they behave now.",
+    "ClientLens answers the comparison and shows its reasons. The agent still decides. It makes the comparison explicit, explained and recorded.",
+  ],
 };
 const clientlens: CaseStudy = {
   slug: "clientlens",
-  title: "Explainable Customer Intelligence",
+  title: "Knowing when a lookalike will mislead you",
   lede: [
-    "ClientLens is an AI-powered feature within an enterprise CRM that helps account managers find clients with similar behavioural patterns, understand what drives those similarities, and identify appropriate engagement opportunities.",
-    "It brings trading activity, financial behaviour, CRM notes, communication habits, risk indicators, lead-source data, and lifecycle engagement into one investigation workflow.",
+    "ClientLens is an AI lookalike feature shipped inside TeamForce CRM. Finding lookalike clients is easy. The product is knowing when a lookalike will mislead you.",
+    "Retention agents at online brokerages grouped clients by labels like “VIP” and “Gold Trader”, then sent the wrong campaigns to clients who only looked alike.",
   ],
-  heroAlt: "ClientLens similar-leads results on a laptop at a walnut desk",
-  heroSrc: `${CL}/hero-walnut-desk.jpg`,
-  heroRatio: 1068 / 600,
-  meta: [["Role", "Product design & Prototype"], ["Focus", "AI / SAAS / CRM"], ["Year", "2026"]],
+  heroAlt: "ClientLens Intelligence Summary comparing John Doe (Active, LTV $8,400) with Lisa Doe (Churned, LTV $400): 29% match score, low similarity, 87% confidence, a recommendation not to treat them the same, similarity and difference cards, recommended actions, and a business impact panel",
+  heroSrc: `${CL}/summary.webp`,
+  heroRatio: 2000 / 1463,
+  heroMax: 1068,
+  heroTone: "photo",
+  meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
+  reflection: {
+    eyebrow: "honest read",
+    heading: "What didn't work, and what's next",
+    body: [
+      "The radar is under-used: opened in 22% of comparisons, because most agents act from the summary. It earns its place as evidence, not as the default view. Overnight scores confused some agents, since a client who deposited that morning still showed as churned. The compare date helped, but not completely. Imported leads with little data produced cautious, unhelpful verdicts. Coverage on the record explained why, but didn't fix it.",
+      "Next: Deep Dive by category, the view cut from v1, for retention leads who audit strategies. Intra-day re-scoring for clients with new deposits or tickets, so the most urgent cases aren't a day old. Close the loop by recording which recommended action an agent took and its result, so confidence learns from outcomes rather than only data coverage. And a “Disagree” option on each verdict, routed to data science as labelled training examples.",
+    ],
+    pull: "Similar isn't the same. ClientLens shows agents the difference before they act on it.",
+  },
   tabs: {
     design: {
       intro: clIntro,
       blocks: [
-        { type: "text", eyebrow: "Product journey", heading: "Client Detail", body: ["The journey starts with identity, status, segment, deposits, lifetime value, trading activity, risk, redeposit likelihood, engagement, and profile-data availability. Anchoring Find Similar inside the client profile keeps the investigation grounded in a reference client and a clear business hypothesis."] },
-        { type: "image", src: `${CL}/mockup-lead-detail.webp`, tone: "photo", alt: "Client detail screen with the Find Similar action, shown on a laptop on a sunny terrace", ratio: 1068 / 600 },
-        { type: "text", eyebrow: "Product journey", heading: "Ranked Similar Leads", body: ["Ranked results prioritize overall match strength, category-level signals, identity, status, and segment so users can decide whether a result is relevant enough to investigate. High, medium, and low bands make a large client set manageable without generating a paragraph for every result."] },
-        { type: "image", src: `${CL}/mockup-similar-leads.webp`, tone: "cut", alt: "Ranked similar-client results with match scores, shown on an angled laptop", ratio: 1068 / 700 },
-        { type: "text", eyebrow: "comparison workspace", heading: "Persistent Comparison Context", body: ["The same client pair remains visible across Overview, Radar Preview, and Deep Compare. This shared state prevents each view from feeling like a disconnected report and reduces the need to repeatedly select or reconstruct context.", "Structured scores remain available even when an AI summary cannot be generated, providing graceful degradation without hiding the underlying evidence."] },
-        { type: "image", src: `${CL}/mockup-deep-compare.webp`, tone: "photo", alt: "Deep Compare feature breakdown for a client pair, shown on a laptop on a sofa", ratio: 1068 / 700 },
+        { type: "text", eyebrow: "the experience", heading: "From one lead to a confident decision about many.", body: ["The flow runs Lead record, Similar leads, Select, Intelligence Summary and Radar Preview. Each step answers one question, and every AI claim on screen carries its reason and how confident it is."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Shipped", list: ["Find Similar Leads on every lead record", "Ranked lookalikes with an AI summary per match", "Pairwise comparison: Intelligence Summary and Radar Preview"] },
+          { kicker: "I owned", list: ["Framing the feature as a verdict, not a similarity search", "Separating confidence from similarity", "The insight card system and the “Do not recommend” pattern"] },
+          { kicker: "Team decisions", list: ["Nightly batch scoring, not real-time (engineering)", "The 8-category feature model (data science)", "Hashed identities for other clients (compliance)"] },
+          { kicker: "Measured", list: ["64% weekly use across pilot desks", "Segment build time 38 to 9 min", "41% fewer mis-targeted promotions"] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { n: "1", kicker: "Intelligence Summary", title: "A verdict, not a score.", lines: ["The headline answers the agent's real question: can these two clients share a strategy?"] },
+          { n: "2", kicker: "Intelligence Summary", title: "Confidence is separate from similarity.", lines: ["“29% similar, 87% confident” means the AI is sure they're different. Merging the two numbers would hide that."] },
+          { n: "3", kicker: "Intelligence Summary", title: "What not to do.", lines: ["The campaigns that would backfire are named, next to the ones that would work."] },
+          { n: "4", kicker: "Intelligence Summary", title: "The cost of ignoring it.", lines: ["The impact panel describes what goes wrong if the two are put in one segment."] },
+        ] },
+        { type: "text", eyebrow: "entry · lead record", heading: "One button in the row agents already use, and a signal of how much the AI can know.", body: [
+          "Find Similar Leads sits next to Send push notification and Add to WhatsApp, in the action row agents use dozens of times a day. Nothing else on the record moved.",
+          "Below it, Profile Data Coverage shows how complete the record is in each feature group. It answers a question agents ask before trusting any AI output: what does it actually know about this person? A client with 6 of 16 features filled gets weaker matches, and the agent can see that before clicking.",
+        ] },
+        cl("lead", "Lead record for Yılmaz Şahin with a Find Similar Leads button in the action row, KPI tiles, a Profile Data Coverage panel at 92% with Trading, Financial and Notes groups at 15 of 16, and a Trading detail panel showing call activity", 2000 / 909),
+        { type: "text", body: ["The entry point sits in the existing action row. Data coverage is shown by feature group. Each group opens into the raw signals behind it, such as call count, answer rate and preferred call hour."] },
+        { type: "text", eyebrow: "discover · AI read, explained", heading: "Before showing anyone else, tell the agent what ClientLens sees in this client.", body: [
+          "The left column reads the client: risk flag, re-deposit chance, re-engagement likelihood and best channel. Underneath is the reason, written plainly: clients like this one responded to these actions.",
+          "I put this before the list on purpose. In early sessions with 8 agents, people jumped straight to the top match and copied its playbook. Making them read the client first slowed that habit down.",
+          "Risk is a coloured label and probability is a word plus a number, so neither is a bare percentage. “Medium” re-deposit chance is a judgment an agent can act on. 0.47 is not.",
+        ] },
+        cl("similar-anchor", "Anchor lead panel for John Doe: High Churn Risk, Medium redeposit chance, 76% re-engagement outreach, best channel Telegram, and a note explaining that similar clients had positive outcomes with these actions", 1562 / 2715, 360),
+        { type: "text", body: ["Risk comes first, then the channel to use, then why ClientLens believes it."] },
+        cl("similar", "Similar Leads list with 1,200 results, a Medium (30%) threshold dropdown, a Run Comparison button, and rows each showing a checkbox, a 76% match ring, client tags, an AI summary of the risk profile, and View Profile and Compare buttons", 2000 / 1296),
+        { type: "text", body: ["The match threshold defaults to Medium (30%), with the tolerance written next to the label. Match strength is a ring with a number. Each match comes with an AI summary that leads with risk; here it warns that the client resembles previously restricted users. Agents tick the matches they want to examine, and Run Comparison works on the selected set."] },
+        { type: "text", eyebrow: "compare · verdict, confidence, action", heading: "The comparison ends in a recommendation the agent can act on, or refuse.", body: [
+          "The summary reads top to bottom like a decision. AI Summary gives the recommendation and its confidence. Similarities and Differences are scored by category, each labelled “Stronger driver”, “Significant difference” or “Completely different”. Recommended Actions are tagged by impact. Business Impact explains what goes wrong if the agent ignores the recommendation.",
+          "The column I fought hardest for is Do not recommend. Positive recommendations alone kept leading agents to add the VIP playbook “just in case”. Naming the campaigns that would backfire, here a VIP upgrade, a high-value campaign and deposit incentives, turned a suggestion into a guardrail.",
+        ] },
+        cl("summary-actions", "Recommended Actions panel: primary action, high impact, use John's CRM engagement patterns to re-engage Lisa; secondary action, medium impact, a targeted retention journey instead of trading incentives; and a Do not recommend list of VIP upgrade promotion, high-value trader campaign and deposit-based incentives", 1600 / 1855, 560),
+        { type: "text", body: [
+          "A primary and a secondary action, each with an impact tag, and below them the Do not recommend list.",
+          "Why actions instead of segments? The first version produced a segment, “clients like John”, and left the strategy to the agent. Agents read that as “treat them like John”. Writing the action, use John's engagement patterns, not his incentives, keeps what transfers (communication style, timing) apart from what doesn't (deposit behaviour).",
+          "Why impact tags? Retention leads asked in the pilot how to prioritise when a desk has 40 comparisons open. High and medium impact gave them a triage order without another screen.",
+        ] },
+        { type: "text", eyebrow: "explain · evidence layer", heading: "One shape that shows where two clients overlap and where they come apart.", body: [
+          "A 29% match is an abstraction. The radar plots both clients across the eight categories used for scoring: trading, financial, CRM notes psychology, communication, risk, marketing, lead source and lifecycle. The shaded overlap is where the strategies can be shared.",
+          "Radar charts are easy to misread, so the help is built into the page rather than a tooltip. How to read the radar explains the centre, the edge and the overlap. What does this mean? turns the shape into a sentence.",
+        ] },
+        cl("radar", "Radar Preview tab: a radar chart comparing the active and churned client across eight categories, an Insights panel noting strong alignment in CRM psychology and communication habits, a What does this mean explanation, and a How to read the radar legend", 2000 / 1078),
+        { type: "text", body: ["Two shapes, one overlap. Insights pick out the strongest alignment, a plain-language reading explains it, help is one click away, and a legend covers the three patterns that matter.", "Screens are from the shipped design. Client names and IDs are test data."] },
       ],
     },
     think: {
       intro: clIntro,
       blocks: [
-        { type: "cards", cols: 3, items: [
-          { kicker: "How might we?", title: "Help account managers move from a known client to relevant comparisons without manually searching across CRM modules." },
-          { kicker: "How might we?", title: "Make every AI-selected match explainable by showing the behaviours, dimensions, and differences behind the score." },
-          { kicker: "How might we?", title: "Turn comparison evidence into a clear next step while keeping the user responsible for the final decision." },
+        { type: "text", eyebrow: "before / after", heading: "Agents segmented by memory and tags. The CRM now answers the comparison and shows its reasons.", body: ["The decision that matters most, “is this client like that one?”, used to happen in someone's head."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Before ClientLens", title: "Agents segmented by memory and tags.", list: ["Open the lead record: 60+ fields across 7 panels (agent)", "Filter the leads list by tags and country (agent)", "Export to a spreadsheet and sort by deposits (agent)", "Guess which clients “behave like” a known good one (unrecorded)", "Apply the VIP playbook to the whole list (mis-targeted)"], lines: ["The decision that matters most, “is this client like that one?”, happened in someone's head."] },
+          { kicker: "With ClientLens", title: "The CRM answers the comparison and shows its reasons.", list: ["Click Find Similar Leads on the record (agent)", "Rank lookalikes across 8 behaviour categories (AI)", "Read the lead's risk, re-deposit chance and best channel (AI)", "Compare a pair: verdict, confidence, do and don't (confidence)", "Choose the action and log it on the record (agent)"], lines: ["The agent still decides. ClientLens makes the comparison explicit, explained and recorded."] },
         ] },
-        { type: "text", eyebrow: "Information Model", heading: "Four Information Layers", body: ["ClientLens combines four distinct information layers: factual CRM values, calculated similarity data, AI-generated interpretation, and operational recommendations. Separating these layers keeps generated insight from being mistaken for raw customer data and makes the reasoning easier to inspect."] },
-        { type: "cards", cols: 3, items: [
-          { n: "01", title: "Factual CRM Data", lines: ["Deposits, lifetime value, trading activity, status, communication records, lead source, and lifecycle stage establish the underlying client context."] },
-          { n: "02", title: "Calculated Similarity", lines: ["Overall scores, category percentages, feature-level matches, confidence bands, and unavailable comparisons form the structured comparison result."] },
-          { n: "03", title: "Interpretation and Action", lines: ["AI-generated explanations clarify why a match matters, while operational recommendations translate the evidence into a reviewable next step"] },
+        { type: "pull", heading: "Design challenge", text: "How might we help agents reuse what worked for one client on others, without letting surface similarity push them into the wrong strategy?" },
+        { type: "text", eyebrow: "constraints", heading: "Shipped inside a CRM agents already used all day.", body: ["This wasn't a blank canvas. ClientLens had to live in a six-year-old lead record, on a fixed component library, with data that was often incomplete and scores that could not be computed live. Each constraint shaped a specific design decision."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Legacy system", title: "A crowded lead record we couldn't redesign", lines: ["The lead page carries Details, Advance Details, Device, Custom Fields, KYC, Marketing and Transactions. Three other teams own panels on it, so a page redesign was off the table.", "Design response: entry is one button in the existing action row. The results open in the page's existing AI insight tab slot rather than a new page."] },
+          { kicker: "Technical limit", title: "Similarity is scored overnight, not live", lines: ["Scoring every lead against roughly 1.4M records in real time was too expensive for the database cluster. Engineering moved scoring to a nightly batch.", "Design response: every comparison shows its compare date. Results never look live, and agents can tell when a client changed after scoring."] },
+          { kicker: "Technical limit", title: "AI summaries were slow and costly", lines: ["Generating a written summary took 4–6 seconds per lead. Doing it for 1,200 matches on page load was not an option.", "Design response: summaries are pre-generated for the top 50 matches and created on demand after that. The list never waits on the model."] },
+          { kicker: "Data quality", title: "Many records were half empty", lines: ["Imported leads often lacked trading history or notes. A match built on thin data looks just as confident as one built on rich data unless you say otherwise.", "Design response: Profile Data Coverage (15 of 16 features, 92%) sits on the lead record, and confidence is shown on every verdict."] },
+          { kicker: "Compliance", title: "Agents can't browse other clients' details", lines: ["Lookalikes can belong to other desks and regions. Compliance ruled that matched clients appear only with hashed IDs unless the agent has access to that record.", "Design response: match cards lead with the reasons for the match, not personal data. View Profile respects the agent's existing permissions."] },
+          { kicker: "Business priority", title: "A retention target and a fixed date", lines: ["The retention desks had a quarterly re-deposit target, and the feature had to land before the Q2 campaign season.", "Design response: we cut the Deep Dive per-category view from v1 and shipped the decision path first: find, compare, act."] },
         ] },
-        { type: "image", src: `${CL}/information-model.webp`, tone: "dark", alt: "Information model showing the four layers: factual CRM data, calculated similarity, AI interpretation and operational recommendations", ratio: 1068 / 612 },
-        { type: "text", heading: "A Progressive Decision Journey", body: ["The experience was reframed around five questions: Who is this client? Who are the similar clients? Why were they matched? Where do they differ? What should the user do with the information?", "This progression moves from client context to discovery, interpretation, evidence, and action. It gives account officers a concise path while preserving deeper comparison detail for analysts who need it."] },
-        { type: "image", src: `${CL}/product-flow.webp`, tone: "flow", alt: "Product flow from Client Detail through Find Similar, Similar Leads, AI Overview, Radar Preview and Deep Compare", ratio: 1077 / 132.8 },
-        { type: "text", eyebrow: "Reflection", heading: "Reviewable AI Decisions", body: ["The most important part of an intelligent feature is the structure around its output: where it appears, what evidence supports it, how incomplete data is handled, how users inspect or challenge it, and how it connects to an operational decision."] },
-        { type: "image", src: `${CL}/product-roadmap.webp`, tone: "dark", alt: "Product roadmap showing shipped, next and later opportunities", ratio: 1068 / 800 },
+        { type: "text", eyebrow: "iterations · v1 to v4", heading: "From a similarity badge to a verdict with guardrails.", body: ["ClientLens went through four versions. Each fixed a specific way agents misused the previous one."] },
+        { type: "cards", cols: 2, items: [
+          { n: "v1 · Badge", title: "A match % on the leads list", lines: ["A single similarity number next to each lead, sorted from highest to lowest.", "What we learned: in the first prototype test, 6 of 8 agents treated 70%+ as “same client, same campaign”."] },
+          { n: "v2 · Breakdown", title: "Per-category scores", lines: ["The match split into categories, so a high overall score could show a 0% gap in trading behaviour.", "What we learned: agents saw the gap but still didn't know what to do differently. Information isn't a decision."] },
+          { n: "v3 · Verdict", title: "Recommendation + confidence", lines: ["A plain answer, “treat as one segment or not”, with confidence shown as its own number.", "What we learned: engineering found that confidence followed data coverage. That is why coverage moved onto the lead record."] },
+          { n: "v4 · Shipped", title: "Actions, anti-actions, impact", lines: ["Primary and secondary actions, a Do not recommend list, business impact and the radar as supporting evidence.", "What we learned: compliance review asked for the Do not recommend list after seeing deposit incentives offered to churned clients."] },
+        ] },
+        { type: "text", eyebrow: "model · two axes", heading: "Similarity and confidence are different questions. Merging them hides the dangerous case.", body: ["Early specs had one “match quality” number. I argued for two: how alike two clients are, and how sure ClientLens is about it. The John/Lisa case shows why. A low match with high confidence is the most useful thing the system can say, because it stops a mistake. A single number would show it as a weak result and agents would skip it."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "High confidence · low similarity", title: "Don't share a strategy", lines: ["ClientLens is sure they differ. The verdict says so and names what not to do.", "John vs Lisa · 29% · 87%"] },
+          { kicker: "High confidence · high similarity", title: "Reuse what worked", lines: ["The primary action carries over, with the channel and timing from the better-performing client.", "Typical top matches · 76%"] },
+          { kicker: "Low confidence · low similarity", title: "Treat as a hint", lines: ["No recommendation is shown as certain. The UI points to the missing data instead."] },
+          { kicker: "Low confidence · high similarity", title: "Looks alike, unproven", lines: ["The most tempting case to over-trust. The confidence label keeps the agent careful."] },
+        ] },
+        { type: "text", eyebrow: "ownership · mine vs ours", heading: "Which decisions I made, and which ones the team made.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Decisions I owned", title: "Answer “should these share a strategy?”, not “how similar?”", lines: ["I reframed the brief from a similarity search into a decision aid. It changed the output from a ranked list into a verdict."] },
+          { kicker: "Decisions I owned", title: "Two numbers: similarity and confidence", lines: ["I took this to the data scientist and the PM with the John/Lisa case as evidence."] },
+          { kicker: "Decisions I owned", title: "Do not recommend as a first-class pattern", lines: ["A negative action list, styled the same as recommendations, so it isn't read as a footnote."] },
+          { kicker: "Decisions I owned", title: "Read the client before the list", lines: ["The anchor panel comes before the matches to break the copy-the-top-match habit."] },
+          { kicker: "Decisions I owned", title: "The insight card system", lines: ["One card anatomy for every AI claim, built in the existing Ant Design library."] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Engineering lead", title: "Nightly batch scoring", lines: ["Infrastructure cost made live scoring infeasible. My response was to surface the compare date."] },
+          { kicker: "Data science · co-designed labels", title: "Eight scoring categories, 16 features each", lines: ["The data science model. I named the categories with agents so the labels match how they talk."] },
+          { kicker: "Compliance", title: "Hashed IDs for matched clients", lines: ["Required for cross-desk privacy. I designed the match card to work without personal data."] },
+          { kicker: "PM", title: "Cutting Deep Dive from v1", lines: ["Scope trade-off for the Q2 date. I argued for the radar as the lighter evidence view instead."] },
+          { kicker: "Data science + me", title: "Default threshold of 30%", lines: ["Picked from pilot data on which matches agents actually opened."] },
+        ] },
+        { type: "text", eyebrow: "boundaries · AI vs agent", heading: "ClientLens can recommend. It never acts on the client.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "AI may do", title: "Without asking", list: ["Score lookalikes across categories", "Summarise a match in plain language", "Recommend and rank actions", "Flag risk resemblance to restricted users"] },
+          { kicker: "AI shows, with context", title: "Always qualified", list: ["Confidence beside every verdict", "Compare date for every score", "Data coverage for the source lead", "The reason behind each recommendation"] },
+          { kicker: "Agent decides", title: "Human action", list: ["Which matches to compare", "Whether to follow a recommendation", "Which campaign or journey to use", "Opening a profile, within existing permissions"] },
+          { kicker: "Must never", title: "Hard limits", list: ["Enrol a client in a campaign automatically", "Change tags, status or VIP level", "Reveal personal data across desks", "Recommend deposit incentives to high-risk profiles"] },
+        ] },
+        { type: "text", eyebrow: "trade-offs · what it cost", heading: "The trades we made to ship on time inside the existing CRM.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Chose", title: "Overnight scores with a visible date", lines: ["Over: live scoring on every click.", "Cost: a client who deposits at noon looks the same until tomorrow. The date makes that visible."] },
+          { kicker: "Chose", title: "Fit into the existing tab slot", lines: ["Over: a dedicated ClientLens page.", "Cost: less room for the comparison. We accepted a two-column layout that scrolls."] },
+          { kicker: "Chose", title: "A verdict", lines: ["Over: neutral data that lets agents decide.", "Cost: being wrong is more visible. Confidence and the radar keep the verdict open to challenge."] },
+          { kicker: "Chose", title: "Radar as the evidence layer", lines: ["Over: the full per-category Deep Dive.", "Cost: less detail for power users. Deep Dive is on the roadmap."] },
+          { kicker: "Chose", title: "Pre-generated summaries for top matches", lines: ["Over: a summary for every match, always.", "Cost: matches past the first 50 show “Generating…” briefly when opened."] },
+        ] },
       ],
     },
     build: {
       intro: clIntro,
       blocks: [
-        { type: "image", src: `${CL}/anatomy-of-the-system.webp`, tone: "dark", alt: "Anatomy of the ClientLens system", ratio: 1068 / 500 },
-        { type: "text", eyebrow: "Outcome", heading: "A Live Intelligence Layer", body: ["ClientLens is live within the CRM. It gives relationship managers and operational teams a structured way to begin from a known client, discover comparable profiles, understand why they match, inspect differences, and use visible evidence to inform engagement decisions.", "Verified usage metrics are not yet included. The next measurement phase will track time to identify a relevant comparison, progression from results to comparison, use of deeper evidence views, recommendation engagement, completion and abandonment, adoption, and operational outcomes after recommended actions."] },
-        { type: "image", src: `${CL}/measurement-funnel.webp`, tone: "dark", alt: "Measurement funnel for the next phase of ClientLens metrics", ratio: 1068 / 800 },
+        { type: "text", eyebrow: "system · pipeline", heading: "Designed as a system, delivered alongside engineering.", body: ["The screens are the visible part of a pipeline: CRM events become features, features become scores, scores become structured claims, and claims become one family of cards. I designed the card system and the data contract with the engineers who built them.", "Each layer answers one question, and the interface can always trace a claim back to its source."] },
         { type: "cards", cols: 2, items: [
-          { title: "Move from recommendation to execution", lines: ["Future iterations can connect a recommendation directly to a task, outreach sequence, or campaign while collecting feedback on whether the suggestion was useful or acted upon."] },
-          { title: "Make changing patterns visible", lines: ["Comparison history, score-change visibility, cohort comparison, and deeper feature-contribution controls can extend the same product model without creating a separate AI experience."] },
+          { kicker: "Interface", list: ["Lead record · Find Similar Leads", "AI insight tab slot", "Intelligence Summary", "Radar Preview"], lines: ["Requests carry the agent's desk and permissions."] },
+          { kicker: "Insight API", list: ["Permission + masking", "Structured insight contract", "Feedback capture"] },
+          { kicker: "AI boundary", list: ["Summaries from structured scores only", "Rule check: no incentives to high-risk profiles", "Top 50 pre-generated, rest on demand"] },
+          { kicker: "Scoring", list: ["Similarity per category", "Confidence from coverage", "Risk resemblance", "Nightly batch · 02:00 UTC"] },
+          { kicker: "Features", list: ["8 categories × 16 features", "Trading · financial · calls · notes · marketing · lifecycle · lead source · risk"] },
         ] },
-        { type: "pull", heading: "Closing Thought", text: "The final experience does not ask users to trust a black-box recommendation. It helps them move from client context, to pattern discovery, to AI interpretation, to evidence, and finally to action." },
+        { type: "text", eyebrow: "components · insight card", heading: "One card anatomy for every AI claim, so agents learn to read it once.", body: ["Similarities, differences, actions and risk flags all use the same five parts. Because the anatomy is fixed, engineers could build one Ant Design component with variants instead of six bespoke panels, and the next AI insight in the tab slot (the Fraud Risk Index team adopted it next) inherits the same reading pattern."] },
+        { type: "cards", cols: 3, items: [
+          { n: "1", title: "Category", lines: ["Named the way agents talk about it, not after the model's feature."] },
+          { n: "2", title: "Verdict tag", lines: ["A fixed vocabulary: Stronger driver, Significant difference, Completely different, High or Medium impact."] },
+          { n: "3", title: "Reason", lines: ["One sentence built from the structured scores. Never free-form model text."] },
+          { n: "4", title: "Value", lines: ["Large, so it can be scanned across a row of cards."] },
+          { n: "5", title: "Semantic bar", lines: ["Green for alike, red for different, amber for “act with care”. Colour always repeats the tag, never replaces it."] },
+        ] },
+        { type: "text", body: ["Variants: similarity, difference, primary action, secondary action, do not recommend and risk flag."] },
+        { type: "text", eyebrow: "engineering · collaboration", heading: "How design and engineering shipped it together.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Weeks 1–3", title: "Contract before pixels", lines: ["The back-end lead and I wrote the insight response schema together, so every UI element had a field to come from and nothing was hard-coded."] },
+          { kicker: "Weeks 4–8", title: "States as specs", lines: ["I delivered every state as a spec: loading, generating, low coverage, no matches, permission-masked and scoring stale. QA tested against those."] },
+          { kicker: "Weeks 6–11", title: "Pilot behind a flag", lines: ["The feature shipped to 2 retention desks, 38 agents, behind a feature flag. We reviewed usage and feedback with data science every week."] },
+          { kicker: "Weeks 12–14", title: "Tune, then roll out", lines: ["The threshold default, summary wording and the Do not recommend rules were tuned from pilot data, then rolled out to all desks."] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "The insight contract · GET /leads/{id}/compare/{otherId}", title: "One response drives the whole Intelligence Summary", list: ["matchScore: 29", "similarity: low", "confidence: 87", "comparedAt: 2026-05-12T11:24:00Z", "recommendation: separate_strategy", "categories: crm_notes_psychology 88 (stronger_driver), trading_behaviour 0 (completely_different)", "actions: primary, high impact, reuse_engagement_pattern", "doNotRecommend: vip_upgrade, high_value_campaign, deposit_incentive"] },
+        ] },
+        { type: "text", eyebrow: "outcomes", heading: "Results from the pilot and the first quarter after launch.", body: ["Measured over 6 weeks on two pilot desks against two comparable desks without ClientLens, then tracked for one quarter after general availability."] },
+        { type: "cards", cols: 2, items: [
+          { n: "64%", title: "Weekly use", lines: ["Of pilot agents used Find Similar Leads every week by week 6."] },
+          { n: "38 → 9 min", title: "Segment build time", lines: ["Median time to build a re-engagement segment."] },
+          { n: "−41%", title: "Mis-targeted promotions", lines: ["VIP and deposit promotions sent to churned or high-risk clients."] },
+          { n: "11.8% vs 8.6%", title: "Re-deposit rate", lines: ["On ClientLens-guided outreach compared with control desks."] },
+        ] },
+        { type: "cards", cols: 3, items: [
+          { kicker: "Feedback theme · agents", lines: ["“Do not recommend” was the most mentioned feature. Agents said it gave them a reason to refuse a manager's request to “just send the VIP offer”."] },
+          { kicker: "Feedback theme · retention leads", lines: ["Leads used impact tags to plan the day's comparisons, which we hadn't designed for."] },
+          { kicker: "Feedback theme · compliance", lines: ["Hashed matches and the deposit-incentive rule cleared review without changes."] },
+        ] },
       ],
     },
   },
