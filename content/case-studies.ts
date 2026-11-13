@@ -400,66 +400,191 @@ const clientlens: CaseStudy = {
 
 
 /*
- * Activepieces — Figma 2183:6218 (Design 2173:9865 / Think 2173:9977 / Build 2173:10077). Copy and image placement follow the frames.
- * FLAGS: the Figma meta row (Product design & Prototype / AI-SAAS-CRM / 2026) is a copy of ClientLens, so the existing
- * role / focus / industry values are kept. Stray words in Figma ("Reduce", "Create a more consistent interface ") that
- * trail two of the three "How might we" cards are left out. The eyebrow "system" above "Faster Setup, Better Confidence"
- * is kept as drawn. The Figma counter (01 / 05) is derived by the site instead.
+ * Activepieces — copy and structure from the published Activepieces artifact (claude.ai/artifact/ENKUcpbMBztHDgV91H2j3c).
+ * Visuals are the eight device mockups supplied with the request, web-sized in /public/assets/activepieces.
+ * FLAGS:
+ *  1. The artifact marks several details as assumptions to verify before sharing (release dates, team size, catalogue
+ *     size, task limit, support and adoption metrics, Material, PR reviews). They are reproduced as written; check them
+ *     before publishing.
+ *  2. The artifact's numbered annotation pins are folded into the copy (the image block has no overlay). The step-state
+ *     ladder, iterations, ownership split and trade-offs are expressed as cards, since the shared blocks have no
+ *     diagram/table type.
+ *  3. Problem and Constraints open the Think tab, Outcomes closes the Build tab, and "What didn't work / What I'd do next"
+ *     plus the closing line become the Reflection block.
  */
 const AP = "/assets/activepieces";
 const apIntro: Tab["intro"] = {
-  heading: "Simpler Automation Flow",
+  eyebrow: "the problem",
+  heading: "Multi-app automations were hard to read and harder to set up.",
   body: [
-    "Activepieces helps people automate work across multiple tools, but the product experience needed to make those flows easier to understand at a glance and less overwhelming to configure.",
-    "The focus of the redesign work was to improve clarity in key interaction moments, especially where users needed to build, trigger, and monitor automations without losing confidence in the process.",
+    "An automation is a chain: something happens in one app, and several things happen in others. In the old builder, users couldn't see at a glance what a flow did, where to start, or why it wasn't running. Most of them weren't developers. When the builder didn't explain itself, they left before publishing their first flow, or asked in the community Discord.",
+    "The redesign rests on one model: every step has a visible state, and the product never lets users move past a step it knows is broken.",
   ],
 };
+const ap = (file: string, alt: string, ratio: number, tone: "photo" | "cut" = "photo", width?: number): Block => ({ type: "image", src: `${AP}/${file}.webp`, tone, alt, ratio, width });
 const activepieces: CaseStudy = {
   slug: "activepieces",
-  title: "Automation Tool Redesign",
-  lede: "Activepieces is a no-code automation tool that connects apps like Gmail, Slack, and Discord so users can create workflows, or \u201cPieces\u201d, that automate repetitive tasks. As a UI Designer, I worked with the founder and senior designer to make those complex flows more straightforward and easier to use.",
-  heroAlt: "Activepieces flow builder canvas on a laptop sitting on a dark shelving unit",
-  heroSrc: `${AP}/hero-shelf-blank.webp`,
-  heroRatio: 1068 / 590,
+  title: "Automations fail where people lose their place",
+  lede: [
+    "Activepieces is an open-source, no-code tool that connects apps like Gmail, Slack and Discord into automated workflows. I redesigned the four moments where people kept losing their place.",
+    "Scope: the flow builder, trigger selection, the step sidebar, the flows dashboard and the component library under them.",
+  ],
+  heroAlt: "Activepieces flow builder on a laptop at a night desk: a Code step followed by a Branch step marked Invalid Settings, with True and False paths below it and a side panel showing the Branch settings with First Value, Condition and Second Value fields, each flagged as required",
+  heroSrc: `${AP}/branch.webp`,
+  heroRatio: 1800 / 1102,
   heroMax: 1068,
   heroTone: "photo",
-  meta: [["Role", "UI Designer"], ["Focus", "Workflow Clarity / Builder Experience / Design Systems"], ["Industry", "Automation"]],
+  meta: [["Role", "UI designer, working directly with the founder and a senior designer"], ["Focus", "UI design / Interaction / Design systems"], ["Shipped", "2023, used by the product's whole user base"]],
+  reflection: {
+    eyebrow: "honest read",
+    heading: "What didn't work, and what I'd do next",
+    body: [
+      "The empty dashboard underperformed: new users saw three “Untitled” flows and nothing else, and names and last-run time would have said more than the creation date. Material showed through, too. Some defaults, like dense tables and ripples, made the product feel generic in places. And Branch was still hard: conditions with several “And/Or” groups stayed difficult for non-developers.",
+      "Next: run history on the dashboard (last run, success or failure, and a link to the failing step). Name flows automatically from their trigger and first action, so the list is never a column of “Untitled”. A plain-language condition builder for Branch: “If email subject contains invoice”. And templates on the empty canvas for the most common app pairs.",
+    ],
+    pull: "Automation is easy until you lose your place. The redesign made sure nobody did.",
+  },
   tabs: {
     design: {
       intro: apIntro,
       blocks: [
-        { type: "text", eyebrow: "workflows", heading: "Redesigning Core Workflows", body: ["The redesign work centered on the product areas that most directly shaped usability: workflow building, trigger selection, app discovery in the sidebar, and dashboard visibility."] },
-        { type: "text", heading: "The Builder", body: ["The builder was redesigned to feel more intuitive and easier to scan, with clearer visual cues that support workflow creation step by step."] },
-                { type: "image", src: `${AP}/builder-stripes.webp`, tone: "cut", alt: "Activepieces builder on a tilted laptop floating in front of glowing horizontal light bars", ratio: 808.77 / 606, width: 809 },
-        { type: "text", heading: "Select Trigger", body: ["Search, filtering, and clearer explanations made trigger selection easier and more accurate for users starting new automations."] },
-                { type: "image", src: `${AP}/select-trigger-shelf.webp`, tone: "photo", alt: "Select Trigger step on the Activepieces canvas, shown on a laptop on a dark shelving unit", ratio: 1068 / 590 },
-        { type: "text", heading: "Side Bar Apps", body: ["The sidebar was reorganized to help users find and add the right tools faster, supported by clearer icons and helpful guidance."] },
-                { type: "image", src: `${AP}/sidebar-monitor-angled.webp`, tone: "cut", alt: "Select Step sidebar listing Airtable, Amazon S3, Asana and Bannerbear, shown on an angled monitor", ratio: 1069 / 700 },
-        { type: "text", heading: "Dashboard", body: ["A more approachable dashboard helped users monitor app activity and workflow status through clearer, more visually engaging widgets."] },
-                { type: "image", src: `${AP}/dashboard-macbook.webp`, tone: "cut", alt: "Flows dashboard with a table of flows, status toggles and a task usage bar, shown on a laptop", ratio: 1068 / 700 },
+        { type: "text", eyebrow: "the experience", heading: "Build, trigger, extend, monitor: four moments, one clear path.", body: ["The redesign follows the life of a flow. Each moment gets one job: show the user where they are, what's missing, and what to do next."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Shipped", list: ["Redesigned flow builder and step cards", "Select Trigger and Select Step with search and categories", "Flows dashboard with status and task usage"] },
+          { kicker: "I owned", list: ["Step card anatomy and validation states", "Sidebar information architecture", "Dashboard layout and the usage bar"] },
+          { kicker: "Team decisions", list: ["Vertical, top-to-bottom canvas (founder)", "Building on Angular Material (engineering)", "Release order and scope (founder + senior designer)"] },
+          { kicker: "Measured", list: ["Founder: users found the builder “VERY CLEAR” after release", "Time to first published flow 14 → 6 min", "“How do I start?” support questions down 52%"] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { n: "1", kicker: "Flow builder", title: "The canvas says what's wrong.", lines: ["An Invalid Settings tag on the step card, visible without opening anything."] },
+          { n: "2", kicker: "Flow builder", title: "Every step explains itself.", lines: ["“Decide what happens based on an if condition result”, in the panel header."] },
+          { n: "3", kicker: "Flow builder", title: "Errors sit at the field.", lines: ["Each required value is flagged where the user fixes it, not in a toast."] },
+          { n: "4", kicker: "Flow builder", title: "Paths are labelled.", lines: ["True and False are drawn and named, so a branch reads like a sentence."] },
+        ] },
+        { type: "text", eyebrow: "build · flow builder", heading: "A calm canvas with the next step always obvious.", body: [
+          "The builder is a dotted canvas with a single header. Breadcrumbs (Uncategorized / Untitled) show where the flow lives and let users rename it in place. Feedback, Test Flow and Publish sit together on the right, in the order users need them.",
+          "Publish stays disabled until the flow is valid. A greyed button that explains itself on hover beats a publish that fails afterwards.",
+        ] },
+        ap("builder-empty", "The redesigned Activepieces builder on a laptop: a dotted canvas, a breadcrumb reading Uncategorized / Untitled, and Feedback, Test Flow and a disabled Publish button in the header", 1800 / 994),
+        { type: "text", body: ["The flow's location is editable in place, Feedback and Test Flow are always reachable, and Publish waits for a valid flow."] },
+        { type: "text", eyebrow: "trigger · first step, guided", heading: "Every flow starts with one card that tells you what to do.", body: [
+          "A new flow is never blank. It opens with a single Select Trigger card, purple and centred, where the user's eye lands first. Until a trigger is configured, the card carries an Invalid Settings tag. It's a clear to-do, not an error.",
+          "The “+” connector below the card is where the second step goes. That's the whole model of the product, taught with two shapes.",
+        ] },
+        ap("trigger-invalid", "Builder with a Select Trigger card marked Invalid Settings and a plus connector beneath it", 1800 / 994),
+        { type: "text", body: ["A single starting point, with the “+” connector beneath it for the next step. A status tag shows what's left to do."] },
+        ap("trigger-float", "The Select Trigger card on an otherwise empty canvas, shown on a floating laptop in front of glowing light bars", 1800 / 1348),
+        { type: "text", body: ["The empty state is one card and nothing else, so there's no question about where to begin."] },
+        { type: "text", eyebrow: "extend · select step", heading: "A sidebar that scales with a catalogue that grows every week.", body: [
+          "Choosing a trigger or an action opens Select Step in a side panel, so the canvas stays visible and the user keeps their place. Search comes first because most users already know the app they want. Tabs (All, Core, App Actions) separate built-in logic like Branch and Code from third-party apps.",
+          "Each row leads with the app's own logo. People recognise Airtable's colours long before they read the word, which makes a long list easy to scan.",
+        ] },
+        ap("select-step", "Select Step side panel on a monitor with a search field, All, Core and App Actions tabs, and a list of Airtable, Amazon S3, Asana and Bannerbear, next to the canvas with a Select Trigger card", 1800 / 1179, "cut"),
+        { type: "text", body: ["Search first, category tabs that split logic from apps, logo-led rows for fast scanning, and a canvas that stays visible while the user chooses."] },
+        { type: "text", eyebrow: "configure · validation", heading: "Mistakes show up twice: on the canvas, and at the exact field.", body: [
+          "Configuring a step happens in the same side panel. The header names the step and explains what it does in one line. Required fields that are still empty are outlined, with a plain message underneath: “Condition is required”.",
+          "The same problem shows on the canvas as Invalid Settings on the step card. A user scanning a ten-step flow can see which steps need attention without opening each one.",
+        ] },
+        ap("branch", "Branch step selected on the canvas with Invalid Settings, and its settings panel showing three required fields outlined in red with messages beneath", 1800 / 1102),
+        { type: "text", body: ["The canvas flags the step, the field explains what's missing, and “+ Add / + Or” extend a condition without leaving the panel."] },
+        { type: "text", eyebrow: "monitor · flows dashboard", heading: "Which flows are on, and how much runway is left.", body: [
+          "The flows table shows only what users check daily: name, creation date and a status toggle they can flip without opening the flow. Delete is a clear red icon at the end of the row, away from the toggle.",
+          "The task usage bar is the most important change. “Tasks: 999/1000 (Resets in 11 days)” with View Plans beside it turns a silent limit into something users see coming and can plan for.",
+        ] },
+        ap("dashboard", "Flows dashboard on a laptop with a table of three flows, their creation dates, status toggles and delete icons, a New Collection button, page size control, and a dark task usage bar reading Tasks 999 of 1000, resets in 11 days, with a View Plans button", 1800 / 1180, "cut"),
+        { type: "text", body: ["Status toggles inline, one primary action, usage with the reset date, and the upgrade path right next to the problem."] },
+        { type: "text", body: ["Screens are from the shipped product, shown in device mockups."] },
       ],
     },
     think: {
       intro: apIntro,
       blocks: [
-        { type: "cards", cols: 3, items: [
-          { kicker: "How might we?", title: "Make automation-building flows easier to understand for users working across multiple connected apps." },
-          { kicker: "How might we?", title: "Reduce friction in key setup moments like selecting triggers, navigating the builder, and managing sidebar tools." },
-          { kicker: "How might we?", title: "Create a more consistent interface system that supports both better usability and stronger design-development alignment." },
+        { type: "text", eyebrow: "before / after", heading: "The user had to know automation to use it. Now the builder walks them through it.", body: ["Each step used to assume the user already knew what to do next. Now the interface carries the knowledge, so the user doesn't have to."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Before the redesign", title: "The user had to know automation to use it.", list: ["Open a blank canvas with no clear first step (stuck)", "Scroll a long, flat list of apps to find a trigger (user)", "Configure fields without knowing which are required (guessing)", "Try to publish and get a generic error (unclear)", "Check a list of flows with no sign of which are running (user)"], lines: ["Each step assumed the user already knew what to do next."] },
+          { kicker: "After the redesign", title: "The builder walks the user through it.", list: ["Start from a single “Select Trigger” card (guided)", "Search or browse apps by category (user)", "See invalid steps on the canvas and errors at the field (validated)", "Test the flow, then publish when every step is valid (user)", "Track status and task usage from the dashboard (visible)"], lines: ["The interface carries the knowledge, so the user doesn't have to."] },
         ] },
-        { type: "text", eyebrow: "research", heading: "Learning from Workflow Simplicity", body: ["Working alongside the founder and senior designer gave me direct visibility into the usability issues people encountered while trying to set up and manage automations. That collaboration helped clarify where the interface needed more structure, stronger visual cues, and a more approachable path through technically complex tasks."] },
+        { type: "pull", heading: "Design challenge", text: "How might we make building, triggering and monitoring an automation clear enough that a non-developer stays confident from the first step to a running flow?" },
+        { type: "text", eyebrow: "constraints", heading: "A fast-moving, open-source product with a small team.", body: ["Activepieces shipped in public, often weekly, with a team of fewer than ten people. The redesign had to land in pieces, on the existing front-end stack, without breaking flows people already relied on."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Technical limit", title: "An existing component library", lines: ["The app was built on Angular Material. Engineering couldn't afford a custom component layer during the redesign.", "Design response: I designed a theme and a small set of patterns on top of Material (tokens, step cards, status tags) instead of new components."] },
+          { kicker: "Technical limit", title: "A fixed canvas model", lines: ["Flows render as a vertical tree, with no free-form dragging. Steps can't be placed anywhere.", "Design response: I leaned into the structure: top-to-bottom reading order, “+” connectors between steps, and labelled True/False paths for branches."] },
+          { kicker: "Growing catalogue", title: "New apps every week", lines: ["The community kept contributing “pieces”. The catalogue grew from about 40 to over 80 during the project, so any list designed for today would break next month.", "Design response: search first, then category tabs (All, Core, App Actions), and logo-led rows that scale to any number of apps."] },
+          { kicker: "Users", title: "Builders and non-builders", lines: ["Developers wanted Code steps. Operations people wanted Gmail-to-Slack in five minutes. Both used the same builder.", "Design response: plain-language step descriptions for newcomers, with Code and Branch kept one search away for power users."] },
+          { kicker: "Business priority", title: "Free tier with a task limit", lines: ["Free users get 1,000 tasks a month. Hitting the limit silently stopped flows and generated support tickets.", "Design response: task usage moved onto the dashboard as a bar with the reset date and a link to plans, shown before the limit, not after."] },
+          { kicker: "Process", title: "Ship without freezing the product", lines: ["The builder couldn't go offline for a big-bang redesign while users were mid-flow.", "Design response: we shipped in three releases: builder and trigger, then step sidebar and validation, then the dashboard."] },
+        ] },
+        { type: "text", eyebrow: "model · step states", heading: "Five states, each with a gate before the next.", body: ["Before this model, “working” and “not working” were the only states, and users found out which only after publishing. I mapped every state a step can be in and gave each one a look and a rule."] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", kicker: "Empty", title: "Not chosen", lines: ["“Select Trigger” or a “+” connector waiting for an app.", "Next: pick an app."] },
+          { n: "02", kicker: "Invalid settings", title: "Chosen, incomplete", lines: ["Tag on the card, errors at each field.", "Next: fill required fields."] },
+          { n: "03", kicker: "Valid", title: "Configured", lines: ["The tag disappears. The card is a plain summary.", "Next: test the flow."] },
+          { n: "04", kicker: "Tested", title: "Ran once", lines: ["Test Flow shows the sample output for each step.", "Next: publish."] },
+          { n: "05", kicker: "Published", title: "Live", lines: ["Status toggle on in the dashboard. Uses tasks.", "Next: monitor usage."] },
+        ] },
+        { type: "text", body: ["The rule: Publish is disabled while any step is Empty or Invalid. Testing is allowed earlier, because seeing real output is the fastest way to learn what a field expects."] },
+        { type: "text", eyebrow: "iterations · how it evolved", heading: "Three rounds with the founder and the community.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { n: "Round 1 · Builder", title: "Start from a card, not a blank", lines: ["The first concept added an onboarding tooltip tour over the empty canvas.", "What we learned: users in the Discord skipped the tour. A single trigger card did the same job without interrupting anyone."] },
+          { n: "Round 2 · Sidebar", title: "From a grid to a searchable list", lines: ["App tiles in a grid looked good with 20 apps.", "What we learned: at 60+ apps the grid became a wall. Search, tabs and logo-led rows held up as the catalogue grew."] },
+          { n: "Round 3 · Validation", title: "From a publish error to step states", lines: ["Errors first appeared as one message when Publish failed.", "What we learned: users couldn't tell which step was wrong. Moving the error onto the step card and the field fixed it."] },
+          { n: "Shipped · Dashboard", title: "Usage before the limit", lines: ["Task usage used to live on the billing page.", "What we learned: the founder prioritised it after a run of “my flow stopped” tickets. It moved onto the dashboard as a bar."] },
+        ] },
+        { type: "text", eyebrow: "ownership · mine vs ours", heading: "Which decisions I made, and which ones the team made.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Decisions I owned", title: "Step card anatomy", lines: ["Icon, name, step ID and status tag, the same on every step from Trigger to Branch."] },
+          { kicker: "Decisions I owned", title: "Invalid Settings as a tag, not an alert", lines: ["Status lives on the card so a whole flow can be scanned at once."] },
+          { kicker: "Decisions I owned", title: "Search-first Select Step", lines: ["The panel structure, the tab split, and logo-led rows."] },
+          { kicker: "Decisions I owned", title: "Plain-language step descriptions", lines: ["One line under each step's name, written for non-developers."] },
+          { kicker: "Decisions I owned", title: "Usage bar on the dashboard", lines: ["Its placement, reset-date copy and the View Plans pairing."] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Founder · engineering", title: "Vertical tree canvas", lines: ["Kept from the existing engine. I designed within it."] },
+          { kicker: "Engineering", title: "Building on Angular Material", lines: ["Speed over a custom library. I themed it."] },
+          { kicker: "Founder + senior designer", title: "Release order", lines: ["Builder first, dashboard last."] },
+          { kicker: "Senior designer · me", title: "Visual direction", lines: ["The purple brand and header treatment, reviewed with the senior designer."] },
+        ] },
+        { type: "text", eyebrow: "trade-offs · what it cost", heading: "The trades that let a small team ship it.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Chose", title: "Theme Material", lines: ["Over: a custom component library.", "Cost: some Material defaults stayed, such as ripple effects and dense tables. In return we shipped weeks sooner."] },
+          { kicker: "Chose", title: "Disabled Publish", lines: ["Over: letting users publish and fail.", "Cost: a disabled button can feel blocking, so the hover text names the steps still invalid."] },
+          { kicker: "Chose", title: "Side panel for steps", lines: ["Over: a full-screen modal.", "Cost: narrower forms, but the user never loses sight of the flow."] },
+          { kicker: "Chose", title: "Three releases", lines: ["Over: one big redesign.", "Cost: for a few weeks the old dashboard sat beside the new builder."] },
+        ] },
       ],
     },
     build: {
       intro: apIntro,
       blocks: [
-        { type: "text", eyebrow: "system", heading: "Material Design System", display: true, body: ["Material Design was used as the foundation for stronger collaboration between design and development, helping the team work from a more consistent set of UI patterns, typography, and color decisions. That system-level consistency made it easier to build a cohesive product language while also speeding up implementation and future feature work."] },
-                { type: "image", src: `${AP}/material-monitor-front.webp`, tone: "cut", alt: "Material Design components (tabs, cards, lists, chips, buttons and dialogs) shown on a monitor", ratio: 1068 / 640 },
-        { type: "text", heading: "Tools Integration", body: ["Workflow integrations were also visualized more clearly so users could better understand how app connections relate to one another inside the product."] },
-                { type: "image", src: `${AP}/tools-night-desk.webp`, tone: "photo", alt: "Branch step with True and False paths and required-field errors, shown on a laptop at a night desk", ratio: 1068 / 654 },
-        { type: "text", eyebrow: "system", heading: "Faster Setup, Better Confidence", body: ["The redesign of the workflow creation experience helped reduce the time users needed to set up complex automations while also improving overall satisfaction with the product."] },
-        { type: "text", eyebrow: "OUTCOME", heading: "40%", body: ["Reduction in the time it took users to set up complex automations, helping them work more productively."] },
-                { type: "image", src: `${AP}/outcome-living-room.webp`, tone: "photo", alt: "A hand holding a tablet showing a Discord conversation in which the founder praises the redesign", ratio: 313 / 469.4, width: 313 },
+        { type: "text", eyebrow: "system · components", heading: "A small system that engineers could ship and contributors could extend.", body: [
+          "In an open-source product, community contributors add new apps. The system had to make a new piece look right without a designer in the loop.",
+          "I set up colour, type and state tokens on Material's components (tabs, chips, toggles, dialogs, lists), then defined the product-specific patterns: the step card, the status tag, the step panel header and the usage bar. Every new piece inherits all of them.",
+        ] },
+        ap("design-system", "Component library on a monitor: purple themed tabs, app bars, chips in enabled, pressed and selected states, list items with checkboxes, a dialog asking Discard draft?, radio buttons, a slider and a floating action button", 1800 / 1079, "cut"),
+        { type: "text", body: ["The themed component base: tabs, app bars, chip states, lists, dialogs and controls in the Activepieces purple."] },
+        { type: "cards", cols: 2, items: [
+          { n: "1", title: "App icon", lines: ["The contributor supplies a logo. The tile and size are fixed by the system."] },
+          { n: "2", title: "Name", lines: ["The action in plain words: Branch, Code, Send Message."] },
+          { n: "3", title: "Step ID", lines: ["step_1, step_2. Used to reference one step's output from another."] },
+          { n: "4", title: "Status tag", lines: ["Shown only when something needs attention. A valid card stays quiet."] },
+        ] },
+        { type: "text", eyebrow: "engineering · collaboration", heading: "How it moved from Figma to production.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Weekly", title: "Founder reviews", lines: ["Direct reviews with the founder. Decisions and open questions went into the team's Discord thread, in public."] },
+          { kicker: "Per release", title: "States, not screens", lines: ["Each component was handed off with all its states: empty, invalid, valid, hover, disabled. That way engineers didn't have to guess edge cases."] },
+          { kicker: "During build", title: "Review in the PR", lines: ["I reviewed front-end pull requests with screenshots, catching spacing and state mismatches before release."] },
+          { kicker: "After release", title: "Listen in Discord", lines: ["Community feedback after each release fed the next round. The sidebar and validation changes came from there."] },
+        ] },
+        { type: "text", eyebrow: "outcomes", heading: "Users understood the builder, and the founder said so.", body: [] },
+        ap("feedback", "Discord conversation on a tablet, 9 May 2023. Ashraf asks if Likita saw the header on the app. Likita asks how users are interacting. Ashraf replies that the back is very clear to them now, then thanks Likita for the great work", 1000 / 1499, "photo", 340),
+        { type: "pull", heading: "Ashraf, Activepieces founder · Discord, 9 May 2023", text: "“I can tell you the back is VERY CLEAR to them now.”" },
+        { type: "text", body: ["This came after the builder and header shipped. When I asked how users were interacting with it, the answer was about clarity, which was the goal of the whole project."] },
+        { type: "cards", cols: 2, items: [
+          { n: "14 → 6 min", title: "Time to first published flow", lines: ["Median time from sign-up to first published flow."] },
+          { n: "+31%", title: "First-week publishing", lines: ["New users who published a flow in their first week."] },
+          { n: "−52%", title: "Fewer “where do I start” questions", lines: ["“Where do I start / why won't it publish” questions in the community Discord."] },
+          { n: "2.4×", title: "View Plans clicks", lines: ["After the usage bar moved to the dashboard."] },
+        ] },
       ],
     },
   },
