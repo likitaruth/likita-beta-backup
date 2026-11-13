@@ -22,7 +22,7 @@ export const site = {
     ethos: ["DESIGNER.", "THINKER.", "BUILDER"],
     line1: "PRODUCT",
     line2: "DESIGN",
-    purpose: { lead: "FOR ", strong: "INCLUSIVITY,", italic: " IMPACT & SOLUTIONS", end: "." },
+    purpose: { lead: "FOR ", strong: "AI-NATIVE CRM", italic: " & B2B SAAS", end: "." },
     cta: "Scroll to explore",
     welcome: "Hello, I’m Likita, Have a fun scroll!",
   },

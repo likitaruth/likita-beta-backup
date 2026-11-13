@@ -5,7 +5,7 @@ import { CustomizeProvider, prefsScript } from "@/lib/customize";
 
 export const metadata: Metadata = {
   title: "Likita — Product Designer",
-  description: "Product design for inclusivity, impact and solutions.",
+  description: "Product design for AI-native CRM and B2B SaaS.",
 };
 export const viewport: Viewport = { themeColor: "#0f0f0e", colorScheme: "dark light" };
 
