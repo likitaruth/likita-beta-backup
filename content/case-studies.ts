@@ -59,7 +59,7 @@ const crmAgent: CaseStudy = {
     "The product is everything between “add a tag” and the CRM actually changing.",
     "CRM Agent is a conversational action layer inside Teamforce CRM. Agents search, ask and run common CRM tasks in plain language.",
   ],
-  heroAlt: "The CRM Assistant open full width over the Monetary transactions page of Teamforce CRM, asking What would you like to do? with four popular actions and a message box, on an angled MacBook Pro against a dark gradient",
+  heroAlt: "The CRM Assistant open full width over the Monetary transactions page of Teamforce CRM, asking What would you like to do? with four popular actions and a message box, in a browser window on a teal backdrop",
   heroSrc: `${CR}/mock/hero.webp`,
   heroRatio: 1.6,
   heroMax: 1068,
