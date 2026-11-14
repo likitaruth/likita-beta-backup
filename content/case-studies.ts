@@ -43,7 +43,8 @@ export type CaseStudy = {
  *     the closing line become the Reflection block.
  */
 const CR = "/assets/case/crm-agent";
-const cr = (file: string, alt: string, ratio: number, width?: number): Block => ({ type: "image", src: `${CR}/${file}.webp`, tone: "screen", alt, ratio, width });
+// Screens are delivered as browser / iPhone mockups on a 1.6 canvas; the original ratio/width args are kept at call sites but no longer used.
+const cr = (file: string, alt: string, _ratio?: number, _width?: number): Block => ({ type: "image", src: `${CR}/mock/${file}.webp`, tone: "mockup", alt, ratio: 1.6 });
 const crIntro: Tab["intro"] = {
   eyebrow: "the problem",
   heading: "The request was a chatbot. The real problem was trust.",
@@ -59,10 +60,10 @@ const crmAgent: CaseStudy = {
     "CRM Agent is a conversational action layer inside Teamforce CRM. Agents search, ask and run common CRM tasks in plain language.",
   ],
   heroAlt: "Four CRM Assistant panels showing one request from start to finish: asking to add the Warm lead tag to Manar Alshami, choosing between two matching leads, reviewing the change, and a Tag added successfully result with Undo",
-  heroSrc: `${CR}/hero.webp`,
-  heroRatio: 1800 / 1848,
-  heroMax: 900,
-  heroTone: "photo",
+  heroSrc: `${CR}/mock/hero.webp`,
+  heroRatio: 1.6,
+  heroMax: 1068,
+  heroTone: "mockup",
   meta: [["Role", "UX/Product designer and builder: the experience, the skill model and the front-end prototype. Team: 1 PM, 2 back-end engineers, 1 ML engineer, with security review"], ["Focus", "Enterprise AI / Conversational UX / Product design & build"], ["Shipped", "MVP to two sales desks, then all Teamforce desks, over 16 weeks"]],
   reflection: {
     eyebrow: "honest read",
