@@ -817,7 +817,175 @@ const northstar: CaseStudy = {
   },
 };
 
-caseStudies.push(clientlens, activepieces, northstar);
+/*
+ * ClientZone — copy and structure from the published ClientZone artifact (claude.ai/artifact/4wpKHsMy4NcJeMEmLdziQC).
+ * Visuals are six of the supplied ClientZone screens (dashboard, create account demo and real, withdrawal, deposit history,
+ * deposit modal), each fitted to a silver Studio Display on a pale grey wall. Where a screen was not 16:9 it was cropped to
+ * the display's ratio (blank page below the content) or, for the dashboard, extended at the sides with the flat page colour.
+ * FLAGS:
+ *  1. The artifact marks several details as assumptions to verify before sharing (the "Product designer" role, the team
+ *     inputs from operations, compliance and engineering, the out-of-scope list, and per-brokerage logo and colour theming).
+ *     They are reproduced as written; check them before publishing.
+ *  2. The artifact makes no outcome claims, so this study has none. Its measurement plan sits at the end of the Build tab, and
+ *     "what I'd refine / what I'd test" plus the closing line become the Reflection block.
+ *  3. The artifact's numbered annotation pins are folded into the copy (the image block has no overlay). Its before/after
+ *     structure diagram, scope, ownership split, trade-offs and page anatomy are expressed as cards.
+ *  4. The deposit modal screen has no section in the artifact; its text is a plain description of what the screen shows.
+ *  5. The "Documents" screen, the internal transfer modal and the dropdown and form-container crops were supplied but left
+ *     out: the artifact puts KYC and onboarding outside this phase, and the brief asked for key flows only.
+ */
+const CZ = "/assets/case/clientzone";
+const cz = (file: string, alt: string): Block => ({ type: "image", src: `${CZ}/mock/${file}.webp`, tone: "mockup", alt, ratio: 1.6 });
+const czIntro: Tab["intro"] = {
+  eyebrow: "the problem",
+  heading: "The portal was shaped like the CRM behind it.",
+  body: [
+    "ClientZone had grown module by module, following the internal system's structure. For a client trying to answer “how much do I have, and what can I do with it?”, that structure got in the way.",
+    "The redesign starts from one rule: a client portal should reflect the client's world, not mirror the internal CRM's modules.",
+  ],
+};
+const clientzone: CaseStudy = {
+  slug: "clientzone",
+  title: "Clients don't think in CRM modules",
+  lede: [
+    "ClientZone is the client-facing portal of the Teamforce CRM platform, where brokerage clients manage trading accounts, deposits and withdrawals.",
+    "A client portal should reflect the client's world, not mirror the internal CRM's modules. I redesigned its structure, dashboard and money journeys around that principle.",
+  ],
+  heroAlt: "Redesigned ClientZone dashboard on a silver desktop display: a greeting banner with a help card, four summary cards (total balance, wallet balance, real accounts, demo accounts), quick actions for deposits, account creation, wallet and accounts, an accounts overview table, a recent activity feed and a support card",
+  heroSrc: `${CZ}/mock/hero.webp`,
+  heroRatio: 1.6,
+  heroMax: 1068,
+  heroTone: "mockup",
+  meta: [["Role", "Product designer, leading the redesign of the portal's structure, dashboard and money journeys"], ["Focus", "Information architecture / Fintech UX / Design systems"], ["Built as", "A template inside the platform, deployed by each brokerage under its own brand"]],
+  reflection: {
+    eyebrow: "honest read",
+    heading: "What I'd refine, and what I'd test",
+    body: [
+      "I'm not claiming outcome metrics for this redesign. The problems come from design reviews and proposals, not formal usability testing, and the original screens weren't archived, so the before state is shown as a structural diagram rather than a screenshot.",
+      "What I'd refine: distinct figure cards, because balance, equity, credit, margin and free margin deserve their own icons and emphasis, and free margin is the one that matters for withdrawals. One help entry, because the dashboard shows help twice and one persistent entry is enough. Clearer page naming across deposit and withdrawal views.",
+      "What I'd test: a five-second test on the dashboard to see what clients remember. Task tests: find a deposit, create a demo account, withdraw from a specific account. And a support ticket review before and after rollout.",
+    ],
+    pull: "Clients don't think in CRM modules. The portal now starts from their questions.",
+  },
+  tabs: {
+    design: {
+      intro: czIntro,
+      blocks: [
+        { type: "text", eyebrow: "the experience", heading: "Summarise first, then let clients act and check.", body: ["The redesign covers three areas: the dashboard, trading-account management, and the wallet. Each opens with what the client most needs to know, then what they can do next."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Redesigned", list: ["A client-first dashboard", "Real and demo account management", "Connected wallet journeys"] },
+          { kicker: "I owned", list: ["The “client's world” principle and new structure", "Dashboard hierarchy and quick actions", "The shared wallet page pattern"] },
+          { kicker: "Team input", list: ["Which account fields must appear (operations)", "2FA and free-margin rules (compliance)", "Template constraints (engineering)"] },
+          { kicker: "Evidence", list: ["Problems come from design reviews, not usability testing", "No outcome metrics claimed", "Measurement plan in Build"] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { n: "1", kicker: "Dashboard", title: "Starts with the client.", lines: ["A greeting and “an overview of your trading accounts and activity today”."] },
+          { n: "2", kicker: "Dashboard", title: "Their situation in four numbers.", lines: ["Total balance, wallet balance, real accounts and demo accounts."] },
+          { n: "3", kicker: "Dashboard", title: "What they can do next.", lines: ["Quick actions grouped by intent, not by module."] },
+          { n: "4", kicker: "Dashboard", title: "What changed recently.", lines: ["Deposits, new accounts and password changes, newest first."] },
+        ] },
+        { type: "text", eyebrow: "dashboard · prioritisation", heading: "A homepage that explains the client's situation before offering navigation.", body: [
+          "The dashboard reads top to bottom as four questions. Where do I stand? Summary cards show total balance (with change versus last week), wallet balance, and how many real and demo accounts the client holds. What can I do? Quick actions cover funding, creating an account, opening the wallet and viewing accounts. What do I have? An accounts overview lists each MT5 account with balance, currency, credit, leverage and type. What changed? A recent-activity feed shows deposits, new accounts, wallet updates and password changes.",
+          "Help is always within reach, in the header and on the dashboard. Money questions are often urgent, so support shouldn't be hidden behind a menu.",
+        ] },
+        { type: "text", eyebrow: "trading accounts · clear choices", heading: "Creating an account without leaving the page.", body: [
+          "New accounts open in a side drawer over the accounts page, so clients keep their context. The first choice is the one that matters most: Demo or Real, as two large options rather than a dropdown. The form then asks only what's needed for that type: a demo group or a real group, marked required.",
+          "The accounts structure had to hold account numbers, balances, leverage, groups, names and management actions without turning into a wall of fields. The overview shows the essentials, and details live one click deeper.",
+        ] },
+        cz("create-demo", "Create New Account drawer open over a blurred trading accounts page, with Demo Account selected and a required Select a demo group dropdown above a Submit button"),
+        { type: "text", body: ["The drawer keeps the accounts page visible behind it. Account type comes first, then only the field that type needs."] },
+        cz("create-real", "Create New Account drawer with Real Account selected and a required Select a real group dropdown above a Submit button"),
+        { type: "text", body: ["Switching to Real swaps the group list in place, with no new page."] },
+        { type: "text", eyebrow: "wallet · trust in money flows", heading: "Deposits, withdrawals and history that work as one journey.", body: [
+          "Wallet screens share one structure, so learning one teaches the rest. Each page starts by choosing an account, shows that account's figures, puts the main action in the same place, and ends with a history table.",
+          "Money moments get an explanation where people need it. The withdrawal page explains in plain words that the eligible amount is your free margin, and why it can be lower than net worth when positions are open. Person-to-person withdrawals carry a visible 2FA Required chip before the client starts, not as a surprise halfway through.",
+        ] },
+        cz("withdraw", "Wallet withdrawal page: a note explaining that the eligible amount is the free margin, an account selector, a Create a withdrawal request button, five account figure cards (balance, equity, credit, margin, free margin), and a person-to-person withdrawal panel marked 2FA Required above a history table"),
+        { type: "text", body: ["The rule is explained before the action. The client chooses the account first, there is one primary action, always top right, and extra security is flagged up front."] },
+        cz("history", "Deposit history page with the breadcrumb Go back / Wallet / Deposit History, the balance, account and filter selectors, a Download button, and a table row of a 10,000 USD deposit marked Approved with View and Update Receipt actions"),
+        { type: "text", body: ["A breadcrumb leads back to the wallet. Clients filter by account and status, see a status chip instead of plain text, and get follow-up actions on each transaction."] },
+        cz("deposit", "Deposit with Kora modal over the blurred wallet page: a form with MT5 account number, currency, amount, payment method and description, and a Deposit Detail panel with card name, account number, card number and a QR code to scan"),
+        { type: "text", body: ["The deposit modal keeps the form and the payment details side by side, so the client sees where the money goes before they submit."] },
+      ],
+    },
+    think: {
+      intro: czIntro,
+      blocks: [
+        { type: "text", eyebrow: "problems · three gaps", heading: "Three design problems the redesign set out to fix.", body: ["These come from design reviews and proposals during the redesign, not formal usability testing."] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", kicker: "Structure", title: "Fragmented information architecture", lines: ["Account management, wallet activity, trading information and utilities lived in separate areas, with little connecting them."] },
+          { n: "02", kicker: "Priority", title: "Weak prioritisation", lines: ["The homepage helped clients navigate to modules, but not understand their own account situation."] },
+          { n: "03", kicker: "Hierarchy", title: "Inconsistent interaction hierarchy", lines: ["Primary actions, account details, financial figures and supporting tools looked too alike to tell apart quickly."] },
+        ] },
+        { type: "text", eyebrow: "structure · before / after", heading: "From the CRM's modules to the client's questions.", body: ["The original screens weren't archived, so the before state is shown as a structural diagram rather than a screenshot."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Before · mirrors the CRM", title: "Separate areas the client had to piece together themselves.", list: ["Account management (internal module)", "Wallet activities (internal module)", "Trading information (internal module)", "Utility functions (internal module)", "No summary, no shared patterns"] },
+          { kicker: "After · reflects the client", title: "One summary first, then connected areas.", list: ["Dashboard: my balances, my accounts, my next actions, my recent activity", "Accounts: real and demo", "Wallet: deposit, withdraw and history", "Tools: supporting"] },
+        ] },
+        { type: "pull", heading: "Design challenge", text: "How might we turn a set of CRM modules into one portal that tells clients where they stand and what they can do next?" },
+        { type: "text", eyebrow: "principle & scope", heading: "One principle, three areas.", body: [
+          "The client portal should reflect the client's world, not mirror the internal CRM's modules.",
+          "Every layout decision was checked against it. Does this screen answer a client question (“how much do I have?”, “what happened to my deposit?”), or does it expose how the system is organised internally?",
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "In scope", list: ["Dashboard: a summary of balances, accounts, actions and activity", "Trading accounts: real and demo accounts, creation and account details", "Wallet: deposits, withdrawals, transfers, history and transaction details as one journey", "Shared patterns: header, page anatomy, tables, status chips"] },
+          { kicker: "Out of scope · this phase", list: ["Trading platform itself (MT5)", "KYC and onboarding flows", "Tools section content", "Brand theming per broker beyond logo and primary colour"] },
+        ] },
+        { type: "text", eyebrow: "ownership · mine vs ours", heading: "Which decisions I made, and which ones the team made.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Decisions I owned", title: "“Client's world, not CRM modules”", lines: ["The principle that reorganised the portal around client questions."] },
+          { kicker: "Decisions I owned", title: "Dashboard as a summary", lines: ["Balances, actions, accounts and activity, in that order."] },
+          { kicker: "Decisions I owned", title: "Demo/Real as the first choice", lines: ["Large options in a drawer, with a type-specific form."] },
+          { kicker: "Decisions I owned", title: "One wallet page anatomy", lines: ["The same structure for deposits, withdrawals and history."] },
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Operations", title: "Which account fields are mandatory", lines: ["Number, balance, currency, credit, leverage, type."] },
+          { kicker: "Compliance", title: "Free-margin and 2FA rules", lines: ["The wording explains rules the business set."] },
+          { kicker: "Engineering", title: "Template limits", lines: ["What each brokerage can change."] },
+        ] },
+        { type: "text", eyebrow: "trade-offs · what it cost", heading: "What each choice gave up.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Chose", title: "Summary dashboard", lines: ["Over: a dashboard of shortcuts to every module.", "Cost: some modules are one click further away."] },
+          { kicker: "Chose", title: "Drawer for account creation", lines: ["Over: a separate page.", "Cost: less room, which works only while the form stays short."] },
+          { kicker: "Chose", title: "One wallet pattern", lines: ["Over: a layout tailored to each transaction type.", "Cost: some pages carry sections they barely need, in return for predictability."] },
+          { kicker: "Chose", title: "Explain rules inline", lines: ["Over: help articles.", "Cost: more text on screen, but fewer “why can't I withdraw?” moments."] },
+        ] },
+      ],
+    },
+    build: {
+      intro: czIntro,
+      blocks: [
+        { type: "text", eyebrow: "system · template", heading: "A template, not a one-off.", body: ["ClientZone ships as part of the platform, so the design had to be a set of reusable parts rather than a set of pages. Each brokerage applies its own logo and primary colour; structure and patterns stay the same."] },
+        { type: "text", eyebrow: "pattern · page anatomy", heading: "Every wallet page follows the same five parts.", body: [] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", title: "Context", lines: ["Page title, or a breadcrumb back to Wallet."] },
+          { n: "02", title: "Rule note", lines: ["A plain-language explanation when money rules apply (free margin, open positions)."] },
+          { n: "03", title: "Account selector", lines: ["Choose the trading account. Everything below follows that choice."] },
+          { n: "04", title: "Figures + primary action", lines: ["Account figures as cards, with the main action top right."] },
+          { n: "05", title: "History", lines: ["A table with status chips, filters, pagination and row actions."] },
+        ] },
+        { type: "text", eyebrow: "components · shared parts", heading: "Reusable parts, grouped by job.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Shell", list: ["Header with Add Deposit and Support", "Brand slot", "Notifications, help and profile"] },
+          { kicker: "Summary", list: ["Stat card", "Quick action card", "Activity row"] },
+          { kicker: "Data", list: ["Accounts table", "History table", "Status chip", "Filters and pagination"] },
+          { kicker: "Trust", list: ["Rule note", "2FA chip", "Required-field marker"] },
+          { kicker: "Overlay", list: ["Side drawer", "Segmented choice (Demo / Real)"] },
+        ] },
+        { type: "text", eyebrow: "evidence · what I'd measure", heading: "How the redesign's success should be judged.", body: ["I'm not claiming outcome metrics for this redesign. These are the signals I'd use."] },
+        { type: "cards", cols: 2, items: [
+          { title: "Comprehension", lines: ["Can a client state their balance and account count from the dashboard alone?"] },
+          { title: "Findability", lines: ["Time to reach a specific transaction or account detail."] },
+          { title: "Completion", lines: ["Deposit and withdrawal requests started vs submitted."] },
+          { title: "Support load", lines: ["Tickets about balances, free margin or “where is my deposit?”"] },
+        ] },
+        { type: "text", body: ["Screens are from the redesigned template, shown with test data."] },
+      ],
+    },
+  },
+};
+
+caseStudies.push(clientlens, clientzone, activepieces, northstar);
 
 export const tabLabels: Record<TabKey, string> = { design: "Design", think: "Think", build: "Build" };
 export const tabOrder: TabKey[] = ["design", "think", "build"];

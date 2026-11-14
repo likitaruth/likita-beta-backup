@@ -33,6 +33,7 @@ export const projects: Project[] = [
     href: "/works/northstar",
   },
   { slug: "clientlens", title: "CLIENTLENS", description: null, blurb: "Finds the clients that look alike, then says when the match will mislead you. A verdict, not just a score.", media: { type: "image", src: "/assets/clientlens-thumbnail.webp" }, href: "/works/clientlens" },
+  { slug: "clientzone", title: "CLIENTZONE", description: null, blurb: "A client portal rebuilt around the questions clients ask, not the modules of the CRM behind it.", media: { type: "image", src: "/assets/clientzone-thumbnail.webp" }, href: "/works/clientzone" },
   { slug: "crm-agent", title: "CRM AGENT", description: null, blurb: "A chat assistant that turns one sentence into a reviewed CRM change. Nothing runs until a person approves it.", media: { type: "image", src: "/assets/crm-agent-thumbnail.webp" }, href: "/works/crm-agent" },
   { slug: "activepieces", title: "ACTIVEPIECES", description: null, blurb: "Four moments where people lost their place in a no-code automation tool, redesigned so they don't.", media: { type: "image", src: "/assets/activepieces-thumbnail.webp" }, href: "/works/activepieces" },
 ];
