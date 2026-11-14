@@ -239,7 +239,8 @@ export const caseStudies: CaseStudy[] = [crmAgent];
  *  4. The Figma file could not be reached when this was built, so no visuals were pulled from it.
  */
 const CL = "/assets/case/clientlens";
-const cl = (file: string, alt: string, ratio: number, width?: number): Block => ({ type: "image", src: `${CL}/${file}.webp`, tone: "screen", alt, ratio, width });
+// Screens are delivered as MacBook mockups on a 1.6 canvas; the original ratio/width args are kept at call sites but no longer used.
+const cl = (file: string, alt: string, _ratio?: number, _width?: number): Block => ({ type: "image", src: `${CL}/mock/${file}.webp`, tone: "mockup", alt, ratio: 1.6 });
 const clIntro: Tab["intro"] = {
   eyebrow: "the problem",
   heading: "Two clients with the same tags. Opposite strategies.",
@@ -256,10 +257,10 @@ const clientlens: CaseStudy = {
     "Retention agents at online brokerages grouped clients by labels like “VIP” and “Gold Trader”, then sent the wrong campaigns to clients who only looked alike.",
   ],
   heroAlt: "ClientLens Intelligence Summary comparing John Doe (Active, LTV $8,400) with Lisa Doe (Churned, LTV $400): 29% match score, low similarity, 87% confidence, a recommendation not to treat them the same, similarity and difference cards, recommended actions, and a business impact panel",
-  heroSrc: `${CL}/summary.webp`,
-  heroRatio: 2000 / 1463,
+  heroSrc: `${CL}/mock/summary.webp`,
+  heroRatio: 1.6,
   heroMax: 1068,
-  heroTone: "photo",
+  heroTone: "mockup",
   meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "honest read",
