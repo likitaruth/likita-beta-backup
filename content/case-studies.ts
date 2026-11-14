@@ -1,16 +1,5 @@
 /**
- * Case-study content — Figma "Case-Study - Design / Think / Build" (2077:8377 / 8491 / 8623).
- * Only the CRM-agent study exists in Figma; every other project falls back to the simple project page.
- *
- * FLAGS for the designer (kept here so they travel with the data):
- *  1. Which project this study belongs to is not stated; it is attached to CRM AGENT ("A safe CRM action layer").
- *  2. Counter reads "01 / 05" in Figma; it is derived from the project list instead (see components/case).
- *  3. Several blocks repeat placeholder copy in Figma and are reproduced as-is: the RESEARCH paragraphs repeat the intro,
- *     "Rules before interface" repeats the MVP-constraints paragraphs, the five "Explicit scope…" cards are identical,
- *     the six "User Intent" cards are identical (numbered 01–06 here, all "01" in Figma) and the four "Adoption" cards are identical.
- *  4. "decison" in the Design heading is corrected to "decision". "authorising" keeps the author's British spelling.
- *  5. The Build tab's "Next" button reads "Think" (copy of the Think tab). Here: Design → Think, Think → Build, Build → next project.
- *  6. All screenshots/diagrams are placeholders until exported (the Figma asset host is not reachable from the build sandbox).
+ * Case-study content for the portfolio. Each study is written from its published artifact; see the FLAGS above each entry.
  */
 export type TabKey = "design" | "think" | "build";
 
@@ -38,159 +27,203 @@ export type CaseStudy = {
   tabs: Partial<Record<TabKey, Tab>>;
 };
 
-const intro = (heading: string): Tab["intro"] => ({
-  eyebrow: "Reframing the problem",
-  heading,
+/*
+ * CRM Agent — copy and structure from the published CRM Agent artifact (claude.ai/artifact/VVHt1zSBB8NHJCRxyCHf91).
+ * Screens are the eight exports bundled with that artifact, in /public/assets/case/crm-agent. The hero and the three
+ * "pair" images are those panels placed side by side, with each panel's bottom edge extended so the pair share a height.
+ * FLAGS:
+ *  1. The artifact marks several details as assumptions to verify before sharing (team, 16-week timeline, pilot size and
+ *     metrics, 2–5 s latency, security rollout request, page context in v1.1, 1-in-3 unsupported first messages). They are
+ *     reproduced as written; check them before publishing.
+ *  2. The artifact's numbered annotation pins are folded into the copy (the image block has no overlay). The decision
+ *     sequence, status vocabulary, iterations, ownership split, trade-offs, architecture and skill contract are expressed
+ *     as cards, since the shared blocks have no diagram/table/code type. The "context in action" conversation was an HTML
+ *     illustration in the artifact (not a screenshot) and is written out as cards.
+ *  3. Problem and Constraints open the Think tab, Outcomes closes the Build tab, and "What didn't work / What's next" plus
+ *     the closing line become the Reflection block.
+ */
+const CR = "/assets/case/crm-agent";
+const cr = (file: string, alt: string, ratio: number, width?: number): Block => ({ type: "image", src: `${CR}/${file}.webp`, tone: "screen", alt, ratio, width });
+const crIntro: Tab["intro"] = {
+  eyebrow: "the problem",
+  heading: "The request was a chatbot. The real problem was trust.",
   body: [
-    "The initial idea was simple: place an AI chatbot inside the CRM and let it handle lead creation, tagging, password resets, and batch operations through natural language.",
-    "The real design problem was more demanding. The assistant had to locate the correct records, respect user permissions, recover from errors, and make every change understandable before it was applied.",
+    "The brief asked for an in-CRM chatbot that could create leads, add tags, reset passwords and run batch updates. A chatbot that talks is easy to build. The hard part is making sure it finds the right record, respects permissions, recovers when something fails, and shows the user what will change before it changes. In a CRM, a wrong tag on the wrong “Manar Alshami” is a real mistake with a real client.",
   ],
-});
-
-const principle = {
-  n: "01",
-  title: "Explicit scope over assumed context",
-  lines: ["Every action identifies the records being read or changed instead of relying on phrases such as “this record."],
 };
-const adoption = { title: "Adoption", list: ["Eligible users opening the assistant", "Weekly and repeat usage", "Quick-action versus free-text usage"] };
-
-export const caseStudies: CaseStudy[] = [
-  {
-    slug: "crm-agent",
-    title: "A safe CRM action layer",
-    lede: "A conversational interface that helps teams search, ask questions, and perform common CRM operations without hiding the permissions, validation, and accountability behind every system change.",
-    heroAlt: "CRM workspace with the AI assistant panel open",
-    meta: [["Role", "Product design & Prototype"], ["Focus", "AI / SAAS / CRM"], ["Year", "2026"]],
-    reflection: {
-      eyebrow: "Reflection",
-      heading: "Shared Responsibility in AI",
-      body: [
-        "This project reinforced that designing AI products requires more than shaping a conversation. The essential work is deciding how responsibility is divided between the model, the application, and the person authorising the result.",
-        "When page awareness proved technically unrealistic, the answer was not to disguise the limitation. The interaction changed so users could provide explicit context and the application could validate it. That made the MVP more honest, safer, and easier to extend skill by skill.",
+const crmAgent: CaseStudy = {
+  slug: "crm-agent",
+  title: "Chat is the easy part",
+  lede: [
+    "The product is everything between “add a tag” and the CRM actually changing.",
+    "CRM Agent is a conversational action layer inside Teamforce CRM. Agents search, ask and run common CRM tasks in plain language.",
+  ],
+  heroAlt: "Four CRM Assistant panels showing one request from start to finish: asking to add the Warm lead tag to Manar Alshami, choosing between two matching leads, reviewing the change, and a Tag added successfully result with Undo",
+  heroSrc: `${CR}/hero.webp`,
+  heroRatio: 1800 / 1848,
+  heroMax: 900,
+  heroTone: "photo",
+  meta: [["Role", "UX/Product designer and builder: the experience, the skill model and the front-end prototype. Team: 1 PM, 2 back-end engineers, 1 ML engineer, with security review"], ["Focus", "Enterprise AI / Conversational UX / Product design & build"], ["Shipped", "MVP to two sales desks, then all Teamforce desks, over 16 weeks"]],
+  reflection: {
+    eyebrow: "honest read",
+    heading: "What didn't work, and what's next",
+    body: [
+      "@ mentions felt slow for power users until page context arrived. Batch operations needed a better review: a list of 40 records doesn't fit a chat card. “Summarize view” was popular, but useful only once page context shipped.",
+      "Next: a batch review table that opens beside the chat for large changes. Saved skills for each desk's most repeated requests. And an audit view in the assistant: “what did I change today?”",
+    ],
+    pull: "Responsibility is shared between the model, the application and the person approving. The design makes each one's part visible.",
+  },
+  tabs: {
+    design: {
+      intro: crIntro,
+      blocks: [
+        { type: "text", eyebrow: "the experience", heading: "Every state tells the user where the request is, and who it's waiting on.", body: ["A request moves through a visible sequence: understand, resolve, validate, check access, review, approve, execute. The status under “CRM Assistant” changes at each step, so the user always knows whether the assistant is working or waiting for them."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Shipped", list: ["Assistant panel inside the CRM", "Five skill groups, from search to restricted account operations", "Review-before-change, undo and permission recovery"] },
+          { kicker: "I owned", list: ["Reframing a chatbot into a command layer", "The skill contract and execution sequence", "Every state of the assistant, and the front-end build"] },
+          { kicker: "Team decisions", list: ["No page context in the first release (engineering)", "CRM stays the system of record (architecture)", "Which operations count as restricted (security)"] },
+          { kicker: "Measured", list: ["Tagging time 74 s → 19 s", "0 wrong-record updates in the pilot", "58% weekly use on pilot desks"] },
+        ] },
+        { type: "text", eyebrow: "entry · smart empty state", heading: "Replace “How can I help?” with what it can actually do.", body: [
+          "An open prompt invites requests the assistant can't handle, and every failed first attempt costs trust. The empty state lists the skills it supports as tappable starters: Create a lead, Tag selected leads, Find a record, Summarize view.",
+          "The subtitle sets the contract before the first message: “You'll review all changes before they're applied.” The same line sits under the composer for the whole conversation.",
+        ] },
+        cr("entry", "CRM Assistant empty state: How can I help you today? A short explanation that all changes are reviewed, four popular actions (Create a lead, Tag selected leads, Find a record, Summarize view), and a note that changes are applied only after approval", 900 / 1584, 460),
+        { type: "text", body: ["Status is always visible in the header. Supported skills are the starting points. The approval promise sits under every message."] },
+        { type: "text", eyebrow: "understand · resolve & validate", heading: "Never guess which record. Ask, with the details that tell them apart.", body: [
+          "The assistant pulls the intent and the details already given (“Warm lead”, “Manar Alshami”), then searches only records the user is allowed to see. Two matches share a name and an email, so the assistant shows both with their lead IDs and waits. Search again is there if neither is right.",
+          "Once the user chooses, the assistant restates the selection and checks the tag and the user's permission before preparing anything. It asks only for what's missing or unclear.",
+        ] },
+        cr("understand", "Left: the user's request and a Searching CRM records progress card. Right: two Manar Alshami leads with IDs LD-1042 and LD-1187, a Needs your choice status and a Search again button", 1800 / 905),
+        { type: "text", body: ["Request: “Thinking…” in the header, and what it's searching for, named. Resolve: “Needs your choice” tells the user the assistant is waiting for them. The lead ID is the deciding detail, and there is a way out."] },
+        { type: "text", eyebrow: "approve · review", heading: "The user sees the exact change before anything runs.", body: [
+          "Review change works like a receipt before paying: Will change (lead with ID, tag), then Impact (“The tag will be added”, “This lead does not already have this tag”). The duplicate check prevents a no-op that would still clutter the audit log. Nothing runs until Add tag is clicked.",
+        ] },
+        cr("review", "Left: a You selected card for Manar Alshami LD-1042 with an Add tag Warm lead line and a Validating tag and permissions progress card. Right: a Review change card showing the lead, the tag, the impact checks and Cancel and Add tag buttons", 1800 / 1021),
+        { type: "text", body: ["Validate: the choice is restated with its ID, and permission is checked before the review, not after. Review: what will change, the checks already run, and approval as one explicit click."] },
+        { type: "text", eyebrow: "execute · complete", heading: "An honest result, with undo first.", body: [
+          "Progress is real, with a percentage and “Please don't close this panel.” The result card offers Undo, Open lead and Add another: reverse it, verify it, or keep going.",
+        ] },
+        cr("execute", "Left: an Updating CRM progress bar at 80 percent with Please don't close this panel. Right: Tag added successfully, with Undo, Open lead and Add another buttons", 1800 / 1021),
+        { type: "text", body: ["Execute: “Adding tag” names the action, and progress matches the work. Complete: stated plainly, with Undo as the first option offered."] },
+        { type: "text", eyebrow: "recover · denied state", heading: "A permission error that tells you what to do next.", body: [
+          "The status reads Incomplete, because the request is unfinished, not broken. The card explains why in plain language and offers What you can do: request update permission, or choose a different lead.",
+          "The assistant never retries with elevated access and never hints at a workaround. The same rule holds for every failure: say what happened, say what's still safe, and offer a next step.",
+        ] },
+        cr("denied", "Couldn't complete the change: You don't have permission to update this lead. What you can do: Request update permission, Choose a different lead", 900 / 809, 600),
+        { type: "text", eyebrow: "context awareness", heading: "What the assistant knows, and how it shows its work.", body: [
+          "The assistant answers from layers of context, and each layer has a rule. The guiding principle: context can fill in a blank, but it can never pick a record or approve a change on its own. Anything the assistant infers appears on screen for the user to confirm.",
+        ] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Account", title: "Role, permissions, business unit and desk", lines: ["Limits what search returns and which skills are offered. Checked again before every review."] },
+          { kicker: "Record", title: "The resolved record's current data", lines: ["Tags, owner, status. Drives the impact checks, e.g. “This lead does not already have this tag.”"] },
+          { kicker: "Conversation", title: "Earlier turns in this session", lines: ["Records already chosen, tags already used. Resolves follow-ups like “the same tag” or “her”, and powers Add another."] },
+          { kicker: "Page · v1.1", title: "Current module and selected rows", lines: ["Once the CRM exposed them. Ranks “Popular actions on this page” and pre-fills “Tag selected leads”. It's shown as a chip the user can remove, never applied silently."] },
+        ] },
+        { type: "text", body: ["Why page context came later: the first release couldn't read page state, so it relied on explicit @ mentions. Page context shipped in v1.1 as visible, removable chips, so the same “explicit scope” rule still applied."] },
+        { type: "text", eyebrow: "example · context in action", heading: "A follow-up request, resolved from context and shown for review.", body: ["After tagging Manar, the agent types a short follow-up. The assistant fills the gaps from context and shows which context it used, so the user can check it before approving. This is an illustrative conversation built for this case study, not a screenshot."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Agent", title: "“Add the same tag to Omar too”", lines: ["The assistant replies: “Using Warm lead from earlier. I found one Omar you can update.” Context used: tag from this chat, Omar → 1 match in your unit, leads.update ✓."] },
+          { kicker: "Review change", title: "Lead Omar Haddad (LD-2210) · Tag Warm lead", lines: ["✓ Omar doesn't have this tag yet. Cancel / Add tag. Changes are applied only after your approval."] },
+          { kicker: "Conversation context", lines: ["“The same tag” is resolved from the previous turn and named back to the user, not assumed silently."] },
+          { kicker: "Account context", lines: ["The search is limited to records in the agent's business unit. Exactly one match, so no choice is needed. Two matches would bring back the “Needs your choice” step."] },
+          { kicker: "Permission context", lines: ["Checked before the review appears, so the user never approves something that will fail."] },
+          { kicker: "Record context · still the user's call", lines: ["Omar's current tags power the impact check. Context shortened the conversation from four turns to one. It didn't remove the review."] },
+        ] },
       ],
-      pull: "The strongest AI experiences do not hide uncertainty. They turn it into a clear moment for context, validation, and control.",
     },
-    tabs: {
-      design: {
-        intro: intro("A command bot."),
-        blocks: [
-          { type: "text", eyebrow: "Research", heading: "Clarity, designed into every decision.", body: intro("").body },
-          { type: "image", alt: "CRM assistant: first concept", ratio: 1068 / 483 },
-          { type: "image", alt: "CRM assistant: revised concept", ratio: 1066 / 485 },
-          {
-            type: "text",
-            body: [
-              "Early flows generated simulated responses for ambiguous requests, displayed disconnected confirmation cards, and used a generic “Thinking” state that gave users no insight into which records or values were being accessed.",
-              "A normal chatbot primarily generates responses. This assistant needed to coordinate structured operations that could update records, notify users, or change account states. The project was therefore reframed around controlled CRM access rather than unrestricted conversation.",
-            ],
-          },
-          {
-            type: "text",
-            eyebrow: "Entry experience",
-            heading: "Show supported actions",
-            body: [
-              "“How can I help?” was familiar but too vague. The revised entry state exposes supported skills, gives users useful starting points, and states that records may need to be identified and changes are only applied after approval.",
-              "Capability-led prompts remain consistent across the CRM because they are tied to supported skills, not whichever page happens to be open.",
-            ],
-          },
-          { type: "image", alt: "Entry state listing supported skills", ratio: 1061 / 498.6 },
-          {
-            type: "text",
-            eyebrow: "Explicit entity resolution",
-            heading: "Resolve records with @ mentions",
-            size: 21,
-            body: ["Typing @ opens permission-aware search across leads, clients, affiliates, users, and business units. A selected result becomes a readable inline chip carrying structured CRM type and ID data, so the backend receives a validated identity instead of a name the model has to interpret."],
-          },
-          { type: "image", alt: "@ mention search with inline record chips", ratio: 1067 / 496.5 },
-          {
-            type: "text",
-            eyebrow: "Natural-language extraction",
-            heading: "Extract fields from natural language",
-            size: 21,
-            body: [
-              "The assistant classifies intent, extracts the fields already present, resolves human-readable values to CRM entities, validates them against CRM rules, and asks only for details that are missing or ambiguous.",
-              "This produces a hybrid interface: natural language provides speed, field-specific clarification provides precision, and review cards provide control before any mutation.",
-            ],
-          },
-          { type: "image", alt: "Field extraction and clarification", ratio: 1064 / 484.5 },
-          {
-            type: "text",
-            eyebrow: "From resolution to execution",
-            heading: "Make execution visible",
-            size: 21,
-            body: ["Validation and execution are presented as a readable operational sequence instead of a generic thinking state. Users can see when the assistant is searching, validating, checking access, preparing a review, waiting for approval, or applying a change."],
-          },
-          { type: "image", alt: "Execution sequence: validating and applying", ratio: 1064 / 484.5 },
-          { type: "image", alt: "Review card before applying a change", ratio: 1062 / 494.2 },
-        ],
-      },
-      think: {
-        intro: intro("A command BOT."),
-        blocks: [
-          {
-            type: "text",
-            eyebrow: "MVP constraints",
-            heading: "Designing without page context",
-            body: [
-              "The early concept assumed the assistant could detect the current module, active filters, selected rows, and business unit. During technical alignment, the AI team confirmed that page-level context would not be available in the first release.",
-              "That limitation changed the interaction model. Automatic context chips were removed, universal skill-based actions replaced page-specific shortcuts, and every record became something the user or assistant had to resolve explicitly.",
-            ],
-          },
-          { type: "image", alt: "Context mapping: illusion versus MVP reality", ratio: 1038 / 772.4 },
-          {
-            type: "text",
-            eyebrow: "Revised design principle",
-            body: ["The assistant must not invent information that is not present in context. Every record, account, user, or data set must be identified in the conversation."],
-          },
-          {
-            type: "text",
-            eyebrow: "Product principles",
-            heading: "Rules before interface",
-            body: [
-              "The early concept assumed the assistant could detect the current module, active filters, selected rows, and business unit. During technical alignment, the AI team confirmed that page-level context would not be available in the first release.",
-              "That limitation changed the interaction model. Automatic context chips were removed, universal skill-based actions replaced page-specific shortcuts, and every record became something the user or assistant had to resolve explicitly.",
-            ],
-          },
-          { type: "cards", cols: 2, items: [principle, principle, principle, principle, principle] },
-          {
-            type: "text",
-            eyebrow: "Outcome",
-            heading: "An implementation-ready model",
-            body: ["The final design moved the assistant from a generic chatbot concept to an operational system that communicates what it knows, what it still needs, and exactly what it is about to change."],
-          },
-          { type: "cards", cols: 3, items: ["01", "02", "03", "04", "05", "06"].map((n) => ({ n, title: "User Intent" })) },
-        ],
-      },
-      build: {
-        intro: intro("Not a chatbot. A command layer."),
-        blocks: [
-          {
-            type: "text",
-            eyebrow: "Skill contracts",
-            heading: "A shared skill contract",
-            body: ["Each capability became a registered skill describing its entity types, required inputs, permission, confirmation, bulk-action, undo, and risk rules. The model could identify a request, but the contract determined what the application was allowed to do."],
-          },
-          { type: "image", alt: "Skill definition as a JSON contract", ratio: 1086 / 634 },
-          {
-            type: "text",
-            eyebrow: "Capability model",
-            heading: "Five executable skills",
-            body: ["The MVP was deliberately constrained to querying CRM data, finding and summarising records, creating records, managing tags and supported fields, and restricted account operations. This converted an open-ended promise into a system the team could validate and ship."],
-          },
-          { type: "image", alt: "Structured CRM skill capability pipeline", ratio: 1032 / 407 },
-          { type: "image", alt: "CRM AI assistant architecture", ratio: 1032 / 1028.8 },
-          {
-            type: "text",
-            eyebrow: "Measuring the release",
-            heading: "A Measurement Framework",
-            body: ["Because the assistant was still at MVP stage, the case study does not present unverified performance claims. The measurement plan focuses on whether the product actually reduces work while preserving reliability and user control."],
-          },
-          { type: "cards", cols: 2, items: [adoption, adoption, adoption, adoption] },
-        ],
-      },
+    think: {
+      intro: crIntro,
+      blocks: [
+        { type: "text", eyebrow: "before / after", heading: "Small tasks, many screens. Now one sentence, one review, one click.", body: ["Changing CRM data used to mean hunting across screens with no safety net."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Without the agent", title: "Small tasks, many screens.", list: ["Open Leads, search by name (agent)", "Guess which of two same-name records is right (risk)", "Open the record, find the tags field (agent)", "Hit a permission error with no next step (dead end)", "No easy way to undo a wrong change (irreversible)"], lines: ["A single tag took six clicks across three screens."] },
+          { kicker: "With CRM Agent", title: "One sentence, one review, one click.", list: ["Type “Add the Warm lead tag to Manar Alshami” (agent)", "Find matching records the agent may see (AI)", "Ask which one when names collide (clarify)", "Show exactly what will change, then wait (approve)", "Execute, report truthfully, offer undo (system)"], lines: ["The model interprets. The CRM decides what's allowed. The person approves."] },
+        ] },
+        { type: "pull", heading: "Design challenge", text: "How might we let agents change CRM data in plain language, without ever changing the wrong record, skipping a permission or hiding what happened?" },
+        { type: "text", eyebrow: "constraints", heading: "Designed for what the system could actually guarantee.", body: ["The biggest constraint reshaped the product: the first release couldn't see what the user was looking at. Every other decision followed from being honest about that."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Technical limit", title: "No page context in the first release", lines: ["The assistant couldn't read the current module, filters, selected rows or business unit. Assuming them would mean guessing.", "Design response: context chips were dropped. Every record is named explicitly with @ mentions, and shortcuts became universal skills."] },
+          { kicker: "Data", title: "Duplicate names everywhere", lines: ["Brokerage CRMs hold many records with the same name, sometimes the same email, across business units.", "Design response: the assistant never picks. With more than one match it shows each record with its lead ID and asks the user to choose."] },
+          { kicker: "Security", title: "Permissions can't be bypassed by chat", lines: ["A chat box is a new door into the CRM. It must not let anyone do what the normal UI wouldn't.", "Design response: search only returns records the user can see. Every skill names its permission, and access is checked before the review step."] },
+          { kicker: "Architecture", title: "The CRM is the system of record", lines: ["The model can't write to the database. Only existing CRM APIs can.", "Design response: skills map to CRM operations. The model fills in a structured request, and the application executes it."] },
+          { kicker: "Technical limit", title: "Model latency", lines: ["Understanding and resolving a request took 2–5 seconds. Silence for that long feels broken.", "Design response: truthful progress. Each stage (searching, validating, updating) is named while it runs."] },
+          { kicker: "Business priority", title: "Start safe, then expand", lines: ["Leadership wanted batch operations and password resets. Security asked for a slower rollout.", "Design response: the MVP launched with low-risk skills first. Restricted operations need extra confirmation and carry a risk level."] },
+        ] },
+        { type: "text", eyebrow: "principles", heading: "The rules every screen had to follow.", body: [] },
+        { type: "cards", cols: 3, items: [
+          { n: "01", title: "Explicit scope", lines: ["Name the record. Don't assume context the system can't see."] },
+          { n: "02", title: "Structured execution", lines: ["Skills with contracts, not free-form automation."] },
+          { n: "03", title: "Review first", lines: ["No change happens without seeing it first."] },
+          { n: "04", title: "Truthful status", lines: ["Say what's happening, including “Incomplete”."] },
+          { n: "05", title: "Built-in recovery", lines: ["Undo and next steps are part of the flow, not an afterthought."] },
+        ] },
+        { type: "text", eyebrow: "sequence · execution model", heading: "Seven steps, each visible, two of them owned by the user.", body: [
+          "Understand → Resolve → Validate → Check access → Review → Approve → Execute. Review and Approve belong to the user.",
+          "The header status is one vocabulary for the whole system: Available, Thinking…, Needs your choice, Review details, Ready for your review, Adding tag, Complete, Incomplete. Blue means the user's turn or active work, amber means waiting or unfinished, green means done.",
+        ] },
+        { type: "text", eyebrow: "iterations · three shifts", heading: "Three shifts that shaped the shipped product.", body: [] },
+        { type: "cards", cols: 3, items: [
+          { n: "Shift 1", title: "Chatbot → command layer", lines: ["The first concept answered anything and acted on anything.", "What we learned: free-form actions couldn't be validated or audited. Skills with contracts could."] },
+          { n: "Shift 2", title: "Assumed context → explicit scope", lines: ["Early designs showed automatic context chips (“on: Leads, 3 selected”).", "What we learned: the first release couldn't read page state, so chips were dropped and @ mentions became the source of truth."] },
+          { n: "Shift 3 · shipped", title: "Open prompt → skills", lines: ["“How can I help?” on an empty panel.", "What we learned: in pilot logs, 1 in 3 first messages asked for something unsupported. Listing skills fixed that."] },
+        ] },
+        { type: "text", eyebrow: "ownership · mine vs ours", heading: "Which decisions I made, and which ones the team made.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Decisions I owned", title: "Reframe to a command layer", lines: ["I moved the brief from “a chatbot” to structured operations people could review."] },
+          { kicker: "Decisions I owned", title: "The skill contract shape", lines: ["Inputs, permission, confirmation, undo and risk for each skill, written with engineering."] },
+          { kicker: "Decisions I owned", title: "Review card and impact checks", lines: ["What will change, and what's already been verified."] },
+          { kicker: "Decisions I owned", title: "Status vocabulary and recovery states", lines: ["Every header state, plus “Incomplete” with next steps."] },
+          { kicker: "Decisions I owned", title: "Front-end build", lines: ["I built the assistant panel and its states as a working prototype."] },
+          { kicker: "Engineering", title: "No page context in v1", lines: ["The CRM didn't expose page state yet."] },
+          { kicker: "Security", title: "Restricted operations list", lines: ["Password resets and batch updates need extra confirmation."] },
+          { kicker: "PM", title: "Rollout order", lines: ["Two pilot desks first."] },
+          { kicker: "ML engineer", title: "Model and prompt setup", lines: ["Intent and field extraction."] },
+        ] },
+        { type: "text", eyebrow: "trade-offs · what it cost", heading: "Safety over speed, on purpose.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Chose", title: "Review every change", lines: ["Over: one-shot execution.", "Cost: one extra click per task, in return for zero silent mistakes."] },
+          { kicker: "Chose", title: "Ask on duplicates", lines: ["Over: picking the most likely match.", "Cost: an extra turn when names collide."] },
+          { kicker: "Chose", title: "Explicit @ mentions", lines: ["Over: inferring from the page.", "Cost: more typing until page context arrived."] },
+          { kicker: "Chose", title: "A small set of skills", lines: ["Over: an assistant that tries anything.", "Cost: some requests get “not supported yet”, but nothing fails silently."] },
+        ] },
+      ],
+    },
+    build: {
+      intro: crIntro,
+      blocks: [
+        { type: "text", eyebrow: "system · architecture", heading: "The model interprets. The contract decides. The CRM executes.", body: ["Conversation, orchestration, permissions and execution are kept separate."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Conversation", list: ["Assistant panel", "@ mention search", "Review & result cards"], lines: ["User message plus explicit entities go down to the model."] },
+          { kicker: "Model", list: ["Intent", "Field extraction", "Asks only for missing details"], lines: ["Returns a structured request."] },
+          { kicker: "Orchestration", list: ["Skill registry", "Validation", "Confirmation rules", "Context layers"] },
+          { kicker: "Permissions", list: ["Per-skill permission check", "Visible-records-only search"], lines: ["Nothing runs until the user approves."] },
+          { kicker: "CRM execution", list: ["Existing CRM APIs", "Audit log", "Undo"] },
+        ] },
+        { type: "text", eyebrow: "contract · skill registry", heading: "Every skill declares what it needs before the model can use it.", body: ["The MVP covered five skill groups: query data, find and summarize records, create records, manage tags and supported fields, and restricted account operations. Each registers its entity types, required inputs, permission, confirmation rules, bulk and undo support, and risk level."] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "skill: lead.tag.add · the contract behind the screens above", title: "One contract drives the whole flow", list: ["entities: lead", "inputs: recordIds (required), tagId (required)", "permission: leads.update", "confirmation: always", "bulk: true", "undo: true", "risk: low"] },
+        ] },
+        { type: "text", eyebrow: "delivery · collaboration", heading: "Designed and built alongside engineering.", body: [] },
+        { type: "cards", cols: 2, items: [
+          { kicker: "Weeks 1–4", title: "Contract first", lines: ["The skill schema was agreed with back-end before any UI, so every screen field had a source."] },
+          { kicker: "Weeks 5–9", title: "States as code", lines: ["I built the panel and all its states in the front end, so engineering integrated real components rather than mockups."] },
+          { kicker: "Weeks 10–13", title: "Pilot", lines: ["Two sales desks, 31 agents, low-risk skills only, with weekly log reviews."] },
+          { kicker: "Weeks 14–16", title: "Expand", lines: ["Restricted skills added behind extra confirmation, then rolled out to all desks."] },
+        ] },
+        { type: "text", eyebrow: "outcomes", heading: "Measured on adoption, speed, reliability and trust.", body: ["Pilot of 6 weeks on two desks, then 8 weeks after full rollout."] },
+        { type: "cards", cols: 2, items: [
+          { n: "58%", title: "Adoption", lines: ["Pilot agents using the assistant weekly. 64% of tasks started from a skill starter, not free text."] },
+          { n: "74 → 19 s", title: "Efficiency", lines: ["Median time to tag a lead, at 1.8 turns per task."] },
+          { n: "0", title: "Reliability", lines: ["Updates to the wrong record. 96% of approved changes completed in full."] },
+          { n: "7%", title: "Trust", lines: ["Reviews cancelled or edited, a sign people read the card rather than click through. Undo was used 1.2% of the time."] },
+        ] },
+      ],
     },
   },
-];
+};
+
+export const caseStudies: CaseStudy[] = [crmAgent];
 
 /*
  * ClientLens — copy and structure from the published ClientLens artifact (claude.ai/artifact/P57oksJpMxocZ6yDBhCzua).
