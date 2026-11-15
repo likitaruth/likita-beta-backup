@@ -86,7 +86,7 @@ export function CaseTabs({ slug, tabs, active }: { slug: string; tabs: TabKey[];
                 aria-current={on ? "page" : undefined}
                 className={cn(
                   "cs-tab relative z-10 flex h-11 flex-1 items-center justify-center gap-2 rounded-full font-['Inter',var(--font-sans)] text-[14px] font-medium transition-colors duration-300 ease-out-quint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft",
-                  on ? "text-ink" : "text-[#9a9a96] hover:text-white",
+                  on ? "text-ink" : "text-[#b3b3b3] hover:text-white",
                 )}
               >
                 {on && (

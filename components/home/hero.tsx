@@ -47,7 +47,7 @@ export function Hero() {
               </h1>
             </div>
 
-            <p style={d(340)} className="intro-rise font-display text-[clamp(14px,3.6vw,21px)] font-semibold leading-[1.6] text-accent md:h-[34px] md:text-[21px]">
+            <p style={d(340)} className="intro-rise font-display text-[clamp(14px,3.6vw,21px)] font-semibold leading-[1.6] text-accent-ink md:h-[34px] md:text-[21px]">
               {hero.purpose.lead}
               <span className="text-fg">{hero.purpose.strong}</span>
               <span className="font-sans font-normal italic text-fg">{hero.purpose.italic}</span>

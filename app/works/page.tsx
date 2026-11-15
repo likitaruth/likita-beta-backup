@@ -17,7 +17,7 @@ export default function WorksPage() {
           <h1 className="t-display text-accent text-[clamp(44px,11.74cqw,154px)] leading-[1.065]">
             <Item as="span" kind="wipe" className="block">{p.titleLead}<em className="font-sans font-medium italic">{p.titleEmphasis}</em></Item>
           </h1>
-          <Item as="p" kind="fade" className="ghost-drift -mx-4 mt-6 whitespace-nowrap font-medium italic leading-[1.26] text-[rgba(63,62,62,0.6)] text-[17.5cqw] md:mt-[43px]">
+          <Item as="p" kind="fade" className="ghost-drift -mx-4 mt-6 whitespace-nowrap font-medium italic leading-[1.26] text-ghost text-[17.5cqw] md:mt-[43px]">
             {p.years}
           </Item>
         </Stage>

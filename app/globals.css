@@ -28,6 +28,10 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-display: var(--accent-display);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-on-card: var(--accent-on-card);
+  --color-ghost: var(--ghost);
+  --color-line-strong: var(--line-strong);
 
   --color-pill: var(--pill);
   --color-pill-fg: var(--pill-fg);
@@ -85,6 +89,12 @@
   --fg-faint: #4d4e52;
   --accent-soft: #6e702c;
   --accent-display: #6e6e2d;
+  --accent-ink: #5b6414;        /* small olive text; unchanged in dark */
+  --accent-on-card: #6e702c;    /* olive text on the always-dark project card */
+  --ghost: rgba(63, 62, 62, 0.6);
+  --line-strong: #464343;       /* component borders */
+  --card-fill: var(--surface);
+  --card-edge: rgb(241 235 228 / 0.07);
 
   --pill: #ffffff;
   --pill-fg: #212121;
@@ -103,11 +113,18 @@
 
   --fg: #0f0f0e;
   --fg-contact: #0f0f0e;
-  --fg-muted: #4d4e52;
-  --fg-subtle: #5d5d59;
-  --fg-faint: #9a978e;
-  --accent-soft: #5b6414;
+  /* WCAG 2.2 AA: every text token is >= 4.5:1 on canvas, raised, surface and chip in all three BG styles */
+  --fg-muted: #3f403c;
+  --fg-subtle: #4a4a46;
+  --fg-faint: #9a978e;           /* decorative only (never text) */
+  --accent-soft: #434a0e;
   --accent-display: #5b6414;
+  --accent-ink: #434a0e;
+  --accent-on-card: #b4bd4a;
+  --ghost: rgb(106 102 94);
+  --line-strong: #6b675f;        /* >= 3:1 against every light surface */
+  --card-fill: #f6f3ee;
+  --card-edge: #76726a;
 
   --pill: #0f0f0e;
   --pill-fg: #f1ebe4;
@@ -121,8 +138,8 @@
 [data-bg="1"] { --tint: transparent; --tint-mix: 0%; }
 [data-bg="2"] { --tint: #18231b; --tint-mix: 42%; }
 [data-bg="3"] { --tint: #5b6414; --tint-mix: 14%; }
-[data-theme="light"][data-bg="2"] { --tint-mix: 16%; }
-[data-theme="light"][data-bg="3"] { --tint-mix: 12%; }
+[data-theme="light"][data-bg="2"] { --tint-mix: 8%; }   /* was 16%: the canvas read as grey-green and dragged every ratio down */
+[data-theme="light"][data-bg="3"] { --tint-mix: 10%; }
 
 :root {
   --canvas: color-mix(in oklab, var(--base-canvas), var(--tint) var(--tint-mix));
@@ -302,7 +319,7 @@ body {
 }
 .cs-tabs[data-stuck="true"] .cs-tabs-pill {
   max-width: 440px;
-  background: rgb(16 16 15 / 0.82);
+  background: rgb(16 16 15 / 0.92);
   box-shadow: inset 0 0 0 1px rgb(241 235 228 / 0.1), 0 18px 40px -10px rgb(0 0 0 / 0.8);
   -webkit-backdrop-filter: blur(18px) saturate(1.3);
   backdrop-filter: blur(18px) saturate(1.3);
@@ -341,8 +358,9 @@ body {
 /* Cards */
 .cs-card {
   position: relative; border-radius: 20px; padding: 24px;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--surface), white 5%), var(--surface));
-  box-shadow: inset 0 0 0 1px rgb(241 235 228 / 0.07), inset 0 1px 0 rgb(241 235 228 / 0.09), 0 24px 30px -22px rgb(0 0 0 / 0.9);
+  background-color: var(--card-fill);
+  background-image: linear-gradient(180deg, color-mix(in oklab, var(--card-fill), white 5%), var(--card-fill));
+  box-shadow: inset 0 0 0 1px var(--card-edge), inset 0 1px 0 rgb(241 235 228 / 0.09), 0 24px 30px -22px rgb(0 0 0 / 0.9);
   transition: transform 500ms var(--ease-out-quint), box-shadow 400ms;
 }
 .cs-card::before { content: ""; position: absolute; left: 24px; top: 0; width: 40px; height: 2px; background: var(--accent-soft); }
@@ -407,7 +425,7 @@ body {
 .fig-h-tl { left: -6px; top: -6px; } .fig-h-tr { right: -6px; top: -6px; } .fig-h-bl { left: -6px; bottom: -6px; } .fig-h-br { right: -6px; bottom: -6px; }
 
 /* ───────── About: Two Truths and a Lie (components/about/two-truths-game.tsx) ───────── */
-.tt-panel { --tt-line: #2a2a28; --tt-olive: #9aa23a; --tt-sub: #7d7872; --tt-mut: #a9a49d; display: flex; flex-direction: column; min-height: 600px; padding: 40px; border-radius: 20px; background: #121211; box-shadow: inset 0 0 0 1px var(--tt-line); }
+.tt-panel { --tt-line: #2a2a28; --tt-olive: #9aa23a; --tt-sub: #9a948d; --tt-mut: #b3aea7; color: #f1ebe4; --fg: #f1ebe4; --fg-muted: #b9bab4; display: flex; flex-direction: column; min-height: 600px; padding: 40px; border-radius: 20px; background: #121211; box-shadow: inset 0 0 0 1px var(--tt-line); }
 .tt-cap { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tt-sub); }
 .tt-btn { display: inline-flex; align-items: center; gap: 10px; border-radius: 999px; padding: 16px 26px; font: 700 12px/1 var(--font-sans); letter-spacing: 0.1em; text-transform: uppercase; transition: background-color 300ms, color 300ms; }
 .tt-btn-p { background: #f1ebe4; color: #1a1a19; }
@@ -642,3 +660,21 @@ body {
 html[data-pixel-cursor="on"], html[data-pixel-cursor="on"] * { cursor: none !important; }
 @media (hover: none), (pointer: coarse) { .pixel-cursor { display: none; } }
 @media (prefers-reduced-motion: reduce) { .pixel-cursor, .pc-face { transition: none; } }
+
+/* ───────── Light theme: WCAG 2.2 AA pass ─────────
+   Dark-mode values are untouched; everything here is scoped to [data-theme="light"]. */
+[data-theme="light"] .cs-card { box-shadow: inset 0 0 0 1px var(--card-edge), 0 14px 24px -16px rgb(15 15 14 / 0.35); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  [data-theme="light"] .cs-card:hover { box-shadow: inset 0 0 0 1.5px var(--accent-ink), 0 22px 30px -18px rgb(15 15 14 / 0.4); }
+}
+[data-theme="light"] .cs-ex:hover { box-shadow: 0 0 0 2px var(--accent-ink), 0 30px 50px -28px rgb(15 15 14 / 0.5); }
+[data-theme="light"] .cs-ex--cut:hover { box-shadow: none; }
+[data-theme="light"] .cs-ex--photo,
+[data-theme="light"] .cs-ex--screen,
+[data-theme="light"] .cs-ex--flow { box-shadow: 0 0 0 1px var(--card-edge), 0 30px 50px -28px rgb(15 15 14 / 0.45); }
+/* the sticky tab bar stays dark in both themes, so its focus ring has to be light */
+.cs-tab:focus-visible, .cs-tabs-pill a:focus-visible { outline: 2px solid #f1ebe4; outline-offset: 2px; }
+/* the Figma-style callout on About is white-on-dark by design; keep it legible on the light canvas */
+[data-theme="light"] .fig-frame { color: var(--fg); background: rgb(15 15 14 / 0.06); outline-color: #1a5fb4; }
+[data-theme="light"] .fig-label { color: #1a5fb4; }
+[data-theme="light"] .fig-h { background: var(--canvas); border-color: #1a5fb4; }

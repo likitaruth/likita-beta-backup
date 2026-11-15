@@ -114,7 +114,7 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
           {/* HUD */}
           <div className="pointer-events-none absolute inset-x-4 top-4 z-[4] flex items-center justify-between xl:inset-x-6 xl:top-6">
             <p className="rounded-full border border-cream/15 bg-card/70 px-3 py-2 text-[13px] font-medium leading-4 tabular-nums text-on-card-muted backdrop-blur-sm">
-              <span className="font-bold text-accent-soft">{pad(index + 1)} </span>
+              <span className="font-bold text-accent-on-card">{pad(index + 1)} </span>
               <span>/ {pad(n)}</span>
             </p>
             <div className="pointer-events-auto flex items-center">
@@ -127,7 +127,7 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
                     aria-label={d === -1 ? "Previous project" : "Next project"}
                     aria-disabled={disabled}
                     onClick={() => !disabled && select(index + d)}
-                    className={cn("grid size-11 place-items-center rounded-full transition-colors duration-300", disabled ? "cursor-default text-accent-soft" : "text-on-card hover:text-mint")}
+                    className={cn("grid size-11 place-items-center rounded-full transition-colors duration-300", disabled ? "cursor-default text-accent-on-card" : "text-on-card hover:text-mint")}
                   >
                     <CircleArrow direction={d === -1 ? "left" : "right"} tone={disabled ? "muted" : "active"} />
                   </button>
@@ -166,11 +166,11 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
               onPointerLeave={() => clearTimeout(hoverTimer.current)}
               className={cn(
                 "group/tab relative flex min-h-[64px] items-center border-t border-line py-4 pl-[22px] text-left transition-colors duration-500 last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg xl:min-h-0 xl:flex-1",
-                on ? "text-fg" : "text-fg/35 hover:text-fg/70",
+                on ? "text-fg" : "text-fg-muted hover:text-fg",
               )}
             >
               <span className={cn("flex items-center gap-[18px] transition-[translate] duration-500 ease-out-quint", on && "xl:translate-x-2.5")}>
-                <span aria-hidden className={cn("w-[22px] shrink-0 text-[12px] font-bold tracking-[0.1em] transition-colors duration-300", on ? "text-accent-soft" : "text-fg-subtle")}>{pad(i + 1)}</span>
+                <span aria-hidden className={cn("w-[22px] shrink-0 text-[12px] font-bold tracking-[0.1em] transition-colors duration-300", on ? "text-accent-ink" : "text-fg-subtle")}>{pad(i + 1)}</span>
                 <span className="t-display text-[clamp(20px,5.4vw,32px)] leading-[1.15] tracking-[-0.01em]">{pr.title}</span>
               </span>
               {on && (

@@ -177,7 +177,7 @@ export function TwoTruthsGame() {
             })}
           </div>
           <div className="tt-verdict" data-on={verdict}>
-            {!verdict && <span className="text-[13px] text-[#7d7872]">{C.hint} <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></span>}
+            {!verdict && <span className="text-[13px] text-[#9a948d]">{C.hint} <kbd>1</kbd><kbd>2</kbd><kbd>3</kbd></span>}
             <div role="status" className={cn(!verdict && "sr-only")}>
               {verdict && (
                 <>

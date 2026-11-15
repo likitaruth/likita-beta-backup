@@ -18,12 +18,12 @@ export function ProjectRow({ project, cta, priority }: { project: Project; cta: 
     <Stage as="li" amount={0.25} gap={0.09} className="cq group/row relative list-none">
       <div className="flex flex-col gap-8 md:h-[670px] md:flex-row md:gap-0 [.works-list:has(.group\/row:hover)_&:not(:hover)]:opacity-60 transition-opacity duration-300 ease-out-quint">
         <div className="relative z-10 flex flex-col gap-8 md:w-1/2 md:pb-[75px] md:pt-[73px]">
-          <Item as="h2" kind="wipe" style={{ "--tw": `${TITLE_W[project.slug] ?? 706}` } as React.CSSProperties} className="md:w-[calc(var(--tw)/656*100%)] t-display break-words uppercase leading-[1.065] text-[#eee6de] underline decoration-[0.078em] underline-offset-[0.1em] text-[clamp(30px,11cqw,154px)] md:text-[11.74cqw]">
+          <Item as="h2" kind="wipe" style={{ "--tw": `${TITLE_W[project.slug] ?? 706}` } as React.CSSProperties} className="md:w-[calc(var(--tw)/656*100%)] t-display break-words uppercase leading-[1.065] text-fg-contact underline decoration-[0.078em] underline-offset-[0.1em] text-[clamp(30px,11cqw,154px)] md:text-[11.74cqw]">
             {project.title}
           </Item>
           <div className="flex flex-col gap-8 md:mt-auto md:gap-[77px]">
             {(project.blurb ?? project.description) && (
-              <Item as="p" className="max-w-[593px] text-[18px] font-medium uppercase leading-[19px] text-white">{project.blurb ?? project.description}</Item>
+              <Item as="p" className="max-w-[593px] text-[18px] font-medium uppercase leading-[19px] text-fg">{project.blurb ?? project.description}</Item>
             )}
             <Item className="w-fit">
               <Pill

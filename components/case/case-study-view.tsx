@@ -9,7 +9,7 @@ import { projects } from "@/content/projects";
 import { tabLabels, tabOrder, type Block, type CaseStudy, type TabKey } from "@/content/case-studies";
 
 const PLACEHOLDER = "/assets/case/placeholder.jpg";
-const label = "text-[12px] font-semibold uppercase leading-[28px] text-fg-subtle";
+const label = "text-[13px] font-semibold uppercase leading-[28px] text-fg-subtle";
 const body = "text-[18px] leading-[1.15] text-fg";
 
 /** Case-study screen — Figma 2077:8377 / 8491 / 8623. Header + tab bar are shared; the tab body is what changes. */
@@ -34,7 +34,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
                   </Link>
                 </Item>
                 <Item as="p" kind="fade" className={label} aria-label={`Project ${index + 1} of ${projects.length}`}>
-                  <b className="font-bold text-accent">{String(index + 1).padStart(2, "0")} </b>/ {String(projects.length).padStart(2, "0")}
+                  <b className="font-bold text-accent-ink">{String(index + 1).padStart(2, "0")} </b>/ {String(projects.length).padStart(2, "0")}
                 </Item>
               </div>
               <Item as="h1" kind="wipe" className="t-display font-medium uppercase text-fg text-[clamp(28px,7.5vw,56px)] leading-none mx-auto w-full max-w-[1068px] text-left">{study.title}</Item>
@@ -60,7 +60,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
 
           <Item><dl className="cs-meta grid grid-cols-1 gap-6 sm:grid-cols-3">
             {study.meta.map(([k, v], i) => (
-              <div key={k} className={cn("flex flex-col gap-4 text-[12px] font-semibold uppercase leading-[14px] text-fg-subtle", i === 1 && "sm:items-center sm:text-center", i === 2 && "sm:items-end sm:text-right")}>
+              <div key={k} className={cn("flex flex-col gap-4 text-[13px] font-semibold uppercase leading-[16px] text-fg-subtle", i === 1 && "sm:items-center sm:text-center", i === 2 && "sm:items-end sm:text-right")}>
                 <dt>{k}</dt>
                 <dd className="text-fg-muted">{v}</dd>
               </div>
@@ -99,7 +99,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
               href={next.href}
               transitionTypes={[next.type]}
               scroll={next.type !== "nav-tab"}
-              className="group inline-flex h-9 min-w-[173px] items-center justify-center gap-2 rounded-full border border-[#b3b3b3] px-3 text-[14px] font-medium leading-[1.45] text-[#b3b3b3] transition-[background-color,color] duration-300 ease-out-quint hover:bg-[#b3b3b3] hover:text-ink"
+              className="group inline-flex h-9 min-w-[173px] items-center justify-center gap-2 rounded-full border border-line-strong px-3 text-[14px] font-medium leading-[1.45] text-fg-muted transition-[background-color,color] duration-300 ease-out-quint hover:bg-fg hover:text-canvas hover:border-fg"
             >
               {next.label}
               <svg aria-hidden width="16" height="16" viewBox="0 0 16 16" fill="none" className="transition-transform duration-300 ease-out-quint group-hover:translate-x-0.5">
@@ -132,7 +132,7 @@ function BlockView({ block }: { block: Block }) {
         <Stage amount={0.25} gap={0.07} className="flex flex-col gap-6">
           {(block.eyebrow || block.heading) && (
             <div className="flex flex-col">
-              {block.eyebrow && <Item as="p" className="text-[12px] font-semibold uppercase leading-[28px] text-fg-subtle">{block.eyebrow}</Item>}
+              {block.eyebrow && <Item as="p" className="text-[13px] font-semibold uppercase leading-[28px] text-fg-subtle">{block.eyebrow}</Item>}
               {block.heading && (block.display
                 ? <Item as="h3" kind="wipe" className="t-display text-[clamp(28px,7.5vw,56px)] font-medium uppercase leading-none text-fg">{block.heading}</Item>
                 : <Item as="h3" className="text-[clamp(22px,4vw,28px)] font-medium leading-[1.04] text-fg">{block.heading}</Item>)}
@@ -170,9 +170,9 @@ function BlockView({ block }: { block: Block }) {
       return (
         <Stage amount={0.2} gap={0.08} className={cn("grid gap-4 sm:grid-cols-2", block.cols === 3 && "lg:grid-cols-3")}>
           {block.items.map((c, i) => (
-            <Item as="div" key={i} kind="settle" className="cs-card text-[18px] leading-[1.3] text-fg">
-              {c.kicker && <p className="mb-3 text-[12px] font-semibold uppercase leading-[14px] text-accent-soft">{c.kicker}</p>}
-              {c.n && <p className="mb-3 text-[12px] font-bold leading-[14px] tracking-[0.08em] text-accent-soft">{c.n}</p>}
+            <Item as="div" key={i} kind="settle" className="cs-card text-[18px] leading-[1.4] text-fg">
+              {c.kicker && <p className="mb-3 text-[13px] font-semibold uppercase leading-[16px] text-accent-ink">{c.kicker}</p>}
+              {c.n && <p className="mb-3 text-[13px] font-bold leading-[16px] tracking-[0.08em] text-accent-ink">{c.n}</p>}
               {c.title && <p className={cn(!c.kicker && c.lines && "mb-3 font-medium", c.list && "mb-5")}>{c.title}</p>}
               {c.lines?.map((l) => <p key={l} className="text-[16px] leading-[1.5] text-fg-muted">{l}</p>)}
               {c.list && <ul className="list-disc pl-[27px]">{c.list.map((l) => <li key={l}>{l}</li>)}</ul>}
@@ -196,7 +196,7 @@ function Reflection({ study }: { study: CaseStudy }) {
     <Stage amount={0.25} gap={0.07} className="mt-6 flex flex-col gap-10 md:mt-[40px]">
       <div className="flex flex-col gap-6">
         <div className="flex flex-col">
-          <Item as="p" className="text-[12px] font-semibold uppercase leading-[28px] text-fg-subtle">{r.eyebrow}</Item>
+          <Item as="p" className="text-[13px] font-semibold uppercase leading-[28px] text-fg-subtle">{r.eyebrow}</Item>
           <Item as="h3" className="text-[clamp(22px,4vw,28px)] font-medium leading-[1.04] text-fg">{r.heading}</Item>
         </div>
         <Item className="flex flex-col gap-5 text-[18px] leading-[1.15] text-fg">{r.body.map((t) => <p key={t}>{t}</p>)}</Item>

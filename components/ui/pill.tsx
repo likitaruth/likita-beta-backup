@@ -7,11 +7,11 @@ const variants = {
   /** "Scroll to explore" / "Email me" — 45px tall (14 + 17 + 14) */
   solid: "bg-pill text-pill-fg font-semibold text-[14px] leading-[normal] h-[45px] gap-3 px-[18px] hover:-translate-y-px active:translate-y-0",
   /** Secondary CTA beside a solid pill — same 45px height, theme-aware hairline */
-  quiet: "border border-line text-fg font-semibold text-[14px] leading-[normal] h-[45px] px-[22px] hover:bg-fg hover:text-canvas hover:border-fg",
+  quiet: "border border-line-strong text-fg font-semibold text-[14px] leading-[normal] h-[45px] px-[22px] hover:bg-fg hover:text-canvas hover:border-fg",
   /** "Button / greys" on the project card */
   outline: "h-9 w-32 border border-mint text-mint font-medium text-[14px] leading-[1.45] px-3 hover:bg-mint hover:text-card",
   /** "Button / greys" on subpages (white label, divider border) */
-  ghost: "h-9 w-32 border border-divider text-white font-medium text-[14px] leading-[1.45] px-3 hover:bg-white hover:text-ink",
+  ghost: "h-9 w-32 border border-line-strong text-fg font-medium text-[14px] leading-[1.45] px-3 hover:bg-fg hover:text-canvas hover:border-fg",
   /** Footer social pills */
   footer: "h-9 w-32 border border-divider text-on-card font-medium text-[14px] leading-[1.45] px-3 hover:bg-white hover:text-footer",
 } as const;

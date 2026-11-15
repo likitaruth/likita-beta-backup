@@ -35,7 +35,7 @@ export default function AboutPage() {
             <AboutVideo src="/assets/about-video.mp4" poster="/assets/about-video-poster.jpg" label={a.photoAlt} />
           </Item>
 
-          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-[#b3b3b3] lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[41.5%]">
+          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[41.5%]">
             <span aria-hidden className="ab-tick block h-0.5 w-10 bg-accent-soft" />
             {a.paragraphs.map((t, i) => (
               <Item as="p" key={i} id={i === 0 ? "how" : "why"} className="scroll-mt-24">
@@ -48,7 +48,7 @@ export default function AboutPage() {
 
       <section id="audience" aria-label={a.gameLabel} className="mt-12 scroll-mt-24 lg:mt-[69px]">
         <Stage amount={0.2}>
-          <Item as="p" kind="fade" className="page-shell t-eyebrow flex items-center gap-3.5 !tracking-normal text-[#958e8e]"><span aria-hidden className="h-0.5 w-7 bg-accent-soft" />{a.gameLabel}</Item>
+          <Item as="p" kind="fade" className="page-shell t-eyebrow flex items-center gap-3.5 !tracking-normal text-fg-subtle"><span aria-hidden className="h-0.5 w-7 bg-accent-soft" />{a.gameLabel}</Item>
           {/* Rebuilt as a playable game from the reference video (the Figma frame is a flat raster). */}
           <Item kind="fade" className="page-shell mt-5">
             <TwoTruthsGame />
