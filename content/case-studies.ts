@@ -64,9 +64,6 @@ const crmAgent: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  // TODO(content, waiting on Likita): CRM Agent already has Role (with team), Focus and a "Shipped" line (MVP, 16 weeks) plus a 58% adoption
-  //   result in the Design tab. The requested Status / Company / Team / Timeline / Outcome placeholders conflict with those, so nothing
-  //   was added. Confirm what should change, e.g. whether to split the existing meta into Status / Company / Team / Timeline.
   meta: [["Role", "UX/Product designer and builder: the experience, the skill model and the front-end prototype. Team: 1 PM, 2 back-end engineers, 1 ML engineer, with security review"], ["Focus", "Enterprise AI / Conversational UX / Product design & build"], ["Shipped", "MVP to two sales desks, then all Teamforce desks, over 16 weeks"]],
   reflection: {
     eyebrow: "honest read",
@@ -268,9 +265,8 @@ const clientlens: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  // TODO(content, waiting on Likita): ClientLens still needs, in this order, and none is rendered until supplied:
-  //   meta "Timeline"; meta "Team"; a "Working with the team" section after the key decisions (2–4 sentences on one decision you influenced);
-  //   and a small-print "how it was measured" line under the metrics. Do not invent these.
+  // TODO(content): ClientLens Timeline, Team, "Working with the team" and a measurement note are drafted from this case study and
+  //   waiting for Likita's approval before they are rendered.
   meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "honest read",
@@ -659,16 +655,13 @@ const northstar: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  // TODO(content, waiting on Likita): Northstar names the same role "Approver" in the case study and "Compliance Reviewer" in the build
-  //   (see the campaign-review caption). Pick one label and use it in both places. The three roles ARE all described already
-  //   (Retention Manager, Approver, Viewer), so "3 roles" in the lede is correct and was left as is.
   meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Working prototype on synthetic data"]],
   reflection: {
     eyebrow: "limits & next",
     heading: "What this is, and what it isn't yet",
     body: [
       "Still a prototype. The data is 36 invented clients built to exercise eligible, uncertain and excluded paths, and execution is simulated: no real email was sent and no live CRM or provider was connected. The design reasoning comes from the problem framing, not from studies with retention or compliance teams, and nothing here measures reactivation, conversion or time saved.",
-      "Next: test the journey with real retention managers and approvers and watch where they hesitate at each seam. Measure time to a trusted decision, not clicks saved. Learn which conflicts teams resolve fastest and which they escalate. Then connect a real data source behind the same boundary, keeping execution simulated until approvals hold under load.",
+      "Next: test the journey with real retention managers and compliance reviewers and watch where they hesitate at each seam. Measure time to a trusted decision, not clicks saved. Learn which conflicts teams resolve fastest and which they escalate. Then connect a real data source behind the same boundary, keeping execution simulated until approvals hold under load.",
     ],
     pull: "The AI does the investigating. People keep the authority. The space between them is designed, not left to chance.",
   },
@@ -683,7 +676,7 @@ const northstar: CaseStudy = {
           { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
           { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "No user research or business metrics yet", "Never connected to a live CRM or email provider"] },
         ] },
-        { type: "text", eyebrow: "goal · workspace", heading: "The home screen asks for an outcome, then shows the next decision", body: ["First-time users see a goal composer, three suggested goals and a short explanation of what happens next. There are no empty charts. Returning users see Needs attention and Continue work, ordered by the next useful decision rather than the last page they opened.", "The list depends on the role. A retention manager sees “Waiting for approval of plan v1”. An approver sees the same item as “Authorize plan v1”."] },
+        { type: "text", eyebrow: "goal · workspace", heading: "The home screen asks for an outcome, then shows the next decision", body: ["First-time users see a goal composer, three suggested goals and a short explanation of what happens next. There are no empty charts. Returning users see Needs attention and Continue work, ordered by the next useful decision rather than the last page they opened.", "The list depends on the role. A retention manager sees “Waiting for approval of plan v1”. A compliance reviewer sees the same item as “Authorize plan v1”."] },
         ns("first-run", "First-run workspace with a welcome message, a Create your first business goal button, onboarding steps and suggested goals"),
         { type: "text", body: ["First run: one primary action, and suggested goals that fill in the composer and stay editable before anything runs."] },
         ns("home", "Returning workspace with a goal composer, a Needs attention list showing consent review, approval needed and findings ready, and a Continue work list"),
@@ -703,11 +696,11 @@ const northstar: CaseStudy = {
         { type: "text", body: ["Reviewed: 10 to 5 clients, each removal explained, and saving unlocks only now."] },
         ns("refine-stale", "The same drawer after an edit: the impact review is labelled out of date and saving is disabled until it is reviewed again"),
         { type: "text", body: ["Stale: the old review fades and is labelled out of date, and the footer explains why saving locked and how to unlock it."] },
-        { type: "text", eyebrow: "approval · seam 3", heading: "Requesting approval doesn't send anything. Approval covers one version", body: ["The campaign screen splits into the plan and an authorization rail. The rail names the executable candidate: plan version, audience size, channel. It says outright that requesting approval does not execute outreach, because people hesitate before buttons that might have side effects.", "The approver sees the same plan with different controls: approve this version, or request changes with a required note. The approval states that version number in writing."] },
+        { type: "text", eyebrow: "approval · seam 3", heading: "Requesting approval doesn't send anything. Approval covers one version", body: ["The campaign screen splits into the plan and an authorization rail. The rail names the executable candidate: plan version, audience size, channel. It says outright that requesting approval does not execute outreach, because people hesitate before buttons that might have side effects.", "The compliance reviewer sees the same plan with different controls: approve this version, or request changes with a required note. The approval states that version number in writing."] },
         ns("campaign-draft", "Campaigns screen with plan v2 draft and a Prepare authorization rail with a Request approval button"),
         { type: "text", body: ["Manager view: the exact thing being authorized, and the side effects of the button, stated up front."] },
-        ns("campaign-review", "Approver view with an awaiting approval badge, Approve plan v2 and Request changes buttons, and a note that approval applies only to version 2"),
-        { type: "text", body: ["Approver view (labelled Compliance Reviewer in the build): the version is in the button label, and any later change needs a new approval."] },
+        ns("campaign-review", "Compliance Reviewer view with an awaiting approval badge, Approve plan v2 and Request changes buttons, and a note that approval applies only to version 2"),
+        { type: "text", body: ["Compliance Reviewer view: the version is in the button label, and any later change needs a new approval."] },
         { type: "text", eyebrow: "execution · seam 4", heading: "Every consequential step leaves a record a person can read and a system can verify", body: ["Execution asks for one last confirmation with the real number of recipients. The Activity log then separates AI and system, human decisions and execution. Each event has a plain-language summary, the key numbers and the technical record underneath, so a compliance reviewer and an engineer can read the same event."] },
         ns("execute-confirm", "Confirmation dialog: Schedule outreach to 5 clients, using the approved plan v2 draft, recorded as an execution event"),
         { type: "text", body: ["The confirmation states the count, the version and that the step is recorded. It does not say “Are you sure?”."] },
@@ -723,7 +716,7 @@ const northstar: CaseStudy = {
         { type: "text", eyebrow: "the problem", heading: "A CRM asks which workflow you want. A retention team has a goal.", body: ["A retention manager doesn't want a dashboard. They want dormant enterprise clients to come back this month, without emailing someone who withdrew consent. In a traditional CRM, the judgment that decides who gets contacted lives outside the system, in exports and spreadsheets, where nobody can audit it."] },
         { type: "cards", cols: 2, items: [
           { kicker: "Workflow-driven CRM", title: "The user does the investigation.", list: ["Open the dormant-accounts dashboard (human)", "Build filters for inactivity and deposits (human)", "Export a report to a spreadsheet (human)", "Check consent in another system (gap)", "Decide who is “probably fine” (unrecorded)", "Send the campaign (irreversible)"], lines: ["The riskiest decisions happen where the system can't see them."] },
-          { kicker: "Northstar", title: "The user makes the decisions.", list: ["State the business goal (human)", "Investigate records against the goal (AI)", "Inspect evidence and resolve conflicts (uncertain)", "Refine the plan, preview its impact (human)", "Authorize one exact plan version (approver)", "Execute, reconcile, retry safely (system)"], lines: ["Each step leaves a record of who, or what, decided, and from which evidence."] },
+          { kicker: "Northstar", title: "The user makes the decisions.", list: ["State the business goal (human)", "Investigate records against the goal (AI)", "Inspect evidence and resolve conflicts (uncertain)", "Refine the plan, preview its impact (human)", "Authorize one exact plan version (compliance reviewer)", "Execute, reconcile, retry safely (system)"], lines: ["Each step leaves a record of who, or what, decided, and from which evidence."] },
         ] },
         { type: "pull", heading: "Design challenge", text: "How might we turn CRM work from manual task execution into goal-driven, AI-assisted decisions, without giving up transparency, safety or human control?" },
         { type: "text", eyebrow: "the core idea", heading: "Most AI products design the answer. Northstar designs the space around it.", body: ["An AI that reaches a conclusion is the easy part. Trust breaks in the handoffs: between what the model concluded and what it actually saw, between what it knows and what it can't know, between a human's approval and what gets executed, and between a failed send and a safe retry. I treated these four seams as the product."] },
@@ -751,7 +744,7 @@ const northstar: CaseStudy = {
         ] },
         { type: "cards", cols: 3, items: [
           { kicker: "Retention Manager", list: ["Set goals and run investigations", "Review opportunities and refine plans", "Request approval for a plan version", "Inspect evidence, plans and the audit log"] },
-          { kicker: "Approver", list: ["Authorize or return a plan version", "Inspect evidence, plans and the audit log"] },
+          { kicker: "Compliance Reviewer", list: ["Authorize or return a plan version", "Inspect evidence, plans and the audit log"] },
           { kicker: "Viewer", list: ["Inspect permitted items only"] },
         ] },
         { type: "text", eyebrow: "failure catalogue", heading: "Ten things that go wrong, designed before the happy path was finished", body: ["Each failure answers the same four questions in the interface: what happened, why, what is still safe, and what the user can do next. A failure that can't answer all four isn't designed yet."] },
@@ -774,7 +767,7 @@ const northstar: CaseStudy = {
           { n: "03", kicker: "Controlled retry", title: "Retry only what failed", lines: ["Safeguards on each action skip the eight completed sends. The retry covers only the failure, and the log records why each action was skipped."] },
         ] },
         { type: "text", body: ["Verified in the prototype: retrying did not duplicate the successful actions. The run used synthetic data and a simulated execution channel."] },
-        { type: "text", eyebrow: "approval · staleness", heading: "An approval is a promise about one version. Edits break it, on purpose", body: ["Plan v1 is drafted: the AI proposes 10 verified clients. The approver authorizes v1, by number. Then the manager excludes a client, and v1's approval no longer describes what would run. Plan v2 is a new version, impact is reviewed again and v1 stays in history, unchanged. Only an approval of v2 can release v2.", "In the build, a plan that is awaiting approval can't be refined. The request must be withdrawn first, so nobody can change a plan while someone else is reviewing it."] },
+        { type: "text", eyebrow: "approval · staleness", heading: "An approval is a promise about one version. Edits break it, on purpose", body: ["Plan v1 is drafted: the AI proposes 10 verified clients. The compliance reviewer authorizes v1, by number. Then the manager excludes a client, and v1's approval no longer describes what would run. Plan v2 is a new version, impact is reviewed again and v1 stays in history, unchanged. Only an approval of v2 can release v2.", "In the build, a plan that is awaiting approval can't be refined. The request must be withdrawn first, so nobody can change a plan while someone else is reviewing it."] },
         { type: "text", eyebrow: "trade-offs", heading: "Every safety rule costs some speed. These are the trades I chose", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "Chose", title: "Outcome-first workspace", lines: ["Over module navigation: contacts, deals, reports.", "Cost: less familiar to people used to classic CRMs, who expect a module menu."] },
@@ -817,7 +810,7 @@ const northstar: CaseStudy = {
         ] },
         { type: "text", eyebrow: "validation", heading: "What the end-to-end prototype run verified", body: [] },
         { type: "cards", cols: 2, items: [
-          { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the approver and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },
+          { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the compliance reviewer and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },
           { kicker: "Results", list: ["11 clients initially eligible", "14 to 13 uncertain records after one resolution", "10 clients in the revised target audience", "8 completed, 1 failed, 1 unknown execution outcomes", "0 duplicated actions after retry"] },
         ] },
         { type: "text", body: ["Prototype verification on synthetic data. These numbers confirm the system behaved correctly. They are not customer results or business impact."] },
