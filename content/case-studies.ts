@@ -265,9 +265,7 @@ const clientlens: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  // TODO(content): ClientLens Timeline, Team, "Working with the team" and a measurement note are drafted from this case study and
-  //   waiting for Likita's approval before they are rendered.
-  meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
+  meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"], ["Timeline", "14 weeks, first designs to rollout, ahead of the Q2 campaign season"], ["Team", "1 PM, 1 data scientist, a back-end lead and engineers, with compliance review"]],
   reflection: {
     eyebrow: "honest read",
     heading: "What didn't work, and what's next",
@@ -374,6 +372,10 @@ const clientlens: CaseStudy = {
           { kicker: "PM", title: "Cutting Deep Dive from v1", lines: ["Scope trade-off for the Q2 date. I argued for the radar as the lighter evidence view instead."] },
           { kicker: "Data science + me", title: "Default threshold of 30%", lines: ["Picked from pilot data on which matches agents actually opened."] },
         ] },
+        { type: "text", eyebrow: "working with the team", heading: "One number became two, and the verdict shows both.", body: [
+          "Early specs had a single “match quality” number. I argued for two, how alike two clients are and how sure ClientLens is about it, and took the John and Lisa case to the data scientist and the PM as evidence: a low match with high confidence is the most useful thing the system can say, and one number would hide it. The verdict now shows both.",
+          "Day to day I worked with the back-end lead on the insight contract, with data science on the eight scoring categories, and with compliance on hashed IDs and the Do not recommend list.",
+        ] },
         { type: "text", eyebrow: "boundaries · AI vs agent", heading: "ClientLens can recommend. It never acts on the client.", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "AI may do", title: "Without asking", list: ["Score lookalikes across categories", "Summarise a match in plain language", "Recommend and rank actions", "Flag risk resemblance to restricted users"] },
@@ -428,6 +430,7 @@ const clientlens: CaseStudy = {
           { n: "−41%", title: "Mis-targeted promotions", lines: ["VIP and deposit promotions sent to churned or high-risk clients."] },
           { n: "11.8% vs 8.6%", title: "Re-deposit rate", lines: ["On ClientLens-guided outreach compared with control desks."] },
         ] },
+        { type: "text", body: ["The pilot covered 38 agents on the 2 retention desks. Segment build time is a median, and the re-deposit rate compares ClientLens-guided outreach with the control desks."] },
         { type: "cards", cols: 3, items: [
           { kicker: "Feedback theme · agents", lines: ["“Do not recommend” was the most mentioned feature. Agents said it gave them a reason to refuse a manager's request to “just send the VIP offer”."] },
           { kicker: "Feedback theme · retention leads", lines: ["Leads used impact tags to plan the day's comparisons, which we hadn't designed for."] },
