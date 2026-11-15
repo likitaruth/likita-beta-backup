@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import { pageMeta, SITE_DESCRIPTION } from "@/lib/meta";
 import { Subpage } from "@/components/layout/subpage";
 import { Item, Stage } from "@/components/motion/stage";
 import { site } from "@/content/site";
 
-export const metadata: Metadata = { title: "Hit me up — Likita" };
+export const metadata: Metadata = pageMeta("Hit me up — Likita", SITE_DESCRIPTION);
 
 /**
  * Contact — Figma "Before Hover" (2077:9240) and "On Hover" (2077:9215).

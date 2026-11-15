@@ -8,6 +8,7 @@ import { ArrowRight } from "@/components/ui/icons";
 import { projects } from "@/content/projects";
 import { getCaseStudy } from "@/content/case-studies";
 import { site } from "@/content/site";
+import { pageMeta, SITE_DESCRIPTION } from "@/lib/meta";
 
 export function generateStaticParams() {
   return projects.map((p) => ({ slug: p.slug }));
@@ -16,7 +17,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const p = projects.find((x) => x.slug === slug);
-  return { title: p ? `${p.title} — Likita` : "Likita" };
+  return p ? pageMeta(`${p.name} — Likita`, p.seo) : pageMeta("Likita", SITE_DESCRIPTION);
 }
 
 /** Case study (Design tab) when one exists in Figma; otherwise the minimal project page. */

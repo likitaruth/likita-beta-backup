@@ -4,8 +4,9 @@ import { ProjectRow } from "@/components/works/project-row";
 import { Stage, Item } from "@/components/motion/stage";
 import { projects } from "@/content/projects";
 import { site } from "@/content/site";
+import { pageMeta } from "@/lib/meta";
 
-export const metadata: Metadata = { title: "Selected works — Likita" };
+export const metadata: Metadata = pageMeta("Selected works — Likita", "Selected work: shipped AI features, client portals and prototypes for CRM and B2B SaaS.");
 
 /** Projects — Figma 2077:9170. Header 154px olive, ghost year range, four 670px rows (120px apart). */
 export default function WorksPage() {

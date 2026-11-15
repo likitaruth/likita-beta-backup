@@ -64,6 +64,9 @@ const crmAgent: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
+  // TODO(content, waiting on Likita): CRM Agent already has Role (with team), Focus and a "Shipped" line (MVP, 16 weeks) plus a 58% adoption
+  //   result in the Design tab. The requested Status / Company / Team / Timeline / Outcome placeholders conflict with those, so nothing
+  //   was added. Confirm what should change, e.g. whether to split the existing meta into Status / Company / Team / Timeline.
   meta: [["Role", "UX/Product designer and builder: the experience, the skill model and the front-end prototype. Team: 1 PM, 2 back-end engineers, 1 ML engineer, with security review"], ["Focus", "Enterprise AI / Conversational UX / Product design & build"], ["Shipped", "MVP to two sales desks, then all Teamforce desks, over 16 weeks"]],
   reflection: {
     eyebrow: "honest read",
@@ -265,6 +268,9 @@ const clientlens: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
+  // TODO(content, waiting on Likita): ClientLens still needs, in this order, and none is rendered until supplied:
+  //   meta "Timeline"; meta "Team"; a "Working with the team" section after the key decisions (2–4 sentences on one decision you influenced);
+  //   and a small-print "how it was measured" line under the metrics. Do not invent these.
   meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "honest read",
@@ -653,6 +659,9 @@ const northstar: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
+  // TODO(content, waiting on Likita): Northstar names the same role "Approver" in the case study and "Compliance Reviewer" in the build
+  //   (see the campaign-review caption). Pick one label and use it in both places. The three roles ARE all described already
+  //   (Retention Manager, Approver, Viewer), so "3 roles" in the lede is correct and was left as is.
   meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Working prototype on synthetic data"]],
   reflection: {
     eyebrow: "limits & next",

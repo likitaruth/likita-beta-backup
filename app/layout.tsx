@@ -3,12 +3,10 @@ import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import { CustomizeProvider, prefsScript } from "@/lib/customize";
 import { PixelCursor } from "@/components/ui/pixel-cursor";
+import { pageMeta, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/meta";
 import { PageLoader, loaderScript } from "@/components/ui/page-loader";
 
-export const metadata: Metadata = {
-  title: "Likita — Product Designer",
-  description: "Product design for AI-native CRM and B2B SaaS.",
-};
+export const metadata: Metadata = pageMeta(SITE_TITLE, SITE_DESCRIPTION);
 export const viewport: Viewport = { themeColor: "#0f0f0e", colorScheme: "dark light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

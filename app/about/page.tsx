@@ -6,8 +6,9 @@ import { TwoTruthsGame } from "@/components/about/two-truths-game";
 import { FigmaFrame } from "@/components/about/figma-frame";
 import { Item, Stage } from "@/components/motion/stage";
 import { site } from "@/content/site";
+import { pageMeta } from "@/lib/meta";
 
-export const metadata: Metadata = { title: "About me — Likita" };
+export const metadata: Metadata = pageMeta("About me — Likita", "Product designer who started in customer support and now designs AI features for enterprise CRM.");
 
 /**
  * About Me — Figma 2077:9103.
@@ -22,7 +23,7 @@ export default function AboutPage() {
   return (
     <Subpage>
       <div className="page-shell cq pt-[70px]">
-        <Stage trigger="mount" gap={0.1} className="relative flex flex-col gap-8 lg:block lg:h-[60cqw]">
+        <Stage trigger="mount" gap={0.1} className="relative flex flex-col gap-8 lg:block lg:h-[64cqw]">
           <h1 id="who" className="t-display scroll-mt-24 text-accent text-[clamp(44px,11.74cqw,154px)] leading-[1.065]">
             <Item as="span" kind="wipe" className="block">{a.titleLead}</Item>
             <span className="flex flex-wrap items-baseline justify-between gap-x-4">
@@ -38,7 +39,7 @@ export default function AboutPage() {
           <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[41.5%]">
             <span aria-hidden className="ab-tick block h-0.5 w-10 bg-accent-soft" />
             {a.paragraphs.map((t, i) => (
-              <Item as="p" key={i} id={i === 0 ? "how" : "why"} className="scroll-mt-24">
+              <Item as="p" key={i} id={i === 0 ? "how" : i === 1 ? "why" : undefined} className="scroll-mt-24">
                 {t.split("Frame 3523").flatMap((part, j, all) => (j < all.length - 1 ? [part, <FigmaFrame key={j}>Frame 3523</FigmaFrame>] : [part]))}
               </Item>
             ))}

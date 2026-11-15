@@ -33,10 +33,11 @@ export const site = {
   aboutPage: {
     titleLead: "/BEHIND",
     titleEmphasis: "FRAMES",
-    // Copy verbatim from Figma 2077:9129 / 2077:9130 (including "Frame 3523", which reads like a stray design-tool label — FLAG).
+    // "Frame 3523" is deliberate: About renders it as the interactive Figma-frame tag (see FigmaFrame).
     paragraphs: [
-      "I began my professional journey as a customer support officer, and that foundation still shapes how I listen, ask better questions, and design with empathy.",
-      "It usually starts around Frame 3523 and somewhere along the way, I've come to love this industry and the problems I get to solve through it. I care about making digital experiences feel clear, intentional, and worth using. My work usually lives at the intersection of product strategy, interaction design, and refined execution, with a strong bias toward shipping ideas that are both useful and memorable.",
+      "My journey into product design began in customer support and that foundation still shapes how I listen, ask better questions, and design with empathy.",
+      "It usually starts around Frame 3523 and I've come to love this industry and the problems I get to solve through it. Over the past four years, I've worked across startups and enterprise CRM, including Activepieces (YC S22), FeelPixel Studio, and MBL Hightech, designing for SaaS, fintech, AI-powered platforms, and automation tools.",
+      "I like being involved from the strategy down to the small details, and I care about shipping things that are actually useful. Especially AI that’s honest about what it knows, so people stay in control.",
     ],
     photoAlt: "Likita working at a desk with two monitors, with a candle on the desk and a shelf of plants behind",
     gameLabel: "Game: Two truths and a lie.",

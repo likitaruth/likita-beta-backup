@@ -1,16 +1,15 @@
 /**
- * Selected-work data. Source: homepage "Reveal Stack" (2144:11901) + "Projects" page (2077:9170).
- * FLAGS for the designer:
- *  1. Figma's counter reads "01 / 05" but only FOUR project titles exist (NORTHSTAR, CLIENTLENS, CRM AGENT,
- *     ACTIVEPIECES). The fifth is missing, so the counter derives from this array and reads "/ 04".
- *  2. Only NORTHSTAR has approved homepage copy + artwork. The others render title-only with an empty media slot.
- *     (The Projects page repeats a "booking travel platform" paragraph under every title — clearly pasted
- *     placeholder copy, so it was NOT used.)
- *  3. Order follows the Projects page top-to-bottom; please confirm.
+ * Selected-work data: the single source for the homepage "Selected Works", the Works page, the "0X / 0Y" counters on case
+ * studies, the "Next project" links and page metadata. Order here is the order everywhere.
+ * `title` is the display title (rendered uppercase by the design); `name` is the proper spelling used in <title> and meta tags.
  */
 export type Project = {
   slug: string;
   title: string;
+  /** Proper-cased name for <title> and social tags. */
+  name: string;
+  /** Meta / social description for the case study. */
+  seo: string;
   description: string | null;
   /** Thumbnail shown on the homepage stage and the Works page (image, or a muted looping video with a poster). */
   media: { type: "image"; src: string } | { type: "video"; src: string; poster: string };
@@ -22,8 +21,11 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  { slug: "clientlens", name: "ClientLens", seo: "An AI lookalike feature shipped inside an enterprise CRM: 64% weekly use, segment build time from 38 to 9 minutes, 41% fewer mis-targeted promotions.", title: "CLIENTLENS", description: null, blurb: "Finds the clients that look alike, then says when the match will mislead you. A verdict, not just a score.", media: { type: "image", src: "/assets/clientlens-thumbnail.webp" }, href: "/works/clientlens" },
   {
     slug: "northstar",
+    name: "Northstar",
+    seo: "A working prototype of an AI-native CRM that shows its uncertainty: evidence-backed plans, versioned approvals and audited execution.",
     title: "NORTHSTAR",
     description:
       "An AI-native CRM workspace designed to turn fragmented customer data into evidence-backed recommendations and human-controlled actions.",
@@ -32,8 +34,7 @@ export const projects: Project[] = [
     blurb: "A goal-driven CRM for retention teams that shows its uncertainty, so every action is backed by evidence and approved by a person.",
     href: "/works/northstar",
   },
-  { slug: "clientlens", title: "CLIENTLENS", description: null, blurb: "Finds the clients that look alike, then says when the match will mislead you. A verdict, not just a score.", media: { type: "image", src: "/assets/clientlens-thumbnail.webp" }, href: "/works/clientlens" },
-  { slug: "clientzone", title: "CLIENTZONE", description: null, blurb: "A client portal rebuilt around the questions clients ask, not the modules of the CRM behind it.", media: { type: "image", src: "/assets/clientzone-thumbnail.webp" }, href: "/works/clientzone" },
-  { slug: "crm-agent", title: "CRM AGENT", description: null, blurb: "A chat assistant that turns one sentence into a reviewed CRM change. Nothing runs until a person approves it.", media: { type: "image", src: "/assets/crm-agent-thumbnail.webp" }, href: "/works/crm-agent" },
-  { slug: "activepieces", title: "ACTIVEPIECES", description: null, blurb: "Four moments where people lost their place in a no-code automation tool, redesigned so they don't.", media: { type: "image", src: "/assets/activepieces-thumbnail.webp" }, href: "/works/activepieces" },
+  { slug: "clientzone", name: "ClientZone", seo: "Redesigning a brokerage client portal around the client's questions instead of the CRM's modules.", title: "CLIENTZONE", description: null, blurb: "A client portal rebuilt around the questions clients ask, not the modules of the CRM behind it.", media: { type: "image", src: "/assets/clientzone-thumbnail.webp" }, href: "/works/clientzone" },
+  { slug: "crm-agent", name: "CRM Agent", seo: "A safe CRM action layer: natural-language requests become validated, reviewed changes that a person approves.", title: "CRM AGENT", description: null, blurb: "A chat assistant that turns one sentence into a reviewed CRM change. Nothing runs until a person approves it.", media: { type: "image", src: "/assets/crm-agent-thumbnail.webp" }, href: "/works/crm-agent" },
+  { slug: "activepieces", name: "Activepieces", seo: "Four moments where people lost their place in a no-code automation tool, redesigned so they don't.", title: "ACTIVEPIECES", description: null, blurb: "Four moments where people lost their place in a no-code automation tool, redesigned so they don't.", media: { type: "image", src: "/assets/activepieces-thumbnail.webp" }, href: "/works/activepieces" },
 ];

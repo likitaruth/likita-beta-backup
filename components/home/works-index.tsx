@@ -86,7 +86,7 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
         role="tabpanel"
         id={`${uid}-panel`}
         aria-labelledby={`${uid}-tab-${index}`}
-        className="relative overflow-hidden rounded-[20px] bg-card shadow-[inset_0_0_0_1.5px_var(--card-line),0_36px_70px_-20px_rgb(0_0_0/0.6)] xl:order-2 xl:h-[500px]"
+        className="relative overflow-hidden rounded-[20px] bg-card shadow-[inset_0_0_0_1.5px_var(--card-line),0_36px_70px_-20px_rgb(0_0_0/0.6)] xl:order-2 xl:h-auto xl:min-h-[500px]"
       >
         <div className="relative h-[250px] sm:h-[340px] xl:absolute xl:inset-0 xl:h-auto">
           {projects.map((pr, i) => {
@@ -144,7 +144,7 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
         aria-orientation="vertical"
         aria-label="Selected works"
         onKeyDown={onKeyDown}
-        className="flex flex-col xl:order-1 xl:h-[500px]"
+        className="flex flex-col xl:order-1 xl:min-h-[500px]"
       >
         {projects.map((pr, i) => {
           const on = i === index;
@@ -165,13 +165,16 @@ export function WorksIndex({ projects, ctaLabel }: { projects: readonly Project[
               }}
               onPointerLeave={() => clearTimeout(hoverTimer.current)}
               className={cn(
-                "group/tab relative flex min-h-[64px] items-center border-t border-line py-4 pl-[22px] text-left transition-colors duration-500 last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg xl:min-h-0 xl:flex-1",
+                "group/tab relative flex min-h-[64px] items-center border-t border-line py-3 pl-[22px] text-left transition-colors duration-500 last:border-b focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-fg xl:min-h-0 xl:flex-1",
                 on ? "text-fg" : "text-fg-muted hover:text-fg",
               )}
             >
               <span className={cn("flex items-center gap-[18px] transition-[translate] duration-500 ease-out-quint", on && "xl:translate-x-2.5")}>
                 <span aria-hidden className={cn("w-[22px] shrink-0 text-[12px] font-bold tracking-[0.1em] transition-colors duration-300", on ? "text-accent-ink" : "text-fg-subtle")}>{pad(i + 1)}</span>
-                <span className="t-display text-[clamp(20px,5.4vw,32px)] leading-[1.15] tracking-[-0.01em]">{pr.title}</span>
+                <span className="flex flex-col gap-1">
+                  <span className="t-display text-[clamp(20px,5.4vw,32px)] leading-[1.15] tracking-[-0.01em]">{pr.title}</span>
+                  {(pr.blurb ?? pr.description) && <span className="pr-2 text-[13px] font-medium normal-case leading-[1.4] tracking-normal text-fg-muted">{pr.blurb ?? pr.description}</span>}
+                </span>
               </span>
               {on && (
                 <span
