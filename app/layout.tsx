@@ -3,6 +3,7 @@ import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import { CustomizeProvider, prefsScript } from "@/lib/customize";
 import { PixelCursor } from "@/components/ui/pixel-cursor";
+import { PageLoader, loaderScript } from "@/components/ui/page-loader";
 
 export const metadata: Metadata = {
   title: "Likita — Product Designer",
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" data-theme="dark" data-bg="2" data-scroll-behavior="smooth" className={fontVariables} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: prefsScript }} />
+        <script dangerouslySetInnerHTML={{ __html: loaderScript }} />
       </head>
       <body>
         <a
@@ -23,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <PageLoader />
         <CustomizeProvider>{children}</CustomizeProvider>
         <PixelCursor />
       </body>
