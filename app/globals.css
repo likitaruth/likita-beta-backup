@@ -676,7 +676,7 @@ html[data-pixel-cursor="on"], html[data-pixel-cursor="on"] * { cursor: none !imp
 .cs-tab:focus-visible, .cs-tabs-pill a:focus-visible { outline: 2px solid #f1ebe4; outline-offset: 2px; }
 /* the Figma-style callout on About is white-on-dark by design; keep it legible on the light canvas */
 [data-theme="light"] .fig-frame { color: var(--fg); background: rgb(15 15 14 / 0.06); outline-color: #1a5fb4; }
-[data-theme="light"] .fig-label { color: #1a5fb4; }
+[data-theme="light"] .fig-label { color: #0d3f86; font-weight: 600; }
 [data-theme="light"] .fig-h { background: var(--canvas); border-color: #1a5fb4; }
 
 /* ───────── Page loader (first visit of a session, home only) ─────────
