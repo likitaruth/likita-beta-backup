@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import { CustomizeProvider, prefsScript } from "@/lib/customize";
+import { PixelCursor } from "@/components/ui/pixel-cursor";
 
 export const metadata: Metadata = {
   title: "Likita — Product Designer",
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           Skip to content
         </a>
         <CustomizeProvider>{children}</CustomizeProvider>
+        <PixelCursor />
       </body>
     </html>
   );

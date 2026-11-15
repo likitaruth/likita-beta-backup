@@ -616,3 +616,15 @@ body {
 
 .cs-ex--mockup { border-radius: 20px; box-shadow: 0 0 0 1px rgb(241 235 228 / 0.08), 0 40px 70px -30px rgb(0 0 0 / 0.9), 0 18px 30px -18px rgb(0 0 0 / 0.8); }
 .cs-ex--mockup .cs-ex-in img { transform: none; }
+
+/* Pixel-face cursor (components/ui/pixel-cursor.tsx). The native cursor is only hidden while the face is showing. */
+.pixel-cursor { position: fixed; left: 0; top: 0; z-index: 9999; width: var(--pc-size, 36px); height: var(--pc-size, 36px); margin: calc(var(--pc-size, 36px) / -2) 0 0 calc(var(--pc-size, 36px) / -2); pointer-events: none; opacity: 0; transition: opacity 120ms ease-out; will-change: transform; contain: layout paint; }
+.pixel-cursor[data-on="1"] { opacity: 1; }
+.pc-face { width: 100%; height: 100%; transform: scale(0.6); transition: transform 160ms var(--ease-out-quint, cubic-bezier(0.22, 1, 0.36, 1)); }
+.pixel-cursor[data-on="1"] .pc-face { transform: scale(1); }
+.pixel-cursor[data-down="1"] .pc-face { transform: scale(0.88); transition-duration: 80ms; }
+.pc-s, .pixel-cursor[data-down="1"] .pc-n { display: none; }
+.pixel-cursor[data-down="1"] .pc-s { display: inline; }
+html[data-pixel-cursor="on"], html[data-pixel-cursor="on"] * { cursor: none !important; }
+@media (hover: none), (pointer: coarse) { .pixel-cursor { display: none; } }
+@media (prefers-reduced-motion: reduce) { .pixel-cursor, .pc-face { transition: none; } }
