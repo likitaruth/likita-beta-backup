@@ -5,6 +5,11 @@ import { ViewTransition, useEffect, useLayoutEffect, useRef, useState } from "re
 import { cn } from "@/lib/cn";
 import { tabLabels, type TabKey } from "@/content/case-studies";
 
+/** The last case-study tab shown, so a tab switch (not a first load, and not back/forward) can jump to where the content starts. */
+let last: { slug: string; tab: TabKey } | null = null;
+let popped = false;
+if (typeof window !== "undefined") window.addEventListener("popstate", () => { popped = true; });
+
 /**
  * Design / Think / Build switcher. Sits in normal flow until it reaches the top of the screen, then sticks and
  * condenses into a glass pill with a reading-progress line. It sticks inside its section wrapper, so it lets go
@@ -20,6 +25,20 @@ export function CaseTabs({ slug, tabs, active }: { slug: string; tabs: TabKey[];
     const s = sentinel.current;
     if (s) setStuck(s.getBoundingClientRect().top < 12);
   }, []);
+
+  // Every tab repeats the same intro above the switcher. After switching tabs, land on the start of the new content instead
+  // of wherever the scroll position happened to be. Back/forward keep the browser's own scroll restoration.
+  useLayoutEffect(() => {
+    const prev = last;
+    last = { slug, tab: active };
+    const wasPop = popped;
+    popped = false;
+    if (!prev || prev.slug !== slug || prev.tab === active || wasPop) return;
+    const body = bar.current?.nextElementSibling;
+    if (!body) return;
+    const top = body.getBoundingClientRect().top + window.scrollY - 104;
+    window.scrollTo({ top: Math.max(0, top), behavior: "instant" });
+  }, [slug, active]);
 
   useEffect(() => {
     const s = sentinel.current;

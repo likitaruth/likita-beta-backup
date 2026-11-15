@@ -15,10 +15,11 @@ import { usePathname } from "next/navigation";
  *  - `prefers-reduced-motion` removes the pop-in (see globals.css).
  *
  * Size: `size` is the face's width in px (the halo and shadow add one cell on each side). Use multiples of 12 (24, 36, 48) so each of the 12 pixel cells lands on whole pixels.
+ * Case-study cards (`.cs-card`) and images (`.cs-ex`) also count as touchpoints: they lift on hover, so the face marks them too.
  * Opt an element out with `data-cursor="off"`, or opt one in with `data-cursor="face"`.
  */
 
-const TOUCHPOINTS = 'a[href], button:not([disabled]), [role="button"], [role="tab"], [role="menuitem"], [role="switch"], summary, label[for], [data-cursor="face"]';
+const TOUCHPOINTS = 'a[href], button:not([disabled]), [role="button"], [role="tab"], [role="menuitem"], [role="switch"], summary, label[for], [data-cursor="face"], .cs-card, .cs-ex';
 const NATIVE_ONLY = 'input, textarea, select, [contenteditable=""], [contenteditable="true"], [data-cursor="off"]';
 
 const cells = (rows: string[]) => rows.flatMap((r, y) => [...r].flatMap((c, x) => (c === "#" ? [[x, y] as const] : [])));
