@@ -4,7 +4,7 @@ export type Round = { category: string; lie: 0 | 1 | 2; items: [string, string][
 export const gameRounds: Round[] = [
   { category: "Portfolio Lore", lie: 0, items: [
     ["This portfolio was designed and built by a friend.", "This one is mine end to end, from interface direction to the final shipped details."],
-    ["My design was featured on Product Hunt at Activepieces.", "A small moment, but a very real confidence boost."],
+    ["My design was featured on Product Hunt.", "A small moment, but a very real confidence boost."],
     ["I have used more than five different design tools.", "Curiosity has a way of turning every tool into a tiny playground."],
   ] },
   { category: "Origin Story", lie: 1, items: [

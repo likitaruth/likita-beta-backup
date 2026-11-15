@@ -6,7 +6,7 @@ import { cn } from "@/lib/cn";
 import type { Project } from "@/content/projects";
 
 /** Figma title text-box widths (px at 1440) — they differ per row and decide where "NORTH/STAR" etc. break. */
-const TITLE_W: Record<string, number> = { northstar: 710, clientlens: 706, "crm-agent": 697, activepieces: 545 };
+const TITLE_W: Record<string, number> = { northstar: 710, clientlens: 706, "crm-agent": 697 };
 
 /**
  * One Projects-page row (Figma 2077:9176 / 9182 …): 1312×670, copy left, 656×670 cover right.
