@@ -110,6 +110,12 @@ export function SketchingLikita({ label }: { label: string }): ReactNode {
         <g className="wc-note-b">
           <text x={12} y={40} fontSize={25} transform="rotate(-3 12 40)" className="wc-hand">Hi, I’m</text>
           <text x={12} y={70} fontSize={25} transform="rotate(-3 12 70)" className="wc-hand">Likita!</text>
+          <g transform="translate(106 58) rotate(-10)">
+            <g className="wc-emoji">
+              <g transform="scale(.6)"><Hand x={0} y={14} /></g>
+              <path d="M-16 -18 q-6 5 -6 12 M16 -18 q6 5 6 12" strokeWidth={2} />
+            </g>
+          </g>
         </g>
         <path className="wc-ink" pathLength={1} d="M98 80 q34 4 44 28" strokeWidth={2.6} style={dly(1.1)} />
         <path className="wc-ink" pathLength={1} d="M130 100 l12 10 l12 -10" strokeWidth={2.6} style={dly(1.3)} />

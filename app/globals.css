@@ -755,24 +755,27 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
   .nf-art { margin-bottom: 8px; }
   .nf-note { order: 1; align-self: center; max-width: none; margin: 22px 0 0; font-size: calc(22px * var(--hand-adjust)); rotate: -3deg; }
 }
+@media (prefers-reduced-motion: reduce) { .wc-emoji { animation: none; } }
 @media (prefers-reduced-motion: reduce) { .nf-eyes [data-eye] { transition: none; animation: none; } }
 
 /* ───────── Welcome doodle (hero): "still sketching myself". Finished by default; `.is-in` (set by WelcomeCharacter on reveal) plays it. ───────── */
 .wc-art { display: block; width: 100%; height: 100%; overflow: visible; }
 .wc-hand { font-family: var(--font-hand); font-weight: 700; fill: var(--fg-muted); stroke: none; }
 .wc-bob, .wc-blink, .wc-spark, .wc-pen, .wc-wave { transform-box: fill-box; }
+.wc-emoji { transform-box: fill-box; transform-origin: 50% 100%; animation: wc-wave 3s 1s infinite; }
 .wc-wave { transform-origin: 50% 100%; translate: 0 -34px; }
 /* resting state = after the sketch: greeting shown, pencil gone, hand up */
 .wc-note-a, .wc-pen { opacity: 0; }
 .wc-bob { transform-origin: 50% 90%; } .wc-blink, .wc-spark { transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
   .welcome-char.is-in .wc-ink { animation: wc-draw 900ms var(--d, 0s) both ease-out; }
-  .welcome-char.is-in .wc-note-a { animation: wc-write 1100ms 0.5s both cubic-bezier(0.5, 0, 0.2, 1), wc-out 350ms 7.8s forwards; opacity: 1; }
-  .welcome-char.is-in .wc-pen { animation: wc-pen-out 450ms 7.8s both cubic-bezier(0.5, 0, 0.75, 0); opacity: 1; }
-  .welcome-char.is-in .wc-note-b { animation: wc-write 800ms 8.2s both cubic-bezier(0.5, 0, 0.2, 1); }
-  .welcome-char.is-in .wc-wave { animation: wc-raise 450ms 8.2s both cubic-bezier(0.2, 1.3, 0.4, 1), wc-wave 6s 8.7s infinite; }
+  .welcome-char.is-in .wc-note-a { animation: wc-write 1100ms 0.5s both cubic-bezier(0.5, 0, 0.2, 1), wc-out 200ms 5.2s forwards; opacity: 1; }
+  .welcome-char.is-in .wc-pen { animation: wc-pen-out 450ms 5.2s both cubic-bezier(0.5, 0, 0.75, 0); opacity: 1; }
+  .welcome-char.is-in .wc-emoji { animation: wc-pop 400ms 5.9s both cubic-bezier(0.3, 1.6, 0.5, 1), wc-wave 3s 6.3s infinite; }
+  .welcome-char.is-in .wc-note-b { animation: wc-write 700ms 5.25s both cubic-bezier(0.5, 0, 0.2, 1); }
+  .welcome-char.is-in .wc-wave { animation: wc-raise 450ms 5.4s both cubic-bezier(0.2, 1.3, 0.4, 1), wc-wave 6s 5.9s infinite; }
   .welcome-char.is-in .wc-rise { animation: wc-rise 1000ms 0.3s both cubic-bezier(0.2, 1.2, 0.4, 1); }
-  .welcome-char.is-in .wc-pencil { animation: wc-scribble 2.6s 2.6s 2 ease-in-out; }
+  .welcome-char.is-in .wc-pencil { animation: wc-scribble 2.6s 2.6s 1 ease-in-out; }
   .welcome-char.is-in .wc-blink { animation: wc-blink 4.2s 3.4s infinite; }
   .welcome-char.is-in .wc-glance { animation: wc-glance 7s 4.5s infinite steps(1, end); }
   .welcome-char.is-in .wc-bob { animation: wc-bob 3.6s 3s infinite ease-in-out; }
@@ -781,6 +784,7 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
 @keyframes wc-draw { from { stroke-dashoffset: 1; stroke-dasharray: 1; fill-opacity: 0; } 60% { stroke-dashoffset: 0; stroke-dasharray: 1; fill-opacity: 0; } to { stroke-dashoffset: 0; stroke-dasharray: 1; fill-opacity: 1; } }
 @keyframes wc-write { from { clip-path: inset(-10% 100% -10% 0); } to { clip-path: inset(-10% -4% -10% 0); } }
 @keyframes wc-raise { from { translate: 0 0; } to { translate: 0 -34px; } }
+@keyframes wc-pop { from { opacity: 0; transform: scale(0.3); } to { opacity: 1; transform: scale(1); } }
 @keyframes wc-out { to { opacity: 0; } }
 @keyframes wc-pen-out { from { opacity: 1; transform: none; } to { opacity: 0; transform: translate(10px, 40px) rotate(24deg); } }
 @keyframes wc-wave { 0%, 22%, 100% { transform: rotate(0); } 3% { transform: rotate(-24deg); } 8% { transform: rotate(20deg); } 13% { transform: rotate(-22deg); } 18% { transform: rotate(16deg); } }
