@@ -1,8 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { animate } from "motion/react";
-import { useEffect, useRef, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties, type ReactNode } from "react";
 import { spring } from "@/lib/motion";
 
 /** Module scope, not storage: survives client-side navigation back to the home page, resets on a real page load. */
@@ -17,7 +16,7 @@ const THRESHOLD = 24; // px of downward scroll that counts as intent (ignores ji
  * the first time it scrolls into view. Pure DOM + Motion `animate`: no React state, no re-renders.
  * Reduced motion: a 200 ms opacity fade, no scale or travel.
  */
-export function WelcomeCharacter({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+export function WelcomeCharacter({ children }: { children: ReactNode }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -28,6 +27,7 @@ export function WelcomeCharacter({ src, alt, caption }: { src: string; alt: stri
     const reveal = (animated: boolean) => {
       shown = true;
       el.removeAttribute("aria-hidden");
+      if (animated) el.classList.add("is-in"); // starts the doodle's draw-on; a revisit shows it finished
       if (!animated) { el.style.opacity = "1"; el.style.transform = "none"; return; }
       if (reduced) { animate(el, { opacity: 1 }, { duration: 0.2 }).then(() => { el.style.transform = "none"; }); return; }
       animate(el, { opacity: 1 }, { duration: 0.18, ease: [0.23, 1, 0.32, 1] });
@@ -63,17 +63,8 @@ export function WelcomeCharacter({ src, alt, caption }: { src: string; alt: stri
 
   return (
     <>
-      <div ref={ref} aria-hidden style={HIDDEN} className="welcome-char relative h-[183px] w-[197px] will-change-transform">
-        <Image
-          src={src}
-          alt={alt}
-          width={197}
-          height={183}
-          priority
-          unoptimized
-          className="absolute left-0 top-0 h-[183px] w-[197px] max-w-none"
-        />
-        <p className="absolute left-[74px] top-[155px] w-[122px] hand-text [--hand-size:11px] font-bold leading-[18px] text-fg-muted">{caption}</p>
+      <div ref={ref} aria-hidden style={HIDDEN} className="welcome-char relative h-[272px] w-[240px] will-change-transform">
+        {children}
       </div>
       {/* No JS: never leave the character hidden. */}
       <noscript><style>{".welcome-char{opacity:1!important;transform:none!important}"}</style></noscript>

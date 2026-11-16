@@ -2,6 +2,7 @@ import { SiteNav } from "@/components/layout/site-nav";
 import { Pill } from "@/components/ui/pill";
 import { ScrollArrow } from "@/components/ui/icons";
 import { WelcomeCharacter } from "./welcome-character";
+import { SketchingLikita } from "./sketching-likita";
 import { site } from "@/content/site";
 import type { CSSProperties } from "react";
 
@@ -63,8 +64,10 @@ export function Hero() {
           </div>
 
           {/* Welcome illustration (xl: pinned like Figma; below: flows after the CTA). Hidden until first downward scroll. */}
-          <div className="relative mt-10 h-[183px] w-[197px] md:ml-auto xl:absolute xl:right-[88px] xl:top-[250px] xl:mt-0">
-            <WelcomeCharacter src="/assets/welcome-illustration.webp" alt="Illustration of Likita peeking around a pole with curly hair, smiling" caption={hero.welcome} />
+          <div className="relative mt-10 h-[272px] w-[240px] md:ml-auto xl:absolute xl:right-[88px] xl:top-[250px] xl:mt-0">
+            <WelcomeCharacter>
+              <SketchingLikita label="Illustration of Likita with curly hair peeking over a ledge, drawing a smaller sketch of herself with a pencil. Note: still sketching myself" />
+            </WelcomeCharacter>
           </div>
         </div>
       </div>

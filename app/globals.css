@@ -756,3 +756,27 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
   .nf-note { order: 1; align-self: center; max-width: none; margin: 22px 0 0; font-size: calc(22px * var(--hand-adjust)); rotate: -3deg; }
 }
 @media (prefers-reduced-motion: reduce) { .nf-eyes [data-eye] { transition: none; animation: none; } }
+
+/* ───────── Welcome doodle (hero): "still sketching myself". Finished by default; `.is-in` (set by WelcomeCharacter on reveal) plays it. ───────── */
+.wc-art { display: block; width: 100%; height: 100%; overflow: visible; }
+.wc-hand { font-family: var(--font-hand); font-weight: 700; fill: var(--fg-muted); stroke: none; }
+.wc-bob, .wc-blink, .wc-spark { transform-box: fill-box; }
+.wc-bob { transform-origin: 50% 90%; } .wc-blink, .wc-spark { transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .welcome-char.is-in .wc-ink { animation: wc-draw 900ms var(--d, 0s) both ease-out; }
+  .welcome-char.is-in .wc-write { animation: wc-write 1100ms 0.5s both cubic-bezier(0.5, 0, 0.2, 1); }
+  .welcome-char.is-in .wc-rise { animation: wc-rise 1000ms 0.3s both cubic-bezier(0.2, 1.2, 0.4, 1); }
+  .welcome-char.is-in .wc-pencil { animation: wc-scribble 2.6s 2.6s 3 ease-in-out; }
+  .welcome-char.is-in .wc-blink { animation: wc-blink 4.2s 3.4s infinite; }
+  .welcome-char.is-in .wc-glance { animation: wc-glance 7s 4.5s infinite steps(1, end); }
+  .welcome-char.is-in .wc-bob { animation: wc-bob 3.6s 3s infinite ease-in-out; }
+  .welcome-char.is-in .wc-spark { animation: wc-spark 2s infinite ease-in-out; }
+}
+@keyframes wc-draw { from { stroke-dashoffset: 1; stroke-dasharray: 1; fill-opacity: 0; } 60% { stroke-dashoffset: 0; stroke-dasharray: 1; fill-opacity: 0; } to { stroke-dashoffset: 0; stroke-dasharray: 1; fill-opacity: 1; } }
+@keyframes wc-write { from { clip-path: inset(-10% 100% -10% 0); } to { clip-path: inset(-10% -4% -10% 0); } }
+@keyframes wc-rise { from { transform: translateY(120px); } to { transform: none; } }
+@keyframes wc-scribble { 0%, 100% { transform: translate(0, 0); } 15% { transform: translate(-14px, -9px); } 35% { transform: translate(10px, -18px); } 55% { transform: translate(-8px, -26px); } 75% { transform: translate(9px, -6px); } }
+@keyframes wc-blink { 0%, 92%, 100% { transform: scaleY(1); } 95% { transform: scaleY(0.1); } }
+@keyframes wc-glance { 0% { transform: translate(1px, -3px); } 40% { transform: translate(-3px, -2px); } 70% { transform: translate(3px, -2px); } }
+@keyframes wc-bob { 50% { transform: rotate(1.6deg); } }
+@keyframes wc-spark { 50% { transform: scale(1.25) rotate(12deg); } }
