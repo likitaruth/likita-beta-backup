@@ -632,8 +632,9 @@ const northstar: CaseStudy = {
 /*
  * ClientZone — copy and structure from the published ClientZone artifact (claude.ai/artifact/4wpKHsMy4NcJeMEmLdziQC).
  * Visuals are six of the supplied ClientZone screens (dashboard, create account demo and real, withdrawal, deposit history,
- * deposit modal), each fitted to a silver Studio Display on a pale grey wall. Where a screen was not 16:9 it was cropped to
- * the display's ratio (blank page below the content) or, for the dashboard, extended at the sides with the flat page colour.
+ * deposit modal), each fitted to the same angled desktop display on a dark plinth. Where a screen was not 16:9 it was cropped to
+ * the display's 16:9 ratio from the top of the page, so every screen fills the glass with no letterboxing. The dashboard's lower
+ * table rows and the tall modal screens are cropped by that window.
  * FLAGS:
  *  1. The artifact marks several details as assumptions to verify before sharing (the "Product designer" role, the team
  *     inputs from operations, compliance and engineering, the out-of-scope list, and per-brokerage logo and colour theming).
@@ -647,7 +648,7 @@ const northstar: CaseStudy = {
  *     out: the artifact puts KYC and onboarding outside this phase, and the brief asked for key flows only.
  */
 const CZ = "/assets/case/clientzone";
-const cz = (file: string, alt: string): Block => ({ type: "image", src: `${CZ}/mock/${file}.webp`, tone: "mockup", alt, ratio: 1.6 });
+const cz = (file: string, alt: string): Block => ({ type: "image", src: `${CZ}/mock/${file}.webp`, tone: "mockup", alt, ratio: 4 / 3 });
 const czIntro: Tab["intro"] = {
   eyebrow: "the problem",
   heading: "The portal was shaped like the CRM behind it.",
@@ -663,9 +664,9 @@ const clientzone: CaseStudy = {
     "ClientZone is the client-facing portal of the Teamforce CRM platform, where brokerage clients manage trading accounts, deposits and withdrawals.",
     "A client portal should reflect the client's world, not mirror the internal CRM's modules. I redesigned its structure, dashboard and money journeys around that principle.",
   ],
-  heroAlt: "Redesigned ClientZone dashboard on a silver desktop display: a greeting banner with a help card, four summary cards (total balance, wallet balance, real accounts, demo accounts), quick actions for deposits, account creation, wallet and accounts, an accounts overview table, a recent activity feed and a support card",
+  heroAlt: "Redesigned ClientZone dashboard on an angled desktop display: a greeting banner with a help card, four summary cards (total balance, wallet balance, real accounts, demo accounts), quick actions for deposits, account creation, wallet and accounts, an accounts overview table, a recent activity feed and a support card",
   heroSrc: `${CZ}/mock/hero.webp`,
-  heroRatio: 1.6,
+  heroRatio: 4 / 3,
   heroMax: 1068,
   heroTone: "mockup",
   meta: [["Role", "Product designer, leading the redesign of the portal's structure, dashboard and money journeys"], ["Focus", "Information architecture / Fintech UX / Design systems"], ["Built as", "A template inside the platform, deployed by each brokerage under its own brand"]],
