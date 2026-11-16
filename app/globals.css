@@ -730,3 +730,27 @@ html[data-ld="reduce"] #ld { background: var(--ld-bg); animation: ld-fade 300ms 
 html[data-ld="reduce"] #ld * { animation: none !important; }
 html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="reduce"] .ld-spark { display: none; }
 @keyframes ld-fade { to { opacity: 0; visibility: hidden; } }
+
+/* 404 — "the face is the zero" */
+.nf { position: relative; display: flex; min-height: 100dvh; flex-direction: column; overflow: hidden; background: var(--canvas); color: var(--fg); }
+.nf::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: radial-gradient(900px 520px at 50% 36%, color-mix(in oklab, var(--accent-soft) 7%, transparent), transparent 70%); }
+.nf-stage { position: relative; flex: 1; display: flex; align-items: center; justify-content: center; padding: 24px 0 8px; }
+.nf-digits { display: flex; align-items: center; justify-content: center; gap: 1.4vw; font: 700 clamp(120px, 25vw, 380px) / 1 var(--font-display); letter-spacing: -0.06em; color: var(--fg); user-select: none; }
+.nf-face { display: grid; grid-template: repeat(11, 1fr) / repeat(11, 1fr); aspect-ratio: 1; width: 0.8em; margin: 0 0.02em; position: relative; top: 0.02em; }
+.nf-face i { background: var(--fg); }
+.nf-face i.nf-n { background: transparent; }
+.nf-face i.nf-cut { background: var(--canvas); }
+.nf-eyes { position: absolute; inset: 0; display: grid; grid-template: repeat(11, 1fr) / repeat(11, 1fr); pointer-events: none; }
+.nf-eyes b { background: var(--canvas); }
+.nf-eyes [data-eye] { transition: transform 120ms ease-out; }
+.nf-note { position: absolute; left: 62%; top: 6%; max-width: 12ch; font: 700 calc(34px * var(--hand-adjust)) / 1.05 var(--font-hand); color: var(--fg-muted); rotate: -6deg; pointer-events: none; }
+.nf-copy { position: relative; display: flex; flex-direction: column; align-items: flex-start; gap: 20px; padding-bottom: clamp(32px, 9vh, 88px); }
+.nf-h { font: 600 clamp(30px, 3.4vw, 48px) / 1.02 var(--font-display); text-transform: uppercase; letter-spacing: -0.015em; }
+.nf-body { max-width: 460px; font-size: 18px; line-height: 1.6; color: var(--fg-muted); }
+.nf-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
+@media (max-width: 760px) {
+  .nf-digits { font-size: 30vw; }
+  .nf-stage { flex-direction: column; gap: 18px; }
+  .nf-note { position: static; max-width: none; font-size: calc(24px * var(--hand-adjust)); rotate: -3deg; }
+}
+@media (prefers-reduced-motion: reduce) { .nf-eyes [data-eye] { transition: none; } }
