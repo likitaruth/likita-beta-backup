@@ -762,7 +762,7 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
 .wc-art { display: block; width: 100%; height: 100%; overflow: visible; }
 .wc-hand { font-family: var(--font-hand); font-weight: 700; fill: var(--fg-muted); stroke: none; }
 .wc-bob, .wc-blink, .wc-spark, .wc-pen, .wc-wave { transform-box: fill-box; }
-.wc-emoji { transform-box: fill-box; transform-origin: 50% 100%; animation: wc-wave 3s 1s infinite; }
+.wc-emoji { font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif; stroke: none; fill: currentColor; transform-box: fill-box; transform-origin: 70% 85%; animation: wc-wave 3s 1s infinite; }
 .wc-wave { transform-origin: 50% 100%; translate: 0 -34px; }
 /* resting state = after the sketch: greeting shown, pencil gone, hand up */
 .wc-note-a, .wc-pen { opacity: 0; }
