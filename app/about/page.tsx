@@ -24,7 +24,7 @@ export default function AboutPage() {
     <Subpage>
       <div className="page-shell cq pt-[70px]">
         <Stage trigger="mount" gap={0.1} className="relative flex flex-col gap-8 lg:block lg:h-[64cqw]">
-          <h1 id="who" className="t-display scroll-mt-24 text-accent text-[clamp(44px,11.74cqw,154px)] leading-[1.065]">
+          <h1 id="who" className="ab-title t-display relative z-20 scroll-mt-24 text-accent text-[clamp(44px,11.74cqw,154px)] leading-[1.065]">
             <Item as="span" kind="wipe" className="block">{a.titleLead}</Item>
             <span className="flex flex-wrap items-baseline justify-between gap-x-4">
               <Item as="span" kind="wipe" className="block">THE</Item>
@@ -36,7 +36,7 @@ export default function AboutPage() {
             <AboutVideo src="/assets/about-video.mp4" poster="/assets/about-video-poster.jpg" label={a.photoAlt} />
           </Item>
 
-          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[41.5%]">
+          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[30.5%] lg:max-w-none">
             <span aria-hidden className="ab-tick block h-0.5 w-10 bg-accent-soft" />
             {a.paragraphs.map((t, i) => (
               <Item as="p" key={i} id={i === 0 ? "how" : i === 1 ? "why" : undefined} className="scroll-mt-24">

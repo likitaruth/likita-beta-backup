@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { AutoVideo } from "@/components/ui/auto-video";
 import Link from "next/link";
 import { ViewTransition } from "react";
 import { Subpage } from "@/components/layout/subpage";
@@ -171,8 +172,8 @@ function BlockView({ block }: { block: Block }) {
         <Stage amount={0.15}>
           <Item kind="fade" className="cs-ex cs-ex--screen mx-auto w-full" style={{ aspectRatio: block.ratio, maxWidth: block.width ?? 1068 }}>
             <div className="cs-ex-in">
-              {/* Plays only on request: no autoplay, so reduced-motion and data-saver visitors are respected by default */}
-              <video src={block.src} poster={block.poster} controls playsInline preload="none" aria-label={block.alt} className="absolute inset-0 h-full w-full rounded-[inherit] bg-black object-contain" />
+              {/* Autoplays muted on loop while on screen, no controls; reduced motion keeps the poster */}
+              <AutoVideo src={block.src} poster={block.poster} preload="metadata" aria-label={block.alt} className="absolute inset-0 h-full w-full rounded-[inherit] bg-black object-contain" />
             </div>
           </Item>
         </Stage>

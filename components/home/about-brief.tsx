@@ -97,7 +97,6 @@ export function AboutBrief({ items, label, defaultOpen = 0 }: { items: readonly 
 function Sheet({ i, label, reduced }: { i: number; label: string; reduced: boolean }) {
   const art = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-  const [playing, setPlaying] = useState(false);
 
   // Sketches draw on (after the page has dropped in).
   useEffect(() => {
@@ -117,7 +116,7 @@ function Sheet({ i, label, reduced }: { i: number; label: string; reduced: boole
   useEffect(() => {
     const v = video.current;
     if (!v || reduced) return;
-    v.play().then(() => setPlaying(true)).catch(() => {});
+    v.play().catch(() => {});
   }, [reduced]);
 
   if (i === 0) {
@@ -128,19 +127,12 @@ function Sheet({ i, label, reduced }: { i: number; label: string; reduced: boole
           <video
             ref={video} src="/assets/about-video.mp4" poster="/assets/about-video-poster.jpg" aria-label={label}
             muted loop playsInline preload="metadata"
-            onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
           />
           <div aria-hidden className="mb-likita">
             <span className="mb-hi">hi, I’m</span>
             <span className="mb-name">Likita</span>
             <svg viewBox="0 0 150 20"><path pathLength={1} d="M2 12 C 40 4 90 18 148 6" /><path className="p2" pathLength={1} d="M30 18 C 70 12 110 20 134 14" /></svg>
           </div>
-          <button type="button" className="mb-pause" aria-label={playing ? "Pause video" : "Play video"}
-            onClick={() => { const v = video.current; if (!v) return; if (v.paused) v.play().catch(() => {}); else v.pause(); }}>
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" aria-hidden>
-              {playing ? <path d="M2 1h3v10H2zM7 1h3v10H7z" /> : <path d="M3 1l8 5-8 5z" />}
-            </svg>
-          </button>
         </div>
       </div>
     );
