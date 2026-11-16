@@ -419,9 +419,9 @@ body {
 .ab-panel::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 80% at 50% 0%, rgb(110 112 44 / 0.16), transparent 70%); pointer-events: none; }
 
 /* "Frame 3523" as a selected Figma frame */
-.fig-frame { position: relative; display: inline-block; margin: 0 0.35em; padding: 0 0.4em; color: #fff; background: rgb(255 255 255 / 0.07); outline: 1px dashed #3b9bf5; outline-offset: 2px; white-space: nowrap; }
-.fig-label { position: absolute; left: -3px; bottom: calc(100% + 10px); font-size: 12px; line-height: 1; font-weight: 500; color: #4aa3ff; white-space: nowrap; pointer-events: none; }
-.fig-h { position: absolute; width: 7px; height: 7px; background: #fff; border: 1px solid #3b9bf5; }
+.fig-frame { position: relative; display: inline-block; margin: 0 0.35em; padding: 0 0.4em; color: #fff; background: rgb(255 255 255 / 0.07); outline: 1px dashed #3f8ae2; outline-offset: 2px; white-space: nowrap; }
+.fig-label { position: absolute; left: -3px; bottom: calc(100% + 10px); font-size: 12px; line-height: 1; font-weight: 500; color: #8cc2f3; white-space: nowrap; pointer-events: none; }
+.fig-h { position: absolute; width: 7px; height: 7px; background: #fff; border: 1px solid #3f8ae2; }
 .fig-h-tl { left: -6px; top: -6px; } .fig-h-tr { right: -6px; top: -6px; } .fig-h-bl { left: -6px; bottom: -6px; } .fig-h-br { right: -6px; bottom: -6px; }
 
 /* ───────── About: Two Truths and a Lie (components/about/two-truths-game.tsx) ───────── */
@@ -675,9 +675,8 @@ html[data-pixel-cursor="on"], html[data-pixel-cursor="on"] * { cursor: none !imp
 /* the sticky tab bar stays dark in both themes, so its focus ring has to be light */
 .cs-tab:focus-visible, .cs-tabs-pill a:focus-visible { outline: 2px solid #f1ebe4; outline-offset: 2px; }
 /* the Figma-style callout on About is white-on-dark by design; keep it legible on the light canvas */
-[data-theme="light"] .fig-frame { color: var(--fg); background: rgb(15 15 14 / 0.06); outline-color: #1a5fb4; }
-[data-theme="light"] .fig-label { color: #0d3f86; font-weight: 600; }
-[data-theme="light"] .fig-h { background: var(--canvas); border-color: #1a5fb4; }
+/* Figma selection colours (label #8cc2f3, outline/handles #3f8ae2) in both themes */
+[data-theme="light"] .fig-frame { color: var(--fg); background: rgb(15 15 14 / 0.06); }
 
 /* ───────── Page loader (first visit of a session, home only) ─────────
    Deep-moss pixel-face intro. Pure CSS timeline (ms): pixels 0–700 · eyes 850 · glance 1000/1200/1400 · blink 1550 · smile 1720 ·
