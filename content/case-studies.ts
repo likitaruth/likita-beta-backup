@@ -7,6 +7,7 @@ export type Block =
   | { type: "text"; eyebrow?: string; heading?: string; body: string[]; size?: 18 | 21; display?: boolean }
   | { type: "image"; alt: string; ratio: number; width?: number; src?: string; tone?: "photo" | "cut" | "dark" | "flow" | "screen" | "mockup" }
   | { type: "cards"; cols: 2 | 3; items: { n?: string; kicker?: string; title?: string; lines?: string[]; list?: string[] }[] }
+  | { type: "video"; src: string; poster: string; alt: string; ratio: number; width?: number }
   | { type: "pull"; text: string; heading?: string };
 
 export type Tab = { intro: { eyebrow?: string; heading: string; body: string[] }; blocks: Block[] };
@@ -265,7 +266,7 @@ const clientlens: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  meta: [["Role", "Lead product designer, from discovery through launch"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"], ["Timeline", "14 weeks, first designs to rollout, ahead of the Q2 campaign season"], ["Team", "1 PM, 1 data scientist, a back-end lead and engineers, with compliance review"]],
+  meta: [["Role", "Lead product designer"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "honest read",
     heading: "What didn't work, and what's next",
@@ -466,7 +467,7 @@ const northstar: CaseStudy = {
   heroRatio: 1.6,
   heroMax: 1068,
   heroTone: "mockup",
-  meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Working prototype on synthetic data"]],
+  meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Prototype"]],
   reflection: {
     eyebrow: "limits & next",
     heading: "What this is, and what it isn't yet",
@@ -485,7 +486,7 @@ const northstar: CaseStudy = {
           { kicker: "Designed", list: ["10 Figma screens across 7 flows", "States the screens didn't cover: running investigation, impact review, approval outcomes, execution recovery", "Role and autonomy boundaries"] },
           { kicker: "Implemented", list: ["A working prototype of every flow", "Plan versioning and approval of an exact version", "Role-based actions, audit log, simulated execution with safe retries"] },
           { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
-          { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "No user research or business metrics yet", "Never connected to a live CRM or email provider"] },
+          { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "Grounded in competitive research on AI-native CRMs, not yet tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
         ] },
         { type: "text", eyebrow: "goal · workspace", heading: "The home screen asks for an outcome, then shows the next decision", body: ["First-time users see a goal composer, three suggested goals and a short explanation of what happens next. There are no empty charts. Returning users see Needs attention and Continue work, ordered by the next useful decision rather than the last page they opened.", "The list depends on the role. A retention manager sees “Waiting for approval of plan v1”. A compliance reviewer sees the same item as “Authorize plan v1”."] },
         ns("first-run", "First-run workspace with a welcome message, a Create your first business goal button, onboarding steps and suggested goals"),
@@ -494,7 +495,7 @@ const northstar: CaseStudy = {
         { type: "text", body: ["Returning: a new goal is always one line away, pending decisions come first and are tagged by type, and Continue work links to the next decision, not the last screen."] },
         { type: "text", eyebrow: "investigation · seam 1", heading: "The AI shows its work while it runs, and reports findings, not verdicts", body: ["An investigation shows what it is checking as it goes: interpreting the goal, gathering evidence, verifying consent and KYC, classifying, drafting a plan. The progress screen states the boundary plainly: investigations only read evidence.", "When it finishes, the badge reads Investigation complete while the goal reads review ready. They are separate states on purpose. Finishing the analysis doesn't mean the business goal is met, and the interface never suggests otherwise."] },
         ns("running", "Investigation in progress, with five steps, two complete, a progress bar and a note that investigations only read evidence"),
-        { type: "text", body: ["Progress is calculated from the start time, so it survives a page reload. The read-only boundary is stated where the user is waiting, which is when they wonder what the system is doing. This screen is not in the original Figma file. I designed it during the build to cover the gap between submitting a goal and seeing findings."] },
+        { type: "text", body: ["Progress is calculated from the start time, so it survives a page reload. The read-only boundary is stated where the user is waiting, which is when they wonder what the system is doing."] },
         { type: "text", eyebrow: "opportunities · seam 2", heading: "“Needs review” and “omitted by criteria” look alike. They are different problems", body: ["A client can be left out of outreach for two very different reasons. Held for review means the evidence conflicts, so a person must resolve it. Omitted by criteria means the client qualifies but the current plan rules leave them out, so the fix is a plan change. Each state has its own label, colour and next action.", "Inside a client record, each piece of evidence names its source and observation time, and is marked either Verified fact or Conflict. The AI never picks a side between conflicting records. It shows both."] },
         ns("opportunities", "Reactivation opportunities table with an amber banner saying 14 records need evidence review, and a Plan status column showing Omitted by criteria and In current plan"),
         { type: "text", body: ["The uncertain group is announced before the table, together with what is still safe: verified clients can continue. Plan status is its own column, separate from eligibility."] },
@@ -528,6 +529,10 @@ const northstar: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Workflow-driven CRM", title: "The user does the investigation.", list: ["Open the dormant-accounts dashboard (human)", "Build filters for inactivity and deposits (human)", "Export a report to a spreadsheet (human)", "Check consent in another system (gap)", "Decide who is “probably fine” (unrecorded)", "Send the campaign (irreversible)"], lines: ["The riskiest decisions happen where the system can't see them."] },
           { kicker: "Northstar", title: "The user makes the decisions.", list: ["State the business goal (human)", "Investigate records against the goal (AI)", "Inspect evidence and resolve conflicts (uncertain)", "Refine the plan, preview its impact (human)", "Authorize one exact plan version (compliance reviewer)", "Execute, reconcile, retry safely (system)"], lines: ["Each step leaves a record of who, or what, decided, and from which evidence."] },
+        ] },
+        { type: "text", eyebrow: "research", body: [
+          "While researching AI-native CRMs, I noticed a recurring pattern: a lot of attention goes into what AI can do, but less into helping users understand why it makes certain recommendations. The reasoning isn't always clear, conflicting information can be easy to miss, and users may not know when they're expected to act.",
+          "Northstar was designed to address these gaps. Every recommendation is grounded in traceable evidence, uncertainty and conflicting information are surfaced rather than silently resolved, and execution requires explicit, human approval. The goal wasn't simply to make AI more capable, but to make its decisions understandable, accountable, and safe to act on.",
         ] },
         { type: "pull", heading: "Design challenge", text: "How might we turn CRM work from manual task execution into goal-driven, AI-assisted decisions, without giving up transparency, safety or human control?" },
         { type: "text", eyebrow: "the core idea", heading: "Most AI products design the answer. Northstar designs the space around it.", body: ["An AI that reaches a conclusion is the easy part. Trust breaks in the handoffs: between what the model concluded and what it actually saw, between what it knows and what it can't know, between a human's approval and what gets executed, and between a failed send and a safe retry. I treated these four seams as the product."] },
@@ -612,13 +617,7 @@ const northstar: CaseStudy = {
           { title: "Role permissions", lines: ["Restricted roles can't review, approve or execute. The check guards the action itself, so hiding a button is never the only safeguard."] },
           { title: "Audit log", lines: ["Every service writes events with a plain-language summary and a technical record. People and tools read the same history."] },
         ] },
-        { type: "text", eyebrow: "front end", heading: "A front end rebuilt to match the Figma, with every state addressable by link", body: ["The Figma file was rebuilt as a React and TypeScript front end. Colour, type and spacing tokens were taken directly from the file. Filters, sorting, open drawers and the selected plan version all live in the URL, so any state can be shared, reloaded or opened from a link in the Activity log. Animations respect the reduced-motion setting, and drawers trap focus and return it on close."] },
-        { type: "cards", cols: 2, items: [
-          { n: "13", title: "Unit and component tests", lines: ["Audience rules, next-decision logic, goal validation."] },
-          { n: "10/10", title: "Journey steps passed", lines: ["In the automated test that walks the whole journey."] },
-          { n: "0", title: "WCAG 2.1 AA violations", lines: ["In an axe scan of 9 screens and drawers."] },
-          { n: "3", title: "Widths checked", lines: ["375, 768 and 1440px, with no horizontal scrolling."] },
-        ] },
+        { type: "video", src: "/assets/northstar/prototype.mp4", poster: "/assets/northstar/prototype-poster.webp", ratio: 16 / 9, alt: "Screen recording of the Northstar prototype: setting a goal, the investigation, reviewing uncertain evidence, refining a plan, approving an exact version and the audited execution with recovery" },
         { type: "text", eyebrow: "validation", heading: "What the end-to-end prototype run verified", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the compliance reviewer and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },

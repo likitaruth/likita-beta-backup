@@ -166,6 +166,17 @@ function BlockView({ block }: { block: Block }) {
         </Stage>
       );
     }
+    case "video":
+      return (
+        <Stage amount={0.15}>
+          <Item kind="fade" className="cs-ex cs-ex--screen mx-auto w-full" style={{ aspectRatio: block.ratio, maxWidth: block.width ?? 1068 }}>
+            <div className="cs-ex-in">
+              {/* Plays only on request: no autoplay, so reduced-motion and data-saver visitors are respected by default */}
+              <video src={block.src} poster={block.poster} controls playsInline preload="none" aria-label={block.alt} className="absolute inset-0 h-full w-full rounded-[inherit] bg-black object-contain" />
+            </div>
+          </Item>
+        </Stage>
+      );
     case "cards":
       return (
         <Stage amount={0.2} gap={0.08} className={cn("grid gap-4 sm:grid-cols-2", block.cols === 3 && "lg:grid-cols-3")}>
