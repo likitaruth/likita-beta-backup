@@ -4,7 +4,8 @@ import type { CSSProperties, ReactNode } from "react";
  * Hero doodle: Likita pops up behind a ledge, pencil in hand, sketching a smaller version of herself ("still sketching myself…").
  * Same sketch vocabulary as the Me in Brief pages (ink outline + grey fill, curl circles, hand-lettered note), recoloured with the
  * theme tokens so it reads on both the dark and the light canvas. Pure SVG, no state; `WelcomeCharacter` adds `.is-in` when it reveals,
- * which plays the draw-on (see "Welcome doodle" in globals.css). Without `.is-in` (revisit, reduced motion, no JS) it is simply finished.
+ * which plays the draw-on (see "Welcome doodle" in globals.css). Once the sketch is done the note changes to "Hi, I'm Likita", the pencil
+ * drops away and the same hand waves. Without `.is-in` (revisit, reduced motion, no JS) it is simply in that finished state.
  */
 
 const FACE = "#ece8e2";
@@ -102,9 +103,13 @@ export function SketchingLikita({ label }: { label: string }): ReactNode {
     <svg viewBox="0 0 300 340" role="img" aria-label={label} className="wc-art" xmlns="http://www.w3.org/2000/svg">
       <g stroke="var(--fg)" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" fill="none">
         {/* the note */}
-        <g className="wc-write">
+        <g className="wc-note-a">
           <text x={12} y={40} fontSize={25} transform="rotate(-3 12 40)" className="wc-hand">still sketching</text>
           <text x={12} y={70} fontSize={25} transform="rotate(-3 12 70)" className="wc-hand">myself…</text>
+        </g>
+        <g className="wc-note-b">
+          <text x={12} y={40} fontSize={25} transform="rotate(-3 12 40)" className="wc-hand">Hi, I’m</text>
+          <text x={12} y={70} fontSize={25} transform="rotate(-3 12 70)" className="wc-hand">Likita!</text>
         </g>
         <path className="wc-ink" pathLength={1} d="M98 80 q34 4 44 28" strokeWidth={2.6} style={dly(1.1)} />
         <path className="wc-ink" pathLength={1} d="M130 100 l12 10 l12 -10" strokeWidth={2.6} style={dly(1.3)} />
@@ -121,11 +126,13 @@ export function SketchingLikita({ label }: { label: string }): ReactNode {
             <g transform="translate(120 284) scale(.95)"><Likita d0={0.5} look="wc-glance" /></g>
             <g className="wc-pencil">
               <g transform="translate(206 262) rotate(18) scale(.66)">
-                <path d="M0 -4 L0 -116" stroke="var(--fg)" strokeWidth={15} />
-                <path d="M0 -4 L0 -108" stroke={OLIVE} strokeWidth={9} />
-                <path d="M-7 -116 L0 -136 L7 -116Z" fill={FACE} strokeWidth={3} />
-                <path d="M-2.6 -128 L0 -136 L2.6 -128Z" fill={FEAT} stroke="none" />
-                <Hand x={0} y={24} />
+                <g className="wc-pen">
+                  <path d="M0 -4 L0 -116" stroke="var(--fg)" strokeWidth={15} />
+                  <path d="M0 -4 L0 -108" stroke={OLIVE} strokeWidth={9} />
+                  <path d="M-7 -116 L0 -136 L7 -116Z" fill={FACE} strokeWidth={3} />
+                  <path d="M-2.6 -128 L0 -136 L2.6 -128Z" fill={FEAT} stroke="none" />
+                </g>
+                <g className="wc-wave"><Hand x={0} y={24} /></g>
               </g>
             </g>
           </g>
