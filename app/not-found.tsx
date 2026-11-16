@@ -19,7 +19,7 @@ export default function NotFound() {
           </h1>
           <p className="nf-body">The page you followed doesn&rsquo;t exist or has moved. No worries, the work is still here</p>
           <div className="nf-cta">
-            <Pill variant="solid" href="/" magnetic>Back to home</Pill>
+            <Pill variant="solid" href="/" magnetic className="bg-accent-display! text-[#f1ebe4]! hover:brightness-110">Back to home</Pill>
             <Pill variant="quiet" href="/works">See my work</Pill>
           </div>
         </div>

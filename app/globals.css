@@ -737,14 +737,15 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
 .nf-split { position: relative; flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding-top: 24px; padding-bottom: clamp(32px, 8vh, 80px); }
 .nf-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
 .nf-art { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: clamp(120px, 24vw, 340px); }
-.nf-note { order: -1; align-self: flex-start; margin: 0 0 28px 6%; max-width: 14ch; font: 700 calc(34px * var(--hand-adjust)) / 1.05 var(--font-hand); color: var(--fg-muted); rotate: -6deg; pointer-events: none; }
+.nf-note { order: -1; align-self: flex-start; margin: 0 0 28px 6%; max-width: 14ch; font: 700 calc(26px * var(--hand-adjust)) / 1.05 var(--font-hand); color: var(--fg-muted); rotate: -6deg; pointer-events: none; }
 .nf-face { display: grid; grid-template: repeat(11, 1fr) / repeat(11, 1fr); aspect-ratio: 1; width: 1em; position: relative; }
-.nf-face i { background: var(--fg); }
+.nf-face i { background: var(--accent-display); }
 .nf-face i.nf-n { background: transparent; }
 .nf-face i.nf-cut { background: var(--canvas); }
 .nf-eyes { position: absolute; inset: 0; display: grid; grid-template: repeat(11, 1fr) / repeat(11, 1fr); pointer-events: none; }
 .nf-eyes b { background: var(--canvas); }
-.nf-eyes [data-eye] { transition: transform 120ms ease-out; }
+.nf-eyes [data-eye] { transition: transform 120ms ease-out; animation: nf-blink 5s steps(1, end) 1.2s infinite; }
+@keyframes nf-blink { 0%, 100% { scale: 1 1; } 94% { scale: 1 0.12; } 97% { scale: 1 1; } }
 .nf-h { font: 600 clamp(30px, 3.4vw, 48px) / 1.02 var(--font-display); text-transform: uppercase; letter-spacing: -0.015em; }
 .nf-body { max-width: 460px; font-size: 18px; line-height: 1.6; color: var(--fg-muted); }
 .nf-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 6px; }
@@ -752,6 +753,6 @@ html[data-ld="reduce"] .ld-grid, html[data-ld="reduce"] .ld-ring, html[data-ld="
   .nf-split { grid-template-columns: 1fr; gap: 28px; align-content: center; }
   .nf-art { order: -1; font-size: min(44vw, 200px); }
   .nf-art { margin-bottom: 8px; }
-  .nf-note { order: 1; align-self: center; max-width: none; margin: 22px 0 0; font-size: calc(24px * var(--hand-adjust)); rotate: -3deg; }
+  .nf-note { order: 1; align-self: center; max-width: none; margin: 22px 0 0; font-size: calc(22px * var(--hand-adjust)); rotate: -3deg; }
 }
-@media (prefers-reduced-motion: reduce) { .nf-eyes [data-eye] { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .nf-eyes [data-eye] { transition: none; animation: none; } }
