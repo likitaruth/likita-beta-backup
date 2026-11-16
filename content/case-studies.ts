@@ -617,7 +617,7 @@ const northstar: CaseStudy = {
           { title: "Role permissions", lines: ["Restricted roles can't review, approve or execute. The check guards the action itself, so hiding a button is never the only safeguard."] },
           { title: "Audit log", lines: ["Every service writes events with a plain-language summary and a technical record. People and tools read the same history."] },
         ] },
-        { type: "video", src: "/assets/northstar/prototype.mp4", poster: "/assets/northstar/prototype-poster.webp", ratio: 16 / 9, alt: "Screen recording of the Northstar prototype: setting a goal, the investigation, reviewing uncertain evidence, refining a plan, approving an exact version and the audited execution with recovery" },
+        { type: "video", src: "/assets/northstar/prototype.mp4", poster: "/assets/northstar/prototype-poster.webp", ratio: 1920 / 920, alt: "Screen recording of the Northstar prototype: setting a goal, the investigation, reviewing uncertain evidence, refining a plan, approving an exact version and the audited execution with recovery" },
         { type: "text", eyebrow: "validation", heading: "What the end-to-end prototype run verified", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the compliance reviewer and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },
