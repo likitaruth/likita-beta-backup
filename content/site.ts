@@ -67,7 +67,7 @@ export const site = {
     eyebrow: "Reach out",
     headlineLead: "/LET’S BUILD SOMETHING",
     headlineEmphasis: "MEANINGFUL.",
-    body: "Wanna chat, discuss a project or want me to speak on a project?",
+    body: "Want to chat or collaborate on a project? I'd love to hear from you.",
     cta: "Email me",
     note: "Good ideas start with a cup of coffee.",
   },
