@@ -36,7 +36,7 @@ export default function AboutPage() {
             <AboutVideo src="/assets/about-video.mp4" poster="/assets/about-video-poster.jpg" label={a.photoAlt} />
           </Item>
 
-          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:left-[58.5%] lg:top-[30cqw] lg:w-[30.5%] lg:max-w-none">
+          <div className="flex max-w-[30rem] flex-col gap-7 text-[17px] leading-[1.65] text-fg-muted lg:absolute lg:bottom-[4.9cqw] lg:left-[58.5%] lg:w-[30.5%] lg:max-w-none lg:gap-[1.5cqw] lg:text-[1.19cqw] lg:leading-[1.6]">
             <span aria-hidden className="ab-tick block h-0.5 w-10 bg-accent-soft" />
             {a.paragraphs.map((t, i) => (
               <Item as="p" key={i} id={i === 0 ? "how" : i === 1 ? "why" : undefined} className="scroll-mt-24">
