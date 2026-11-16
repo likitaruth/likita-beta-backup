@@ -5,6 +5,9 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState, t
 export type Theme = "dark" | "light";
 export type BgStyle = "1" | "2" | "3";
 const KEY = "likita:prefs";
+/** BG style a theme gets until the visitor picks one themselves: light opens on Style 1, dark on Style 2. */
+const defaultBg = (t: Theme): BgStyle => (t === "light" ? "1" : "2");
+const savedBg = (): BgStyle | null => { try { const b = JSON.parse(localStorage.getItem(KEY) || "{}").bg; return /^[123]$/.test(b) ? b : null; } catch { return null; } };
 
 /** Swatch previews only — the real surface values live in globals.css ([data-bg]). */
 export const BG_STYLES: ReadonlyArray<{ id: BgStyle; label: string; swatch: string }> = [
@@ -14,7 +17,7 @@ export const BG_STYLES: ReadonlyArray<{ id: BgStyle; label: string; swatch: stri
 ];
 
 /** Blocking inline script: applies saved prefs before first paint (no theme flash). */
-export const prefsScript = `(function(){var d=document.documentElement;try{var p=JSON.parse(localStorage.getItem('${KEY}')||'{}');d.dataset.theme=p.theme==='light'?'light':'dark';d.dataset.bg=/^[123]$/.test(p.bg)?p.bg:'2';}catch(e){d.dataset.theme='dark';d.dataset.bg='2';}})();`;
+export const prefsScript = `(function(){var d=document.documentElement;try{var p=JSON.parse(localStorage.getItem('${KEY}')||'{}');var l=p.theme==='light';d.dataset.theme=l?'light':'dark';d.dataset.bg=/^[123]$/.test(p.bg)?p.bg:(l?'1':'2');}catch(e){d.dataset.theme='dark';d.dataset.bg='2';}})();`;
 
 type Ctx = { theme: Theme; bg: BgStyle; setTheme: (t: Theme) => void; setBg: (b: BgStyle) => void; toggleTheme: () => void };
 const CustomizeContext = createContext<Ctx | null>(null);
@@ -29,14 +32,19 @@ export function CustomizeProvider({ children }: { children: ReactNode }) {
     setBgState(/^[123]$/.test(d.dataset.bg ?? "") ? (d.dataset.bg as BgStyle) : "2");
   }, []);
 
+  /** Only an explicit BG pick is saved, so the per-theme default keeps applying until then. */
   const persist = useCallback((next: { theme?: Theme; bg?: BgStyle }) => {
     const d = document.documentElement;
     if (next.theme) d.dataset.theme = next.theme;
     if (next.bg) d.dataset.bg = next.bg;
-    try { localStorage.setItem(KEY, JSON.stringify({ theme: d.dataset.theme, bg: d.dataset.bg })); } catch { /* storage unavailable */ }
+    try { localStorage.setItem(KEY, JSON.stringify({ theme: d.dataset.theme, bg: next.bg ?? savedBg() ?? undefined })); } catch { /* storage unavailable */ }
   }, []);
 
-  const setTheme = useCallback((t: Theme) => { setThemeState(t); persist({ theme: t }); }, [persist]);
+  const setTheme = useCallback((t: Theme) => {
+    setThemeState(t);
+    persist({ theme: t });
+    if (!savedBg()) { const b = defaultBg(t); document.documentElement.dataset.bg = b; setBgState(b); }
+  }, [persist]);
   const setBg = useCallback((b: BgStyle) => { setBgState(b); persist({ bg: b }); }, [persist]);
   const toggleTheme = useCallback(() => setTheme(theme === "dark" ? "light" : "dark"), [theme, setTheme]);
 
