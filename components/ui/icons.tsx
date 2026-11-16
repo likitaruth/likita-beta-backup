@@ -125,7 +125,7 @@ export function CoffeeSquiggle(props: IconProps) {
   return (
     <svg width={27} height={95} viewBox="0 0 27 95" {...base} {...props}>
       <path
-        d="M19 2C6 8 4 14 14 19C24 24 25 30 12 36C2 41 4 47 15 52C25 57 24 63 11 69C3 73 5 79 14 83C19 86 20 89 15 92"
+        pathLength={1} d="M19 2C6 8 4 14 14 19C24 24 25 30 12 36C2 41 4 47 15 52C25 57 24 63 11 69C3 73 5 79 14 83C19 86 20 89 15 92"
         stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
       />
     </svg>

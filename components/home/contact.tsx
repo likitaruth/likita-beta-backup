@@ -4,6 +4,7 @@ import { ArrowRight, CoffeeSquiggle } from "@/components/ui/icons";
 import { Item, Stage } from "@/components/motion/stage";
 import { SplitWords } from "@/components/motion/split-words";
 import { site } from "@/content/site";
+import { CoffeeSteam, WrittenNote } from "./coffee-steam";
 
 /**
  * Reach out — Figma "Frame 1618869295" (2153:6038), 1440×594.
@@ -34,6 +35,7 @@ export function Contact() {
             sizes="100vw"
             className="object-cover object-right"
           />
+          <CoffeeSteam />
         </div>
 
         <Stage amount={0.35} gap={0.05} className="relative z-[2] flex w-full flex-col gap-7 lg:w-[760px] lg:max-w-full">
@@ -55,9 +57,9 @@ export function Contact() {
 
         {/* Figma: left 1186 / top 383.73 / w 205. Below xl it drops under the button instead of overlapping the copy. */}
         <p className="relative z-[2] mt-7 font-note text-[16px] leading-[18px] text-[rgb(193_193_193/0.8)] xl:absolute xl:left-[82.36%] xl:top-[383.73px] xl:mt-0 xl:w-[205px]">
-          {contact.note}
+          <WrittenNote text={contact.note} />
         </p>
-        <CoffeeSquiggle aria-hidden className="absolute left-[87.8%] top-[268px] z-[2] hidden text-[rgb(230_230_230/0.9)] xl:block" />
+        <CoffeeSquiggle aria-hidden className="cs-squiggle absolute left-[87.8%] top-[268px] z-[2] hidden text-[rgb(230_230_230/0.9)] xl:block" />
       </div>
     </section>
   );
