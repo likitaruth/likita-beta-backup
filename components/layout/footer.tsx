@@ -37,12 +37,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="flex items-center justify-between text-white">
-          <p className="text-[16px] font-medium italic leading-[21px]">
-            <span className="font-display font-normal not-italic">{footer.credit.a}</span>
-            {footer.credit.b}
-            <span className="font-display font-normal not-italic">{footer.credit.c}</span>
-          </p>
+        <div className="flex items-center justify-end text-white">
           <p className="t-eyebrow !tracking-[0.1em]">{footer.copyright}</p>
         </div>
       </div>

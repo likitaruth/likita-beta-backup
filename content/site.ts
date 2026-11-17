@@ -90,7 +90,6 @@ export const site = {
       { label: "LinkedIn", href: "https://www.linkedin.com/in/ruthlikita/" },
       { label: "Mail", href: "mailto:likitaconnect@gmail.com" },
     ],
-    credit: { a: "Likita", b: " with ", c: "love 2026" },
     copyright: "© 2026",
   },
 } as const;
