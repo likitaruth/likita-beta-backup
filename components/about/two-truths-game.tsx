@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Dice3D } from "./dice-3d";
+import { ConfettiBurst } from "./confetti-burst";
 import { cn } from "@/lib/cn";
 import { gameCopy as C, gameRounds, gameTiers, gameWins } from "@/content/game";
 
@@ -63,6 +64,7 @@ export function TwoTruthsGame() {
   const againBtn = useRef<HTMLButtonElement>(null);
   const timers = useRef<number[]>([]);
   const visible = useRef(false);
+  const bigRef = useRef<HTMLDivElement>(null);
 
   const round = gameRounds[r];
   const score = hist.filter(Boolean).length;
@@ -127,9 +129,11 @@ export function TwoTruthsGame() {
   }, [phase, score]);
 
   const good = picked !== null && picked === round.lie;
+  // Perfect run: one confetti burst as the count-up lands on 5.
+  const perfect = phase === "final" && score === gameRounds.length && count >= score;
 
   return (
-    <div ref={root} className="tt-panel">
+    <div ref={root} className="tt-panel relative overflow-hidden">
       <div className="flex justify-end text-[12px] font-semibold tabular-nums text-[#a9a49d]" aria-live="off">
         Score <b className="ml-1.5 font-semibold text-fg">{score} / {gameRounds.length}</b>
       </div>
@@ -199,7 +203,7 @@ export function TwoTruthsGame() {
         <div className="tt-final">
           <div>
             <p className="tt-cap">{C.final}</p>
-            <div className="tt-big" aria-label={`${score} out of ${gameRounds.length}`}>{Math.min(count, score)}<span>/{gameRounds.length}</span></div>
+            <div ref={bigRef} className={cn("tt-big", perfect && "tt-pop")} aria-label={`${score} out of ${gameRounds.length}`}>{Math.min(count, score)}<span>/{gameRounds.length}</span></div>
             <p className="my-5 max-w-[24rem] text-[18px] leading-[1.5]">{gameTiers[score]}</p>
             <button ref={againBtn} type="button" className="tt-btn tt-btn-p" onClick={start}>{C.again}</button>
           </div>
@@ -212,6 +216,7 @@ export function TwoTruthsGame() {
           </ol>
         </div>
       )}
+      <ConfettiBurst fire={perfect} originRef={bigRef} />
     </div>
   );
 }

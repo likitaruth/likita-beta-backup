@@ -492,6 +492,9 @@ body {
 .tt-final { display: grid; flex: 1; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; margin: 12px 0; }
 .tt-big { margin-top: 8px; font: 600 clamp(90px, 13vw, 168px) / 0.95 var(--font-display); font-variant-numeric: tabular-nums; letter-spacing: -0.04em; }
 .tt-big span { color: #4a4843; }
+.tt-pop { animation: tt-pop 700ms var(--ease-out-quint) both; }
+@keyframes tt-pop { 0% { transform: scale(0.9); } 45% { transform: scale(1.06); } 100% { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tt-pop { animation: none; } }
 .tt-rec { border-top: 1px solid var(--tt-line); }
 .tt-rec li { display: flex; align-items: center; gap: 16px; padding: 15px 0; border-bottom: 1px solid var(--tt-line); font-size: 14px; color: var(--tt-mut); animation: tt-in 500ms var(--ease-out-quint) backwards; }
 .tt-rec b { width: 28px; font: 500 12px var(--font-display); color: var(--tt-sub); }
