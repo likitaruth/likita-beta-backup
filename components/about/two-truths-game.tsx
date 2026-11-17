@@ -188,7 +188,7 @@ export function TwoTruthsGame() {
             </div>
             {verdict && (
               <button ref={nextBtn} type="button" className="tt-btn tt-btn-p tt-in" onClick={next}>
-                {r === gameRounds.length - 1 ? C.seeScore : C.next} <kbd>Enter</kbd>
+                {r === gameRounds.length - 1 ? C.seeScore : C.next}
               </button>
             )}
           </div>
