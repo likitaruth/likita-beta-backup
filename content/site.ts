@@ -36,7 +36,7 @@ export const site = {
     // "Frame 3523" is deliberate: About renders it as the interactive Figma-frame tag (see FigmaFrame).
     paragraphs: [
       "My journey into product design began in customer support and that foundation still shapes how I listen, ask better questions, and design with empathy.",
-      "It usually starts around Frame 3523 and I've come to love this industry and the problems I get to solve through it. Over the past four years, I've worked across startups and enterprise CRM, including FeelPixel Studio and MBL Hightech, designing for SaaS, fintech, AI-powered platforms, and automation tools.",
+      "It usually starts around Frame 3523 and I've come to love this industry and the problems I get to solve through it. Over the past four years, I've worked across startups and enterprise CRM, including Activepieces (YC S22), FeelPixel Studio and MBL Hightech, designing for SaaS, fintech, AI-powered platforms, and automation tools.",
       "I like being involved from the strategy down to the small details, and I care about shipping things that are actually useful.",
     ],
     photoAlt: "Likita working at a desk with two monitors, with a candle on the desk and a shelf of plants behind",
