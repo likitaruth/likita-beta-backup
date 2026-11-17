@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 
+/** The live address. likita.dev redirects here, so search engines should index this one. */
+export const SITE_URL = "https://www.likita.dev";
+
 export const SITE_TITLE = "Likita — Product Designer for AI-native CRM & B2B SaaS";
 export const SITE_DESCRIPTION =
   "Product designer for AI-native CRM and B2B SaaS. I design and build AI workflows enterprise teams can trust, from shipped features to working prototypes.";

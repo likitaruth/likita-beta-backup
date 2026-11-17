@@ -3,10 +3,10 @@ import "./globals.css";
 import { fontVariables } from "@/lib/fonts";
 import { CustomizeProvider, prefsScript } from "@/lib/customize";
 import { PixelCursor } from "@/components/ui/pixel-cursor";
-import { pageMeta, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/meta";
+import { pageMeta, SITE_TITLE, SITE_DESCRIPTION, SITE_URL } from "@/lib/meta";
 import { PageLoader, loaderScript } from "@/components/ui/page-loader";
 
-export const metadata: Metadata = pageMeta(SITE_TITLE, SITE_DESCRIPTION);
+export const metadata: Metadata = { ...pageMeta(SITE_TITLE, SITE_DESCRIPTION), metadataBase: new URL(SITE_URL) };
 export const viewport: Viewport = { themeColor: "#0f0f0e", colorScheme: "dark light" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
