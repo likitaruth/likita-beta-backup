@@ -461,7 +461,7 @@ const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", 
 const northstar: CaseStudy = {
   slug: "northstar",
   title: "An AI-native CRM that shows its uncertainty",
-  lede: "Northstar is a working prototype of a goal-driven CRM for retention teams. I designed the journey from a stated goal to an audited action, then built it end to end as a React and TypeScript front end on synthetic data: 7 flows, 3 roles and 10 designed failure scenarios.",
+  lede: "A working prototype that asks how far a retention team can trust an AI with its accounts. Northstar turns a stated goal into findings, a recommended action and an audit trail, and is honest about what it doesn’t know along the way. Grounded in research on today’s AI-native CRMs, it covers 7 flows, 3 roles and 10 designed failure scenarios.",
   heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
   heroSrc: `${NS}/mock/summary.webp`,
   heroRatio: 1.6,
