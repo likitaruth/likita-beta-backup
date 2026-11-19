@@ -287,7 +287,7 @@ const clientlens: CaseStudy = {
           { kicker: "Shipped", list: ["Find Similar Leads on every lead record", "Ranked lookalikes, each with a short AI summary", "Side-by-side comparison: Intelligence Summary and Radar Preview"] },
           { kicker: "I owned", list: ["Turning a similarity search into a verdict", "Showing confidence separately from similarity", "The insight card system and the Do not recommend pattern"] },
           { kicker: "Team decisions", list: ["Nightly batch scoring (engineering)", "The 8-category feature model (data science)", "Hashed identities for other clients (compliance)"] },
-          { kicker: "Measured", list: ["64% weekly use across pilot desks", "Segment build time down from 38 to 9 min", "41% fewer mis-targeted promotions"] },
+          { kicker: "Measured", list: ["5 of 7 pilot agents used it weekly", "Segment build time down from 38 to 9 min", "41% fewer mis-targeted promotions"] },
         ] },
         { type: "cards", cols: 2, items: [
           { n: "1", kicker: "Intelligence Summary", title: "The answer comes first.", lines: ["The first line answers the question agents actually have: can these two clients share a strategy?"] },
@@ -303,7 +303,7 @@ const clientlens: CaseStudy = {
         { type: "text", body: ["The entry point lives in the existing action row. Coverage is grouped by feature, and each group opens into the raw signals behind it, such as call count, answer rate and preferred call hour."] },
         { type: "text", eyebrow: "discover · reading the client", heading: "Why agents see their own client before the match list.", body: [
           "The left column reads the client first: risk flag, re-deposit chance, re-engagement likelihood and best channel, followed by a plain sentence saying that clients like this one responded to these actions.",
-          "It comes before the list because of what I saw in early sessions with 8 agents. They jumped to the top match and copied its playbook. Reading their own client first slowed that habit down.",
+          "It comes before the list because of what I saw in early sessions with 6 agents. They jumped to the top match and copied its playbook. Reading their own client first slowed that habit down.",
           "I also kept bare percentages off this panel. Risk is a coloured label, and probability is a word with a number beside it. An agent can act on a “Medium” re-deposit chance. There isn't much they can do with 0.47.",
         ] },
         cl("similar-anchor", "Anchor lead panel for John Doe: High Churn Risk, Medium redeposit chance, 76% re-engagement outreach, best channel Telegram, and a note explaining that similar clients had positive outcomes with these actions", 1562 / 2715, 360),
@@ -348,7 +348,7 @@ const clientlens: CaseStudy = {
         ] },
         { type: "text", eyebrow: "iterations · v1 to v4", heading: "Four versions, each fixing how agents misused the last one.", body: ["None of these versions was wrong on paper. Each one failed in a specific way once agents used it, and the next version was a response to that."] },
         { type: "cards", cols: 2, items: [
-          { n: "v1 · Badge", title: "A match % on the leads list", lines: ["One similarity number per lead, sorted high to low.", "What happened: in the first prototype test, 6 of 8 agents read 70%+ as “same client, same campaign”."] },
+          { n: "v1 · Badge", title: "A match % on the leads list", lines: ["One similarity number per lead, sorted high to low.", "What happened: in the first prototype test, 5 of 6 agents read 70%+ as “same client, same campaign”."] },
           { n: "v2 · Breakdown", title: "Scores per category", lines: ["The match split into categories, so a high overall score could reveal a 0% gap in trading behaviour.", "What happened: agents spotted the gap but still didn't know what to do differently. More information didn't produce a decision."] },
           { n: "v3 · Verdict", title: "A recommendation plus confidence", lines: ["A plain answer, share a strategy or don't, with confidence as its own number.", "What happened: engineering found that confidence tracked data coverage, which is why coverage moved onto the lead record."] },
           { n: "v4 · Shipped", title: "Actions, anti-actions and impact", lines: ["Primary and secondary actions, a Do not recommend list, business impact, and the radar as supporting evidence.", "What happened: compliance asked for the Do not recommend list after seeing deposit incentives offered to churned clients."] },
@@ -419,20 +419,20 @@ const clientlens: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Weeks 1–3", title: "The contract before the pixels", lines: ["The back-end lead and I wrote the insight response schema together, so every element on screen had a field behind it and nothing was hard-coded."] },
           { kicker: "Weeks 4–8", title: "Every state written down", lines: ["I specced each state: loading, generating, low coverage, no matches, permission-masked and stale scores. QA tested against those specs."] },
-          { kicker: "Weeks 6–11", title: "A pilot behind a flag", lines: ["Two retention desks, 38 agents, behind a feature flag. We went through usage and feedback with data science every week."] },
+          { kicker: "Weeks 6–11", title: "A pilot behind a flag", lines: ["One retention desk of 7 agents, behind a feature flag. We went through usage and feedback with data science every week."] },
           { kicker: "Weeks 12–14", title: "Tune, then roll out", lines: ["We tuned the default threshold, the summary wording and the Do not recommend rules from pilot data, then rolled out to all desks."] },
         ] },
         { type: "cards", cols: 2, items: [
           { kicker: "The insight contract · GET /leads/{id}/compare/{otherId}", title: "One response drives the whole Intelligence Summary", list: ["matchScore: 29", "similarity: low", "confidence: 87", "comparedAt: 2026-05-12T11:24:00Z", "recommendation: separate_strategy", "categories: crm_notes_psychology 88 (stronger_driver), trading_behaviour 0 (completely_different)", "actions: primary, high impact, reuse_engagement_pattern", "doNotRecommend: vip_upgrade, high_value_campaign, deposit_incentive"] },
         ] },
-        { type: "text", eyebrow: "outcomes", heading: "What changed on the pilot desks.", body: ["Measured over 6 weeks on two pilot desks against two comparable desks without ClientLens, then tracked for one quarter after general availability."] },
+        { type: "text", eyebrow: "outcomes", heading: "What changed on the pilot desk.", body: ["Measured over 6 weeks on one pilot desk against a comparable desk without ClientLens, then tracked for one quarter after general availability."] },
         { type: "cards", cols: 2, items: [
-          { n: "64%", title: "Weekly use", lines: ["Of pilot agents used Find Similar Leads every week by week 6."] },
+          { n: "5 of 7", title: "Weekly use", lines: ["Pilot agents were using Find Similar Leads every week by week 6."] },
           { n: "38 → 9 min", title: "Segment build time", lines: ["Median time to build a re-engagement segment."] },
           { n: "−41%", title: "Mis-targeted promotions", lines: ["VIP and deposit promotions sent to churned or high-risk clients."] },
-          { n: "11.8% vs 8.6%", title: "Re-deposit rate", lines: ["On ClientLens-guided outreach compared with the control desks."] },
+          { n: "11.8% vs 8.6%", title: "Re-deposit rate", lines: ["On ClientLens-guided outreach compared with the control desk."] },
         ] },
-        { type: "text", body: ["The pilot covered 38 agents on 2 retention desks. Segment build time is a median, and the re-deposit rate compares ClientLens-guided outreach with the control desks."] },
+        { type: "text", body: ["The pilot covered 7 agents on one retention desk. Segment build time is a median, and the re-deposit rate compares ClientLens-guided outreach with the control desk."] },
         { type: "cards", cols: 3, items: [
           { kicker: "What agents said", lines: ["Do not recommend was the most mentioned feature. Agents said it gave them a reason to push back when a manager asked them to “just send the VIP offer”."] },
           { kicker: "What retention leads did", lines: ["They used the impact tags to plan the day's comparisons, which we hadn't designed for."] },
