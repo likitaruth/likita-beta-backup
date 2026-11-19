@@ -269,14 +269,14 @@ const clientlens: CaseStudy = {
   meta: [["Role", "Lead product designer"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "looking back",
-    heading: "What I'd change, and what comes next",
+    heading: "What didn't work, and what's next",
     body: [
-      "The radar was opened in 22% of comparisons. Most agents acted straight from the summary. I'd still ship it, because some decisions need evidence, but it shouldn't have been treated as a headline feature. I'd test it against the summary earlier next time.",
-      "Overnight scoring caused more confusion than I expected. A client who deposited that morning still showed as churned. Showing the compare date helped, but a timestamp is easy to skip. I'd push for a clear “changed since scoring” flag instead of relying on agents to read a date.",
-      "Thin records were the other weak spot. Imported leads with little data got cautious verdicts that didn't help anyone. The coverage panel explained why, but explaining a gap isn't the same as closing it.",
-      "Next on the list: the per-category Deep Dive we cut from v1, for retention leads who audit strategies. Re-scoring during the day for clients with new deposits or tickets. Recording which action an agent took and what happened, so confidence learns from outcomes and not only from data coverage. And a Disagree option on each verdict, sent to data science as a labelled example.",
+      "The radar was opened in 22% of comparisons. Most agents acted from the summary, so it works as evidence for when someone wants to check, not as the default view.",
+      "Overnight scoring confused some agents. A client who deposited that morning still showed as churned. Showing the compare date helped, but didn't fully solve it.",
+      "Imported leads with little data got cautious verdicts that weren't much use. The coverage panel on the record explained why, but it didn't fix the problem.",
+      "Next on the list: the per-category Deep Dive we cut from v1, for retention leads who audit strategies. Re-scoring during the day for clients with new deposits or tickets, so the most urgent cases aren't a day old. Recording which action an agent took and what happened, so confidence learns from outcomes and not only from data coverage. And a Disagree option on each verdict, sent to data science as a labelled example.",
     ],
-    pull: "Two clients can look identical in the CRM and still need opposite treatment. ClientLens shows the difference before anyone sends a campaign.",
+    pull: "Similar isn't the same. ClientLens shows agents the difference before they act on it.",
   },
   tabs: {
     design: {
@@ -295,13 +295,13 @@ const clientlens: CaseStudy = {
           { n: "3", kicker: "Intelligence Summary", title: "What not to send.", lines: ["Campaigns that would backfire sit next to the ones that would work."] },
           { n: "4", kicker: "Intelligence Summary", title: "What ignoring it costs.", lines: ["The impact panel spells out what goes wrong if both clients end up in one segment."] },
         ] },
-        { type: "text", eyebrow: "entry · lead record", heading: "Why the whole feature starts from one button.", body: [
+        { type: "text", eyebrow: "entry · lead record", heading: "Starting from one button in a row agents already use.", body: [
           "The lead record was already crowded, and three other teams own panels on it, so redesigning the page wasn't on the table. Find Similar Leads sits in the action row next to Send push notification and Add to WhatsApp, buttons agents click dozens of times a day. Nothing else on the page moved.",
           "Underneath it I added Profile Data Coverage. Before trusting any AI output, agents want to know what the system actually knows about this person. A client with 6 of 16 features filled will get weaker matches, and the agent can see that before clicking anything.",
         ] },
         cl("lead", "Lead record for Yılmaz Şahin with a Find Similar Leads button in the action row, KPI tiles, a Profile Data Coverage panel at 92% with Trading, Financial and Notes groups at 15 of 16, and a Trading detail panel showing call activity", 2000 / 909),
         { type: "text", body: ["The entry point lives in the existing action row. Coverage is grouped by feature, and each group opens into the raw signals behind it, such as call count, answer rate and preferred call hour."] },
-        { type: "text", eyebrow: "discover · reading the client", heading: "Why agents see their own client before the match list.", body: [
+        { type: "text", eyebrow: "discover · reading the client", heading: "Reading the client before showing any matches.", body: [
           "The left column reads the client first: risk flag, re-deposit chance, re-engagement likelihood and best channel, followed by a plain sentence saying that clients like this one responded to these actions.",
           "It comes before the list because of what I saw in early sessions with 6 agents. They jumped to the top match and copied its playbook. Reading their own client first slowed that habit down.",
           "I also kept bare percentages off this panel. Risk is a coloured label, and probability is a word with a number beside it. An agent can act on a “Medium” re-deposit chance. There isn't much they can do with 0.47.",
@@ -310,7 +310,7 @@ const clientlens: CaseStudy = {
         { type: "text", body: ["Risk first, then the channel to use, then the reason ClientLens believes it."] },
         cl("similar", "Similar Leads list with 1,200 results, a Medium (30%) threshold dropdown, a Run Comparison button, and rows each showing a checkbox, a 76% match ring, client tags, an AI summary of the risk profile, and View Profile and Compare buttons", 2000 / 1296),
         { type: "text", body: ["The threshold defaults to Medium (30%), with the tolerance written next to it. Each match shows its strength as a ring and a number, and its summary leads with risk. This one warns that the client resembles previously restricted users. Agents tick the matches they care about and Run Comparison works on that set."] },
-        { type: "text", eyebrow: "compare · the verdict", heading: "Why the summary says what not to do.", body: [
+        { type: "text", eyebrow: "compare · the verdict", heading: "Listing the campaigns that would backfire.", body: [
           "The summary follows the order you'd make the decision in: the recommendation and its confidence, then similarities and differences by category, then actions tagged by impact, then what goes wrong if the agent ignores it.",
           "Do not recommend is the part I pushed hardest for. With only positive suggestions, agents kept adding the VIP playbook “just in case”. Listing the campaigns that would backfire, in this case a VIP upgrade, a high-value campaign and deposit incentives, turned a suggestion into a guardrail.",
         ] },
@@ -320,7 +320,7 @@ const clientlens: CaseStudy = {
           "The first version produced a segment, “clients like John”, and left the strategy to the agent. Agents read that as “treat them like John”. Writing out the action instead (use John's engagement patterns, not his incentives) separates what carries over, like tone and timing, from what doesn't, like deposit behaviour.",
           "The impact tags came from the pilot. Retention leads with 40 comparisons open asked how to prioritise, and high and medium impact gave them an order without adding another screen.",
         ] },
-        { type: "text", eyebrow: "explain · evidence", heading: "Why the radar is evidence, not the main view.", body: [
+        { type: "text", eyebrow: "explain · evidence", heading: "The radar is there for agents who want to check.", body: [
           "A 29% match doesn't say much on its own. The radar plots both clients across the eight scoring categories: trading, financial, CRM notes psychology, communication, risk, marketing, lead source and lifecycle. Where the shapes overlap is where a strategy can be shared.",
           "Radar charts are easy to misread, so the help sits on the page instead of hiding in a tooltip. How to read the radar covers the centre, the edge and the overlap, and What does this mean? turns the shape into a sentence.",
         ] },
@@ -353,7 +353,7 @@ const clientlens: CaseStudy = {
           { n: "v3 · Verdict", title: "A recommendation plus confidence", lines: ["A plain answer, share a strategy or don't, with confidence as its own number.", "What happened: engineering found that confidence tracked data coverage, which is why coverage moved onto the lead record."] },
           { n: "v4 · Shipped", title: "Actions, anti-actions and impact", lines: ["Primary and secondary actions, a Do not recommend list, business impact, and the radar as supporting evidence.", "What happened: compliance asked for the Do not recommend list after seeing deposit incentives offered to churned clients."] },
         ] },
-        { type: "text", eyebrow: "model · two axes", heading: "Why one “match quality” score had to become two.", body: ["Early specs had a single match quality number. I argued for two: how alike two clients are, and how sure ClientLens is about that. John and Lisa made the case for me. A low match with high confidence is the most useful thing the system can say, because it stops a mistake. Folded into one number, it would look like a weak result and agents would scroll past it."] },
+        { type: "text", eyebrow: "model · two axes", heading: "Splitting one match score into similarity and confidence.", body: ["Early specs had a single match quality number. I argued for two: how alike two clients are, and how sure ClientLens is about that. John and Lisa made the case for me. A low match with high confidence is the most useful thing the system can say, because it stops a mistake. Folded into one number, it would look like a weak result and agents would scroll past it."] },
         { type: "cards", cols: 2, items: [
           { kicker: "High confidence · low similarity", title: "Don't share a strategy", lines: ["ClientLens is sure they differ, says so and names what not to do.", "John vs Lisa · 29% · 87%"] },
           { kicker: "High confidence · high similarity", title: "Reuse what worked", lines: ["The primary action carries over, with the channel and timing from the client who responded better.", "Typical top matches · 76%"] },
@@ -376,7 +376,7 @@ const clientlens: CaseStudy = {
           { kicker: "Data science and me", title: "A 30% default threshold", lines: ["Picked from pilot data on which matches agents actually opened."] },
         ] },
         { type: "text", eyebrow: "working with the team", heading: "Who I worked with, and on what.", body: [
-          "Day to day, I worked closest with three people outside design. With the back-end lead I wrote the insight contract, so every element on screen had a field to come from. With data science I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
+          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With data science I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
         ] },
         { type: "text", eyebrow: "boundaries · AI vs agent", heading: "Where the AI stops and the agent takes over.", body: ["ClientLens can recommend. It never acts on a client."] },
         { type: "cards", cols: 2, items: [
