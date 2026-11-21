@@ -457,14 +457,14 @@ const nsIntro: Tab["intro"] = {
     "Northstar starts from a business outcome. The AI investigates and drafts, people keep authority over consequential decisions, and the handoffs between them are designed rather than left to chance.",
   ],
 };
-const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", src: `${NS}/mock/${file}.webp`, tone: "mockup", alt, ratio });
+const ns = (file: string, alt: string, ratio = 2880 / 2516): Block => ({ type: "image", src: `${NS}/mock/${file}.webp`, tone: "mockup", alt, ratio });
 const northstar: CaseStudy = {
   slug: "northstar",
   title: "An AI-native CRM that shows its uncertainty",
   lede: "A working prototype that asks how far a retention team can trust an AI with its accounts. Northstar turns a stated goal into findings, a recommended action and an audit trail, and is honest about what it doesn’t know along the way. Grounded in research on today’s AI-native CRMs, it covers 7 flows, 3 roles and 10 designed failure scenarios.",
   heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
   heroSrc: `${NS}/mock/summary.webp`,
-  heroRatio: 1.6,
+  heroRatio: 2880 / 2516,
   heroMax: 1068,
   heroTone: "mockup",
   meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Prototype"]],
