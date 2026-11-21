@@ -483,7 +483,7 @@ const northstar: CaseStudy = {
       blocks: [
         { type: "text", eyebrow: "the experience", heading: "From a goal to an audited action, in one connected thread", body: ["The journey runs Goal, Investigation, Evidence, Opportunities, Refinement, Approval, Execution and Recovery. Every screen belongs to one investigation, so a finding, the plan it led to and the approval it needed never lose their connection."] },
         { type: "cards", cols: 2, items: [
-          { kicker: "Designed", list: ["10 Figma screens across 7 flows", "States the screens didn't cover: running investigation, impact review, approval outcomes, execution recovery", "Role and autonomy boundaries"] },
+          { kicker: "Designed", list: ["10 Figma screens across 7 flows", "Role and autonomy boundaries"] },
           { kicker: "Implemented", list: ["A working prototype of every flow", "Plan versioning and approval of an exact version", "Role-based actions, audit log, simulated execution with safe retries"] },
           { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
           { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "Grounded in competitive research on AI-native CRMs, not yet tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
