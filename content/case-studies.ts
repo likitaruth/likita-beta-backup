@@ -458,14 +458,14 @@ const nsIntro: Tab["intro"] = {
     "Northstar starts from the outcome the team wants. The AI does the investigating and drafting, people keep the decisions that carry risk, and I designed the handoffs between the two instead of leaving them to chance.",
   ],
 };
-const ns = (file: string, alt: string, ratio = 1.6): Block => ({ type: "image", src: `${NS}/mock/${file}.webp`, tone: "mockup", alt, ratio });
+const ns = (file: string, alt: string, ratio = 2880 / 2516): Block => ({ type: "image", src: `${NS}/mock/${file}.webp`, tone: "mockup", alt, ratio });
 const northstar: CaseStudy = {
   slug: "northstar",
   title: "An AI-native CRM that shows its uncertainty",
   lede: "A working prototype that asks how far a retention team can trust an AI with its accounts. Northstar turns a stated goal into findings, a recommended action and an audit trail, and is honest about what it doesn’t know along the way. Grounded in research on today’s AI-native CRMs, it covers 7 flows, 3 roles and 10 designed failure scenarios.",
   heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
   heroSrc: `${NS}/mock/summary.webp`,
-  heroRatio: 1.6,
+  heroRatio: 2880 / 2516,
   heroMax: 1068,
   heroTone: "mockup",
   meta: [["Role", "Product design, systems thinking & front-end engineering"], ["Focus", "Explainable AI / Human control / Safe execution"], ["Status", "Prototype"]],
@@ -485,9 +485,9 @@ const northstar: CaseStudy = {
         { type: "text", eyebrow: "the experience", heading: "One thread from goal to audited action", body: ["The journey runs Goal, Investigation, Evidence, Opportunities, Refinement, Approval, Execution and Recovery. Every screen belongs to a single investigation, so a finding, the plan it led to and the approval behind it stay connected."] },
         { type: "cards", cols: 2, items: [
           { kicker: "Designed", list: ["10 Figma screens across 7 flows", "Role and autonomy boundaries"] },
-          { kicker: "Built", list: ["A working prototype of every flow", "Plan versioning, with approval tied to one exact version", "Role-based actions, an audit log, and simulated execution with safe retries"] },
-          { kicker: "Checked", list: ["A full first-run journey end to end", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan with zero violations across 9 screens"] },
-          { kicker: "Not yet", list: ["Invented clients and simulated sends", "Based on competitive research on AI-native CRMs, not tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
+          { kicker: "Implemented", list: ["A working prototype of every flow", "Plan versioning and approval of an exact version", "Role-based actions, audit log, simulated execution with safe retries"] },
+          { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
+          { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "Grounded in competitive research on AI-native CRMs, not yet tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
         ] },
         { type: "text", eyebrow: "goal · workspace", heading: "A home screen that asks for an outcome, not a module", body: ["New users see a goal box, three suggested goals and a short note on what happens next. I left out empty charts on purpose: there's nothing to chart yet, and they'd only make the product look unfinished. Returning users see Needs attention and Continue work, ordered by the next decision waiting for them, not the last page they opened.", "The same item reads differently by role. A retention manager sees “Waiting for approval of plan v1”. A compliance reviewer sees “Authorize plan v1”."] },
         ns("first-run", "First-run workspace with a welcome message, a Create your first business goal button, onboarding steps and suggested goals"),
