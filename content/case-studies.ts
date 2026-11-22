@@ -674,7 +674,7 @@ const clientzone: CaseStudy = {
   heroRatio: 4 / 3,
   heroMax: 1068,
   heroTone: "mockup",
-  meta: [["Role", "Product designer, leading the redesign of the portal's structure, dashboard and money journeys"], ["Focus", "Information architecture / Fintech UX / Design systems"], ["Built as", "A template inside the platform, deployed by each brokerage under its own brand"]],
+  meta: [["Role", "Product designer"], ["Focus", "Information architecture / Fintech UX / Design systems"], ["Built as", "A template inside the platform"]],
   reflection: {
     eyebrow: "honest read",
     heading: "What I'd refine, and what I'd test",
