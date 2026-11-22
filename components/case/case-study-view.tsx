@@ -5,6 +5,7 @@ import { ViewTransition } from "react";
 import { Subpage } from "@/components/layout/subpage";
 import { Item, Stage } from "@/components/motion/stage";
 import { CaseTabs } from "./case-tabs";
+import { BackToTop } from "./back-to-top";
 import { cn } from "@/lib/cn";
 import { projects } from "@/content/projects";
 import { tabLabels, tabOrder, type Block, type CaseStudy, type TabKey } from "@/content/case-studies";
@@ -23,6 +24,7 @@ export function CaseStudyView({ study, tab }: { study: CaseStudy; tab: TabKey })
 
   return (
     <Subpage compact>
+      <BackToTop />
       <article className="page-shell cq flex flex-col gap-10 pb-24 pt-[72px] md:pb-[120px]">
         <Stage trigger="mount" gap={0.08} className="flex flex-col gap-10">
           <div className="flex flex-col gap-6">
