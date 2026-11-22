@@ -250,7 +250,7 @@ const clIntro: Tab["intro"] = {
   eyebrow: "the problem",
   heading: "Same tags but different strategies",
   body: [
-    "John and Lisa have the same tags: VIP, Gold Trader and Micro Account. However, John is an active client worth $8,400, whereas Lisa is a churned client worth $400. In the CRM they appeared identical, so both were targeted with the same deposit bonus campaign. For churned clients, this was the most common reason for compliance issues at the brokerages using our CRM. The tags show what type of client someone was at sign-up, not how they behave now.",
+    "John and Lisa have the same tags: VIP, Gold Trader and Micro Account. However, John is an active client worth $8,400, whereas Lisa is a churned client worth $400. In the CRM they appeared identical, so both were targeted with the same deposit bonus campaign. For churned clients, this was the most common reason for compliance issues. The tags show what type of client someone was at sign-up, not how they behave now.",
     "ClientLens shows a comparison and gives the reasons. The agent makes the decision. This makes comparisons clear, and gives clarity and auditability.",
   ],
 };
@@ -286,7 +286,7 @@ const clientlens: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Shipped", list: ["Ranking of similar leads", "An AI summary for each similar lead", "Comparing pairs of leads with Intelligence Summary and Radar Preview"] },
           { kicker: "I owned", list: ["The verdict", "Separating confidence from similarity", "Insight cards and the Do not recommend pattern"] },
-          { kicker: "Team decisions", list: ["Not real time: nightly batch processing (engineering)", "8 categories (feature model)", "Hashed identities (brokerage compliance)"] },
+          { kicker: "Team decisions", list: ["Not real time: nightly batch processing (engineering)", "8 categories (feature model)", "Hashed identities (compliance)"] },
           { kicker: "Measured", list: ["5 of 7 pilot agents used it weekly", "Segment build time down from 38 to 9 min", "41% fewer incorrectly targeted promotions"] },
         ] },
         { type: "cards", cols: 2, items: [
@@ -344,7 +344,7 @@ const clientlens: CaseStudy = {
           { kicker: "Technical limit", title: "Scores are computed overnight", lines: ["Scoring every lead against roughly 1.4M records in real time was too expensive for the database cluster, so engineering moved it to a nightly batch.", "So: every comparison shows its compare date. Nothing pretends to be live, and agents can tell when a client changed after scoring."] },
           { kicker: "Technical limit", title: "Summaries were slow and expensive", lines: ["A written summary took 4–6 seconds per lead. Generating one for 1,200 matches on page load wasn't realistic.", "So: summaries are pre-generated for the top 50 matches and created on demand after that. The list never waits on the model."] },
           { kicker: "Data quality", title: "Many records were half empty", lines: ["Imported leads often had no trading history or notes. Unless you say otherwise, a match built on thin data looks as solid as one built on rich data.", "So: Profile Data Coverage (15 of 16 features, 92%) sits on the lead record, and every verdict shows its confidence."] },
-          { kicker: "Brokerage compliance", title: "Agents can't browse other clients' details", lines: ["Lookalikes can belong to other desks and regions. Our brokerage clients' compliance teams required that matched clients only appear as hashed IDs unless the agent already has access to that record.", "So: match cards lead with the reasons for the match, not personal data, and View Profile follows existing permissions."] },
+          { kicker: "Compliance", title: "Agents can't browse other clients' details", lines: ["Lookalikes can belong to other desks and regions. Compliance ruled that matched clients only appear as hashed IDs unless the agent already has access to that record.", "So: match cards lead with the reasons for the match, not personal data, and View Profile follows existing permissions."] },
           { kicker: "Business priority", title: "A quarterly target and a fixed date", lines: ["The retention desks had a re-deposit target, and the feature had to land before the Q2 campaign season.", "So: we cut the per-category Deep Dive from v1 and shipped the decision path first: find, compare, act."] },
         ] },
         { type: "text", eyebrow: "iterations · v1 to v4", heading: "Four versions, each fixing how agents misused the last one.", body: ["None of these versions was wrong on paper. Each one failed in a specific way once agents used it, and the next version was a response to that."] },
@@ -352,7 +352,7 @@ const clientlens: CaseStudy = {
           { n: "v1 · Badge", title: "A match % on the leads list", lines: ["One similarity number per lead, sorted high to low.", "What happened: in the first prototype test, 5 of 6 agents read 70%+ as “same client, same campaign”."] },
           { n: "v2 · Breakdown", title: "Scores per category", lines: ["The match split into categories, so a high overall score could reveal a 0% gap in trading behaviour.", "What happened: agents spotted the gap but still didn't know what to do differently. More information didn't produce a decision."] },
           { n: "v3 · Verdict", title: "A recommendation plus confidence", lines: ["A plain answer, share a strategy or don't, with confidence as its own number.", "What happened: engineering found that confidence tracked data coverage, which is why coverage moved onto the lead record."] },
-          { n: "v4 · Shipped", title: "Actions, anti-actions and impact", lines: ["Primary and secondary actions, a Do not recommend list, business impact, and the radar as supporting evidence.", "What happened: our brokerage clients' compliance teams asked for the Do not recommend list after seeing deposit incentives offered to churned clients."] },
+          { n: "v4 · Shipped", title: "Actions, anti-actions and impact", lines: ["Primary and secondary actions, a Do not recommend list, business impact, and the radar as supporting evidence.", "What happened: compliance asked for the Do not recommend list after seeing deposit incentives offered to churned clients."] },
         ] },
         { type: "text", eyebrow: "model · two axes", heading: "Splitting one match score into similarity and confidence.", body: ["Early specs had a single match quality number. I argued for two: how alike two clients are, and how sure ClientLens is about that. John and Lisa made the case for me. A low match with high confidence is the most useful thing the system can say, because it stops a mistake. Folded into one number, it would look like a weak result and agents would scroll past it."] },
         { type: "cards", cols: 2, items: [
@@ -372,12 +372,12 @@ const clientlens: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Engineering lead", title: "Nightly batch scoring", lines: ["Live scoring cost too much. My part was making the compare date visible."] },
           { kicker: "CTO, labels with me", title: "Eight categories, 16 features each", lines: ["The model was the CTO's. I named the categories with agents so the labels match how they talk."] },
-          { kicker: "Brokerage compliance", title: "Hashed IDs for matched clients", lines: ["Required for privacy across desks. I designed the match card to work without personal data."] },
+          { kicker: "Compliance", title: "Hashed IDs for matched clients", lines: ["Required for privacy across desks. I designed the match card to work without personal data."] },
           { kicker: "PM", title: "Cutting Deep Dive from v1", lines: ["A scope call for the Q2 date. I argued for the radar as a lighter evidence view instead."] },
           { kicker: "CTO and me", title: "A 30% default threshold", lines: ["Picked from pilot data on which matches agents actually opened."] },
         ] },
         { type: "text", eyebrow: "working with the team", heading: "Who I worked with, and on what.", body: [
-          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With the CTO I shaped the eight scoring categories and their names. With our brokerage clients' compliance teams, I worked through hashed IDs and the rules behind Do not recommend.",
+          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With the CTO I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
         ] },
         { type: "text", eyebrow: "boundaries · AI vs agent", heading: "Where the AI stops and the agent takes over.", body: ["ClientLens can recommend. It never acts on a client."] },
         { type: "cards", cols: 2, items: [
@@ -437,7 +437,7 @@ const clientlens: CaseStudy = {
         { type: "cards", cols: 3, items: [
           { kicker: "What agents said", lines: ["Do not recommend was the most mentioned feature. Agents said it gave them a reason to push back when a manager asked them to “just send the VIP offer”."] },
           { kicker: "What retention leads did", lines: ["They used the impact tags to plan the day's comparisons, which we hadn't designed for."] },
-          { kicker: "What brokers' compliance teams said", lines: ["Hashed matches and the deposit-incentive rule passed their review without changes."] },
+          { kicker: "What compliance said", lines: ["Hashed matches and the deposit-incentive rule passed review without changes."] },
         ] },
       ],
     },
@@ -690,7 +690,7 @@ const clientzone: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Redesigned", list: ["A client-first dashboard", "Real and demo account management", "Connected wallet journeys"] },
           { kicker: "I owned", list: ["The “client's world” principle and new structure", "Dashboard hierarchy and quick actions", "The shared wallet page pattern"] },
-          { kicker: "Team input", list: ["Which account fields must appear (operations)", "2FA and free-margin rules (brokerage compliance)", "Template constraints (engineering)"] },
+          { kicker: "Team input", list: ["Which account fields must appear (operations)", "2FA and free-margin rules (compliance)", "Template constraints (engineering)"] },
           { kicker: "Evidence", list: ["Problems come from design reviews, not usability testing", "No outcome metrics claimed", "Measurement plan in Build"] },
         ] },
         { type: "cards", cols: 2, items: [
@@ -755,7 +755,7 @@ const clientzone: CaseStudy = {
         ] },
         { type: "cards", cols: 2, items: [
           { kicker: "Operations", title: "Which account fields are mandatory", lines: ["Number, balance, currency, credit, leverage, type."] },
-          { kicker: "Brokerage compliance", title: "Free-margin and 2FA rules", lines: ["The wording explains rules the business set."] },
+          { kicker: "Compliance", title: "Free-margin and 2FA rules", lines: ["The wording explains rules the business set."] },
           { kicker: "Engineering", title: "Template limits", lines: ["What each brokerage can change."] },
         ] },
         { type: "text", eyebrow: "trade-offs · what it cost", heading: "What each choice gave up.", body: [] },
