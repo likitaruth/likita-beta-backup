@@ -455,7 +455,7 @@ const NS = "/assets/northstar";
 const nsIntro: Tab["intro"] = {
   heading: "A CRM that stays honest about what its AI doesn't know",
   body: [
-    "In existing solutions, teams attempt to re-engage inactive enterprise customers using a CRM. This is broken into sections, with each section covering contacts, deals and reports. Decisions on which contacts to reach out to, and which to ignore, are made outside the CRM by exporting data to spreadsheets. This makes it impossible to understand how decisions were reached at a later date.",
+    "In existing solutions, teams attempt to re-engage inactive enterprise customers using a CRM. These CRMs are split into sections such as contacts, deals and reports. Decisions on which contacts to reach out to, and which to ignore, are made outside the CRM by exporting data to spreadsheets. This makes it impossible to understand how decisions were reached at a later date.",
     "Northstar lets you define what you want to achieve. The AI will investigate and draft, but risky decisions are made by people. Handoffs between people and AI have been specifically designed.",
   ],
 };
@@ -464,7 +464,7 @@ const northstar: CaseStudy = {
   slug: "northstar",
   title: "An AI-native CRM that shows its uncertainty",
   lede: [
-    "This prototype explores the extent to which the retention team may trust an AI in managing their accounts. It provides insights, recommendations and an audit trail, but also highlights uncertainties.",
+    "This prototype explores the extent to which a retention team can trust an AI with its accounts. It provides insights, recommendations and an audit trail, but also highlights uncertainties.",
     "Grounded in research on today’s AI-native CRMs, it covers 7 flows, 3 roles and 10 designed failure scenarios.",
   ],
   heroAlt: "Northstar investigation summary: 11 eligible clients, 14 needing review, a draft audience of 10, a recommended strategy marked Draft, and a Next decision panel",
