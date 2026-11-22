@@ -248,18 +248,18 @@ const CL = "/assets/case/clientlens";
 const cl = (file: string, alt: string, _ratio?: number, _width?: number): Block => ({ type: "image", src: `${CL}/mock/${file}.webp`, tone: "mockup", alt, ratio: 1.6 });
 const clIntro: Tab["intro"] = {
   eyebrow: "the problem",
-  heading: "John and Lisa had the same tags and needed opposite treatment.",
+  heading: "Same tags but different strategies",
   body: [
-    "Both were tagged VIP, Gold Trader and Micro Account. John was active, with a lifetime value of $8,400. Lisa had churned at $400. In the CRM they looked like the same client, so they got the same deposit bonus campaign. For churned clients like Lisa, that campaign was the most common trigger of compliance complaints.",
-    "Tags record who someone was when they signed up. Agents needed to know how that person behaves now. ClientLens compares two clients on behaviour, says whether they should share a strategy and explains why. The agent still makes the call.",
+    "John and Lisa have the same tags: VIP, Gold Trader and Micro Account. However, John is an active client worth $8,400, whereas Lisa is a churned client worth $400. In the CRM they appeared identical, so both were targeted with the same deposit bonus campaign. For churned clients, this was the most common reason for compliance issues. The tags show what type of client someone was at sign-up, not how they behave now.",
+    "ClientLens shows a comparison and gives the reasons. The agent makes the decision. This makes comparisons clear, and gives clarity and auditability.",
   ],
 };
 const clientlens: CaseStudy = {
   slug: "clientlens",
-  title: "Knowing when a lookalike will mislead you",
+  title: "When is the client a bad match?",
   lede: [
-    "ClientLens is a lookalike feature I designed for TeamForce CRM. Finding similar clients was the easy part. The real work was telling agents when a lookalike would lead them to the wrong campaign.",
-    "It's built for retention agents at online brokerages, who used to group clients by labels like “VIP” and “Gold Trader” and then send everyone in the group the same offer.",
+    "ClientLens, an AI feature within TeamForce CRM, lets agents easily identify lookalike clients. It also shows them when a client is a poor match.",
+    "Retention agents were sending the wrong campaigns to clients with similar tags.",
   ],
   heroAlt: "ClientLens Intelligence Summary comparing John Doe (Active, LTV $8,400) with Lisa Doe (Churned, LTV $400): 29% match score, low similarity, 87% confidence, a recommendation not to treat them the same, similarity and difference cards, recommended actions, and a business impact panel",
   heroSrc: `${CL}/mock/summary.webp`,
@@ -269,12 +269,12 @@ const clientlens: CaseStudy = {
   meta: [["Role", "Lead product designer"], ["Focus", "AI product design / Systems / Delivery"], ["Shipped", "Inside the existing lead record, CRM v1.84"]],
   reflection: {
     eyebrow: "looking back",
-    heading: "What didn't work, and what's next",
+    heading: "Lessons learned and next steps",
     body: [
-      "The radar was opened in 22% of comparisons. Most agents acted from the summary, so it works as evidence for when someone wants to check, not as the default view.",
-      "Overnight scoring confused some agents. A client who deposited that morning still showed as churned. Showing the compare date helped, but didn't fully solve it.",
-      "Imported leads with little data got cautious verdicts that weren't much use. The coverage panel on the record explained why, but it didn't fix the problem.",
-      "Next on the list: the per-category Deep Dive we cut from v1, for retention leads who audit strategies. Re-scoring during the day for clients with new deposits or tickets, so the most urgent cases aren't a day old. Recording which action an agent took and what happened, so confidence learns from outcomes and not only from data coverage. And a Disagree option on each verdict, sent to data science as a labelled example.",
+      "The radar is under-used: only 22% of comparisons opened it, because most agents used the summary. It's useful as evidence, but it shouldn't be the primary view.",
+      "Overnight scores caused some confusion. Clients who deposited in the morning were still marked as churned. The compare date helped, but it wasn't a complete fix.",
+      "Leads imported with little data got vague conclusions. The coverage on the record made the reason clear, but it didn't resolve the issue.",
+      "Next steps: a deep dive by category (cut from v1) for retention leads auditing strategies. Rescoring during the day for clients with new deposits or tickets, so the most pressing cases aren't a day old. A feedback loop that logs which action was taken on a recommendation and what the outcome was, so confidence comes from outcomes, not just coverage. And a Disagree option on each conclusion, sent to data science as labelled examples.",
     ],
     pull: "Similar isn't the same. ClientLens shows agents the difference before they act on it.",
   },
@@ -282,50 +282,51 @@ const clientlens: CaseStudy = {
     design: {
       intro: clIntro,
       blocks: [
-        { type: "text", eyebrow: "the experience", heading: "Five steps from one lead record to a decision about many.", body: ["An agent starts on a lead record, finds similar leads, picks the ones worth a closer look, reads the Intelligence Summary and, if they want the evidence, opens the radar. Each step answers one question, and every AI claim on screen comes with its reason and how sure the model is."] },
+        { type: "text", eyebrow: "the experience", heading: "Confident decision making", body: ["Lead → Similar leads → Select → Intelligence Summary → Radar Preview. At each stage of this flow, every AI decision on screen comes with its reasoning and level of confidence."] },
         { type: "cards", cols: 2, items: [
-          { kicker: "Shipped", list: ["Find Similar Leads on every lead record", "Ranked lookalikes, each with a short AI summary", "Side-by-side comparison: Intelligence Summary and Radar Preview"] },
-          { kicker: "I owned", list: ["Turning a similarity search into a verdict", "Showing confidence separately from similarity", "The insight card system and the Do not recommend pattern"] },
-          { kicker: "Team decisions", list: ["Nightly batch scoring (engineering)", "The 8-category feature model (data science)", "Hashed identities for other clients (compliance)"] },
-          { kicker: "Measured", list: ["5 of 7 pilot agents used it weekly", "Segment build time down from 38 to 9 min", "41% fewer mis-targeted promotions"] },
+          { kicker: "Shipped", list: ["Ranking of similar leads", "An AI summary for each similar lead", "Comparing pairs of leads with Intelligence Summary and Radar Preview"] },
+          { kicker: "I owned", list: ["The verdict", "Separating confidence from similarity", "Insight cards and the Do not recommend pattern"] },
+          { kicker: "Team decisions", list: ["Not real time: nightly batch processing (engineering)", "8 categories (feature model)", "Hashed identities (compliance)"] },
+          { kicker: "Measured", list: ["5 of 7 pilot agents used it weekly", "Segment build time down from 38 to 9 min", "41% fewer incorrectly targeted promotions"] },
         ] },
         { type: "cards", cols: 2, items: [
-          { n: "1", kicker: "Intelligence Summary", title: "The answer comes first.", lines: ["The first line answers the question agents actually have: can these two clients share a strategy?"] },
-          { n: "2", kicker: "Intelligence Summary", title: "Two numbers, on purpose.", lines: ["29% similar and 87% confident means the model is sure they're different. One combined score would have buried that."] },
-          { n: "3", kicker: "Intelligence Summary", title: "What not to send.", lines: ["Campaigns that would backfire sit next to the ones that would work."] },
-          { n: "4", kicker: "Intelligence Summary", title: "What ignoring it costs.", lines: ["The impact panel spells out what goes wrong if both clients end up in one segment."] },
+          { n: "1", kicker: "Intelligence Summary", title: "Verdict", lines: ["Can we apply the same strategy to both clients?"] },
+          { n: "2", kicker: "Intelligence Summary", title: "Confidence", lines: ["These two customers have a similarity score of 29% and a confidence score of 87%. This means we can be very confident that they are very different."] },
+          { n: "3", kicker: "Intelligence Summary", title: "Don't", lines: ["Do not apply the same strategy to these clients."] },
+          { n: "4", kicker: "Intelligence Summary", title: "Cost", lines: ["This shows the negative effect on the campaign of putting these two customers in the same segment."] },
         ] },
-        { type: "text", eyebrow: "entry · lead record", heading: "Starting from one button in a row agents already use.", body: [
-          "The lead record was already crowded, and three other teams own panels on it, so redesigning the page wasn't on the table. Find Similar Leads sits in the action row next to Send push notification and Add to WhatsApp, buttons agents click dozens of times a day. Nothing else on the page moved.",
-          "Underneath it I added Profile Data Coverage. Before trusting any AI output, agents want to know what the system actually knows about this person. A client with 6 of 16 features filled will get weaker matches, and the agent can see that before clicking anything.",
+        { type: "text", eyebrow: "entry · lead record", heading: "AI knowledge on the lead", body: [
+          "Find Similar Leads sits next to Send push notification and Add to WhatsApp, in the action row agents use dozens of times a day. Nothing else on the record moved.",
+          "Profile Data Coverage shows how complete the data is in each category, so the agent understands how much the AI knows about the lead. 6 of 16 data points means lower-quality matches, and the agent can see this before they click.",
         ] },
         cl("lead", "Lead record for Yılmaz Şahin with a Find Similar Leads button in the action row, KPI tiles, a Profile Data Coverage panel at 92% with Trading, Financial and Notes groups at 15 of 16, and a Trading detail panel showing call activity", 2000 / 909),
-        { type: "text", body: ["The entry point lives in the existing action row. Coverage is grouped by feature, and each group opens into the raw signals behind it, such as call count, answer rate and preferred call hour."] },
-        { type: "text", eyebrow: "discover · reading the client", heading: "Reading the client before showing any matches.", body: [
-          "The left column reads the client first: risk flag, re-deposit chance, re-engagement likelihood and best channel, followed by a plain sentence saying that clients like this one responded to these actions.",
-          "It comes before the list because of what I saw in early sessions with 6 agents. They jumped to the top match and copied its playbook. Reading their own client first slowed that habit down.",
-          "I also kept bare percentages off this panel. Risk is a coloured label, and probability is a word with a number beside it. An agent can act on a “Medium” re-deposit chance. There isn't much they can do with 0.47.",
+        { type: "text", body: ["The entry point sits in the action bar. Coverage is shown for each feature category, and clicking a category reveals the underlying data, such as number of calls, answer rate and best call time."] },
+        { type: "text", heading: "AI information", body: [
+          "This includes risk status, likelihood of re-deposit, likelihood of re-engagement and best channel. Below it is the reasoning, stating simply that clients of this type have had success with these actions.",
+          "I put this before the list on purpose. In early sessions with 6 agents, users went straight to the best match and copied its strategy. Making them read the client information first reduced this.",
+          "Risk has a colour, and probabilities are given in words and numbers, so the information is easy to understand. A “Medium” re-deposit probability is something an agent can act on. 0.47 isn't.",
         ] },
         cl("similar-anchor", "Anchor lead panel for John Doe: High Churn Risk, Medium redeposit chance, 76% re-engagement outreach, best channel Telegram, and a note explaining that similar clients had positive outcomes with these actions", 1562 / 2715, 360),
-        { type: "text", body: ["Risk first, then the channel to use, then the reason ClientLens believes it."] },
+        { type: "text", body: ["Risk comes first, then the channel to use, then why ClientLens believes it."] },
         cl("similar", "Similar Leads list with 1,200 results, a Medium (30%) threshold dropdown, a Run Comparison button, and rows each showing a checkbox, a 76% match ring, client tags, an AI summary of the risk profile, and View Profile and Compare buttons", 2000 / 1296),
-        { type: "text", body: ["The threshold defaults to Medium (30%), with the tolerance written next to it. Each match shows its strength as a ring and a number, and its summary leads with risk. This one warns that the client resembles previously restricted users. Agents tick the matches they care about and Run Comparison works on that set."] },
-        { type: "text", eyebrow: "compare · the verdict", heading: "Listing the campaigns that would backfire.", body: [
-          "The summary follows the order you'd make the decision in: the recommendation and its confidence, then similarities and differences by category, then actions tagged by impact, then what goes wrong if the agent ignores it.",
-          "Do not recommend is the part I pushed hardest for. With only positive suggestions, agents kept adding the VIP playbook “just in case”. Listing the campaigns that would backfire, in this case a VIP upgrade, a high-value campaign and deposit incentives, turned a suggestion into a guardrail.",
+        { type: "text", body: ["The match threshold is set to Medium (30%) by default. Match strength is shown by the ring and value. Each match has an AI summary that notes risk, in this case a warning that the client is similar to previously restricted users. The agent selects which matches to investigate and uses Run Comparison."] },
+        { type: "text", heading: "Verdict, confidence, action", body: [
+          "The comparison ends in a recommendation the agent can act on or refuse.",
+          "The summary reads top to bottom like a decision. AI Summary gives the recommendation and its confidence. Similarities and Differences are scored by category, each labelled “Stronger driver”, “Significant difference” or “Completely different”. Recommended Actions are tagged by impact. Business Impact explains what goes wrong if the agent ignores the recommendation.",
+          "I was very keen to include the Do not recommend category. Without it, top agents were suggesting adding the VIP playbook as an extra precaution. Naming specific campaigns that would be counterproductive (here: a VIP upgrade, a high-value campaign and deposit incentives) turned the suggestion into a safeguard.",
         ] },
         cl("summary-actions", "Recommended Actions panel: primary action, high impact, use John's CRM engagement patterns to re-engage Lisa; secondary action, medium impact, a targeted retention journey instead of trading incentives; and a Do not recommend list of VIP upgrade promotion, high-value trader campaign and deposit-based incentives", 1600 / 1855, 560),
         { type: "text", body: [
-          "A primary and a secondary action, each with an impact tag, and the Do not recommend list underneath.",
-          "The first version produced a segment, “clients like John”, and left the strategy to the agent. Agents read that as “treat them like John”. Writing out the action instead (use John's engagement patterns, not his incentives) separates what carries over, like tone and timing, from what doesn't, like deposit behaviour.",
-          "The impact tags came from the pilot. Retention leads with 40 comparisons open asked how to prioritise, and high and medium impact gave them an order without adding another screen.",
+          "Actions with impact tags, and the Do not recommend list.",
+          "Why actions? The first version created a segment and left agents to decide how to act on it. Agents read “treat them like John” as “act exactly like John”. Specifying actions based on how a client engages with the business, rather than their motivation, makes clear what transfers (communication style and timing) and what doesn't (deposit behaviour).",
+          "Why impact tags? Retention managers in the pilot asked which comparisons to prioritise in a list of 40. High and medium impact tags gave them an order without an extra screen.",
         ] },
-        { type: "text", eyebrow: "explain · evidence", heading: "The radar is there for agents who want to check.", body: [
-          "A 29% match doesn't say much on its own. The radar plots both clients across the eight scoring categories: trading, financial, CRM notes psychology, communication, risk, marketing, lead source and lifecycle. Where the shapes overlap is where a strategy can be shared.",
-          "Radar charts are easy to misread, so the help sits on the page instead of hiding in a tooltip. How to read the radar covers the centre, the edge and the overlap, and What does this mean? turns the shape into a sentence.",
+        { type: "text", heading: "Evidence layer", body: [
+          "This view shows at a glance where clients are similar and where they differ. A 29% similarity means the clients were scored in 8 categories (trading, financial, CRM notes psychology, communication, risk, marketing, lead source and lifecycle) and compared with each other.",
+          "Radar charts can be confusing, so the explanation sits on the screen rather than in a tooltip. How to read the radar compares the inner area, the outer area and the overlap, and What does this mean? turns the shape into a sentence.",
         ] },
         cl("radar", "Radar Preview tab: a radar chart comparing the active and churned client across eight categories, an Insights panel noting strong alignment in CRM psychology and communication habits, a What does this mean explanation, and a How to read the radar legend", 2000 / 1078),
-        { type: "text", body: ["Two shapes and one overlap. The insights pick out where the clients align most, a plain sentence explains it, and the legend covers the three patterns worth knowing.", "Screens are from the shipped design. Client names and IDs are test data."] },
+        { type: "text", body: ["Two shapes, one overlap. Insights pick out the strongest alignment, a plain-language reading explains it, help is one click away, and a legend covers the three patterns that matter.", "Screens are from the shipped design. Client names and IDs are test data."] },
       ],
     },
     think: {
