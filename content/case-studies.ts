@@ -487,8 +487,8 @@ const northstar: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Designed", list: ["10 Figma screens across 7 flows", "Role and autonomy boundaries"] },
           { kicker: "Implemented", list: ["A working prototype of every flow", "Plan versioning and approval of an exact version", "Role-based actions, audit log, simulated execution with safe retries"] },
-          { kicker: "Validated", list: ["An end-to-end Fresh Start journey on synthetic data", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
-          { kicker: "Still a prototype", list: ["Synthetic clients and simulated sends", "Grounded in competitive research on AI-native CRMs, not yet tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
+          { kicker: "Validated", list: ["An end-to-end Fresh Start journey", "13 unit and component tests and a 10-step journey test", "WCAG 2.1 AA scan, zero violations across 9 screens"] },
+          { kicker: "Still a prototype", list: ["Test clients and simulated sends", "Grounded in competitive research on AI-native CRMs, not yet tested with retention or compliance teams. No business metrics yet.", "Never connected to a live CRM or email provider"] },
         ] },
         { type: "text", eyebrow: "goal · workspace", heading: "The home screen asks for an outcome, then shows the next decision", body: ["First-time users see a goal composer, three suggested goals and a short explanation of what happens next. There are no empty charts. Returning users see Needs attention and Continue work, ordered by the next useful decision rather than the last page they opened.", "The list depends on the role. A retention manager sees “Waiting for approval of plan v1”. A compliance reviewer sees the same item as “Authorize plan v1”."] },
         ns("first-run", "First-run workspace with a welcome message, a Create your first business goal button, onboarding steps and suggested goals"),
@@ -584,7 +584,7 @@ const northstar: CaseStudy = {
           { n: "02", kicker: "Reconcile", title: "Resolve the unknown first", lines: ["The unknown action's status is reconciled with the execution record before it can be retried."] },
           { n: "03", kicker: "Controlled retry", title: "Retry only what failed", lines: ["Safeguards on each action skip the eight completed sends. The retry covers only the failure, and the log records why each action was skipped."] },
         ] },
-        { type: "text", body: ["Verified in the prototype: retrying did not duplicate the successful actions. The run used synthetic data and a simulated execution channel."] },
+        { type: "text", body: ["Verified in the prototype: retrying did not duplicate the successful actions."] },
         { type: "text", eyebrow: "approval · staleness", heading: "An approval is a promise about one version. Edits break it, on purpose", body: ["Plan v1 is drafted: the AI proposes 10 verified clients. The compliance reviewer authorizes v1, by number. Then the manager excludes a client, and v1's approval no longer describes what would run. Plan v2 is a new version, impact is reviewed again and v1 stays in history, unchanged. Only an approval of v2 can release v2.", "In the build, a plan that is awaiting approval can't be refined. The request must be withdrawn first, so nobody can change a plan while someone else is reviewing it."] },
         { type: "text", eyebrow: "trade-offs", heading: "Every safety rule costs some speed. These are the trades I chose", body: [] },
         { type: "cards", cols: 2, items: [
@@ -608,7 +608,7 @@ const northstar: CaseStudy = {
           { kicker: "Layer 2", title: "Application", list: ["Permission checks", "Validation", "State persistence"] },
           { kicker: "Layer 3", title: "Domain services", list: ["Investigation", "Planning and versioning", "Approval (exact version)", "Execution (safe retries)", "Audit log, written by every service"] },
           { kicker: "Boundary", title: "AI provider", list: ["Structured responses only", "Checked against business rules", "Unavailable: follow-ups disabled"] },
-          { kicker: "Layer 4", title: "Data and channels", list: ["Synthetic CRM records", "Simulated execution channel"] },
+          { kicker: "Layer 4", title: "Data and channels", list: ["Test CRM records", "Simulated execution channel"] },
         ] },
         { type: "text", eyebrow: "mechanisms", heading: "How the rules hold", body: [] },
         { type: "cards", cols: 3, items: [
@@ -625,7 +625,7 @@ const northstar: CaseStudy = {
           { kicker: "Fresh Start run", list: ["First-time workspace and goal creation", "Investigation and supporting evidence review", "Uncertainty resolution", "Plan revision and impact preview", "Handoff to the compliance reviewer and approval of the exact version", "Controlled, simulated execution", "Recovery from failed operations", "Returning workspace with investigation history"] },
           { kicker: "Results", list: ["11 clients initially eligible", "14 to 13 uncertain records after one resolution", "10 clients in the revised target audience", "8 completed, 1 failed, 1 unknown execution outcomes", "0 duplicated actions after retry"] },
         ] },
-        { type: "text", body: ["Prototype verification on synthetic data. These numbers confirm the system behaved correctly. They are not customer results or business impact."] },
+        { type: "text", body: ["Prototype checks on test data. These numbers confirm the system behaved correctly. They are not customer results or business impact."] },
       ],
     },
   },
