@@ -520,7 +520,7 @@ const northstar: CaseStudy = {
         { type: "text", body: ["The confirmation states the count, the version and that the step is recorded. It does not say “Are you sure?”."] },
         ns("activity", "Activity log filtered into AI and system, Human decisions and Execution, showing an Outreach scheduled event with its technical record expanded"),
         { type: "text", body: ["Filters by who acted, events that state the outcome in plain language, and the structured record behind a disclosure with a copy button."] },
-        { type: "text", heading: "On phones", body: ["The Figma file was desktop only. On phones, tables become cards, side drawers go full screen, and the uncertainty banner stays above the list."] },
+        { type: "text", heading: "On phones", body: ["On phones, tables become cards, side drawers go full screen, and the uncertainty banner stays above the list."] },
         { type: "image", src: `${NS}/mock/phones.webp`, tone: "mockup", alt: "Two phones: the investigation summary awaiting approval, and opportunities filtered to records that need review, shown as cards", ratio: 1.6 },
       ],
     },
