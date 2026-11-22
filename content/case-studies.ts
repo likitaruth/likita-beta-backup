@@ -274,7 +274,7 @@ const clientlens: CaseStudy = {
       "The radar is under-used: only 22% of comparisons opened it, because most agents used the summary. It's useful as evidence, but it shouldn't be the primary view.",
       "Overnight scores caused some confusion. Clients who deposited in the morning were still marked as churned. The compare date helped, but it wasn't a complete fix.",
       "Leads imported with little data got vague conclusions. The coverage on the record made the reason clear, but it didn't resolve the issue.",
-      "Next steps: a deep dive by category (cut from v1) for retention leads auditing strategies. Rescoring during the day for clients with new deposits or tickets, so the most pressing cases aren't a day old. A feedback loop that logs which action was taken on a recommendation and what the outcome was, so confidence comes from outcomes, not just coverage. And a Disagree option on each conclusion, sent to data science as labelled examples.",
+      "Next steps: a deep dive by category (cut from v1) for retention leads auditing strategies. Rescoring during the day for clients with new deposits or tickets, so the most pressing cases aren't a day old. A feedback loop that logs which action was taken on a recommendation and what the outcome was, so confidence comes from outcomes, not just coverage. And a Disagree option on each conclusion, logged as labelled examples to improve the model.",
     ],
     pull: "Similar isn't the same. ClientLens shows agents the difference before they act on it.",
   },
@@ -364,20 +364,20 @@ const clientlens: CaseStudy = {
         { type: "text", eyebrow: "ownership · mine vs ours", heading: "What I decided, and what I designed around.", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "My call", title: "Answer “should these share a strategy?”, not “how similar are they?”", lines: ["Reframing the brief changed the output from a ranked list into a verdict."] },
-          { kicker: "My call", title: "Similarity and confidence as two numbers", lines: ["I took the John and Lisa case to the data scientist and the PM as the argument."] },
+          { kicker: "My call", title: "Similarity and confidence as two numbers", lines: ["I took the John and Lisa case to the CTO and the PM as the argument."] },
           { kicker: "My call", title: "Do not recommend, styled like a recommendation", lines: ["Same weight as the positive actions, so nobody reads it as a footnote."] },
           { kicker: "My call", title: "Read the client before the list", lines: ["The anchor panel comes first to break the copy-the-top-match habit."] },
           { kicker: "My call", title: "One insight card for every AI claim", lines: ["One anatomy, built in the existing Ant Design library."] },
         ] },
         { type: "cards", cols: 2, items: [
           { kicker: "Engineering lead", title: "Nightly batch scoring", lines: ["Live scoring cost too much. My part was making the compare date visible."] },
-          { kicker: "Data science, labels with me", title: "Eight categories, 16 features each", lines: ["The model is data science's. I named the categories with agents so the labels match how they talk."] },
+          { kicker: "CTO, labels with me", title: "Eight categories, 16 features each", lines: ["The model was the CTO's. I named the categories with agents so the labels match how they talk."] },
           { kicker: "Compliance", title: "Hashed IDs for matched clients", lines: ["Required for privacy across desks. I designed the match card to work without personal data."] },
           { kicker: "PM", title: "Cutting Deep Dive from v1", lines: ["A scope call for the Q2 date. I argued for the radar as a lighter evidence view instead."] },
-          { kicker: "Data science and me", title: "A 30% default threshold", lines: ["Picked from pilot data on which matches agents actually opened."] },
+          { kicker: "CTO and me", title: "A 30% default threshold", lines: ["Picked from pilot data on which matches agents actually opened."] },
         ] },
         { type: "text", eyebrow: "working with the team", heading: "Who I worked with, and on what.", body: [
-          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With data science I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
+          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With the CTO I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
         ] },
         { type: "text", eyebrow: "boundaries · AI vs agent", heading: "Where the AI stops and the agent takes over.", body: ["ClientLens can recommend. It never acts on a client."] },
         { type: "cards", cols: 2, items: [
@@ -420,7 +420,7 @@ const clientlens: CaseStudy = {
         { type: "cards", cols: 2, items: [
           { kicker: "Weeks 1–3", title: "The contract before the pixels", lines: ["The back-end lead and I wrote the insight response schema together, so every element on screen had a field behind it and nothing was hard-coded."] },
           { kicker: "Weeks 4–8", title: "Every state written down", lines: ["I specced each state: loading, generating, low coverage, no matches, permission-masked and stale scores. QA tested against those specs."] },
-          { kicker: "Weeks 6–11", title: "A pilot behind a flag", lines: ["One retention desk of 7 agents, behind a feature flag. We went through usage and feedback with data science every week."] },
+          { kicker: "Weeks 6–11", title: "A pilot behind a flag", lines: ["One retention desk of 7 agents, behind a feature flag. We went through usage and feedback with the CTO every week."] },
           { kicker: "Weeks 12–14", title: "Tune, then roll out", lines: ["We tuned the default threshold, the summary wording and the Do not recommend rules from pilot data, then rolled out to all desks."] },
         ] },
         { type: "cards", cols: 2, items: [
