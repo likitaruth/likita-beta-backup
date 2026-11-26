@@ -364,20 +364,20 @@ const clientlens: CaseStudy = {
         { type: "text", eyebrow: "ownership · mine vs ours", heading: "What I decided, and what I designed around.", body: [] },
         { type: "cards", cols: 2, items: [
           { kicker: "My call", title: "Answer “should these share a strategy?”, not “how similar are they?”", lines: ["Reframing the brief changed the output from a ranked list into a verdict."] },
-          { kicker: "My call", title: "Similarity and confidence as two numbers", lines: ["I took the John and Lisa case to the CTO and the PM as the argument."] },
+          { kicker: "My call", title: "Similarity and confidence as two numbers", lines: ["I took the John and Lisa case to the CTO and the back-end lead as the argument."] },
           { kicker: "My call", title: "Do not recommend, styled like a recommendation", lines: ["Same weight as the positive actions, so nobody reads it as a footnote."] },
           { kicker: "My call", title: "Read the client before the list", lines: ["The anchor panel comes first to break the copy-the-top-match habit."] },
           { kicker: "My call", title: "One insight card for every AI claim", lines: ["One anatomy, built in the existing Ant Design library."] },
+          { kicker: "My call", title: "Cutting Deep Dive from v1", lines: ["With no PM on the team, I owned scope. To hit the Q2 date I cut the per-category Deep Dive and pushed for the radar as a lighter evidence view instead."] },
         ] },
         { type: "cards", cols: 2, items: [
           { kicker: "Engineering lead", title: "Nightly batch scoring", lines: ["Live scoring cost too much. My part was making the compare date visible."] },
           { kicker: "CTO, labels with me", title: "Eight categories, 16 features each", lines: ["The model was the CTO's. I named the categories with agents so the labels match how they talk."] },
           { kicker: "Compliance", title: "Hashed IDs for matched clients", lines: ["Required for privacy across desks. I designed the match card to work without personal data."] },
-          { kicker: "PM", title: "Cutting Deep Dive from v1", lines: ["A scope call for the Q2 date. I argued for the radar as a lighter evidence view instead."] },
           { kicker: "CTO and me", title: "A 30% default threshold", lines: ["Picked from pilot data on which matches agents actually opened."] },
         ] },
         { type: "text", eyebrow: "working with the team", heading: "Who I worked with, and on what.", body: [
-          "Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With the CTO I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
+          "There was no PM on ClientLens. After the brief came in, I worked directly with the CTO and engineering to own scope, priorities and delivery. Day to day, I worked with the back-end lead on the insight contract, so every element on screen had a field to come from. With the CTO I shaped the eight scoring categories and their names. With compliance I worked through hashed IDs and the rules behind Do not recommend.",
         ] },
         { type: "text", eyebrow: "boundaries · AI vs agent", heading: "Where the AI stops and the agent takes over.", body: ["ClientLens can recommend. It never acts on a client."] },
         { type: "cards", cols: 2, items: [
